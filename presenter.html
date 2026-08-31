@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Click Out — версия ведущего (с суфлёром)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --card:#272727; --card2:#111;
+    --txt:#E7E6E6; --mute:#A5A5A5; --yellow:#FDD101; --white:#fff;
+    --head:'Unbounded', Arial, sans-serif; --body:Arial, Helvetica, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body)}
+  section{min-height:100vh;padding:6vh 7vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid #1a1a1a}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .bar{width:44px;height:8px;background:var(--yellow)}
+  .kicker span{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--yellow);text-transform:uppercase}
+  .num{position:absolute;top:5vh;right:7vw;color:var(--mute);font-size:14px}
+  h1{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(28px,4.6vw,58px);line-height:1.1;margin-bottom:24px}
+  h2{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(23px,3.2vw,42px);line-height:1.14;margin-bottom:26px}
+  .sub{font-size:clamp(16px,1.6vw,22px);line-height:1.45;max-width:62ch}
+  .sub b{color:var(--white)}
+  .yline{color:var(--yellow);font-family:var(--head);font-weight:700;font-size:clamp(16px,1.7vw,24px);margin-top:32px;line-height:1.3}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+  .logo .sign{width:56px;height:56px;background:var(--white);border:7px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:26px}
+  .logo .nm{font-family:var(--head);font-weight:700;color:var(--white);font-size:18px;line-height:1.25}
+  .mark{position:absolute;bottom:5vh;right:7vw;width:38px;height:38px;background:var(--white);border:5px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:17px;opacity:.9}
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+  .card{background:var(--card);border-radius:18px;padding:26px 28px}
+  .card h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:12px}
+  .card p{font-size:clamp(13px,1.15vw,17px);line-height:1.5;color:var(--txt)}
+  .card .big{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(26px,3.2vw,44px);line-height:1;margin-bottom:10px}
+  .card .cap{color:var(--mute);font-size:13px;margin-top:12px;line-height:1.4}
+  .stats{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+  .stat .n{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(30px,4vw,56px);line-height:1}
+  .stat .t{color:var(--txt);font-size:clamp(13px,1.15vw,17px);margin-top:10px;line-height:1.4}
+  .rows{margin-top:12px;max-width:1150px}
+  .row{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:26px;padding:20px 0;border-top:1px solid #232323;align-items:start}
+  .row .l{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(14px,1.3vw,19px)}
+  .row .r{font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+  .foot{margin-top:34px;color:var(--mute);font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:76ch}
+  .price{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:10px}
+  .p{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:26px 28px;position:relative}
+  .p.best{border-color:var(--yellow)}
+  .p .tag{position:absolute;top:-13px;left:26px;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .p h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:16px}
+  .p .was{color:var(--mute);text-decoration:line-through;font-size:15px}
+  .p .now{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(24px,2.8vw,38px);line-height:1.1;margin:6px 0 4px}
+  .p .per{color:var(--mute);font-size:13px}
+  .p ul{list-style:none;margin-top:16px}
+  .p li{font-size:clamp(13px,1.1vw,16px);line-height:1.5;padding-left:18px;position:relative;margin-bottom:8px}
+  .p li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  .q{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:24px 28px;margin-bottom:16px}
+  .q .qn{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:13px;letter-spacing:.06em;margin-bottom:10px}
+  .q .qt{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(16px,1.7vw,24px);line-height:1.25}
+  .prompter{display:none;margin-top:26px;border-left:5px solid var(--yellow);background:#0d0d0d;padding:20px 24px;border-radius:0 14px 14px 0}
+  body.souffleur .prompter{display:block}
+  .prompter .lbl{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+  .prompter p{font-size:15px;line-height:1.55;color:#cfcfcf;margin-bottom:9px}
+  .prompter p b{color:var(--white)}
+  .toggle{position:fixed;right:16px;bottom:16px;z-index:50;background:#151515;border:1px solid #333;color:var(--mute);font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:100px;cursor:pointer}
+  body.souffleur .toggle{background:var(--yellow);color:#000;border-color:var(--yellow)}
+  .btn{display:inline-block;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:clamp(14px,1.3vw,18px);padding:18px 34px;border-radius:100px;text-decoration:none;margin-top:26px}
+  .lead{font-family:var(--head);font-weight:500;color:var(--yellow);font-size:clamp(15px,1.5vw,21px);line-height:1.35;margin-bottom:20px}
+  @media print{
+    @page{size:1600px 900px;margin:0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{background:#000}
+    section{min-height:900px;height:auto;page-break-after:always;padding:60px 80px;border-bottom:none}
+    .num{top:60px;right:90px}
+    .mark{bottom:60px;right:90px}
+    .toggle{display:none!important}
+    .prompter{display:block!important}
+  }
+</style>
+</head>
+<body>
+
+<button class="toggle" id="toggle">Суфлёр</button>
+
+<!-- 01 Титул -->
+<section>
+  <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
+  <div class="kicker"><div class="bar"></div><span>Направление Click Out</span></div>
+  <h1>Реклама там, где человек уже<br>достал кошелёк</h1>
+  <p class="sub">Мы размещаем рекламу внутри маркетплейсов и ведём человека <b>на ваш сайт</b>.
+  Не карточка товара, не аукцион поисковых запросов — площадка, где аудитория находится
+  в режиме покупки каждый день.</p>
+  <div class="yline">Ozon Performance · Яндекс Urban Ads · WB Media</div>
+  <div class="prompter">
+    <div class="lbl">Что сказать · 30 секунд, потом молчим</div>
+    <p><b>Формула:</b> кому помогаем → одну задачу решаем → почему это важно. Дальше вопрос и тишина.</p>
+    <p>«Мы агентство Церебро, направление Click Out. Работаем с компаниями, которым нужен поток обращений
+    и узнаваемость: ставим рекламу внутри Ozon, Яндекс Маркета и Wildberries, а человек уходит к вам на сайт.
+    Там аудитория с деньгами и в режиме покупки, а конкуренции за неё почти нет, потому что услуги
+    в каталогах площадок не продаются.»</p>
+    <p><b>Дальше — вопрос, не продолжение:</b> «А у вас сейчас как клиенты приходят?» И слушаем.
+    Правило 80/20: говорит клиент, не вы.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 02 Кто мы -->
+<section>
+  <div class="num">02</div>
+  <div class="kicker"><div class="bar"></div><span>Кто мы</span></div>
+  <h2>Диджитал-агентство<br>«Церебро Диджитал»</h2>
+  <div class="stats">
+    <div class="stat"><div class="n">100+</div><div class="t">проектов в 29 нишах</div></div>
+    <div class="stat"><div class="n">35+ млн ₽</div><div class="t">рекламного бюджета под управлением</div></div>
+    <div class="stat"><div class="n">89 700+</div><div class="t">заявок клиентам</div></div>
+    <div class="stat"><div class="n">3 из 3</div><div class="t">сертифицированный партнёр всех трёх площадок</div></div>
+  </div>
+  <p class="sub" style="margin-top:34px">Направление Click Out ведут специалисты сопровождения рекламных источников:
+  у каждого клиента есть свой человек, который отвечает за кампании, отчётность и точки решения.</p>
+  <div class="prompter">
+    <div class="lbl">Что сказать</div>
+    <p>Цифры называем спокойно, без нажима — это фон доверия, а не аргумент. Аргумент будет дальше, в замерах.</p>
+    <p><b>Если спросят про имя:</b> ООО «Церебро Диджитал», бренд Cerebro Target, работаем с 2019 года, офис в Москве, команда распределённая.</p>
+    <p><b>Не говорим:</b> «мы лидеры рынка», «гарантируем результат». Никогда.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 03 Что такое click out -->
+<section>
+  <div class="num">03</div>
+  <div class="kicker"><div class="bar"></div><span>Продукт</span></div>
+  <h2>Click Out — это выход<br>с маркетплейса на ваш сайт</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Что делает контекст</h3>
+      <p>Собирает тех, кто уже сформулировал запрос и пошёл искать. Спрос конечный: когда он выбран,
+      каждая следующая заявка дороже предыдущей.</p>
+    </div>
+    <div class="card">
+      <h3>Что делает Click In</h3>
+      <p>Продвигает карточку товара внутри площадки. Работает для тех, кто на площадке торгует.
+      Услугам этот формат недоступен.</p>
+    </div>
+    <div class="card">
+      <h3>Что делаем мы</h3>
+      <p>Показываем ваш баннер человеку, который зашёл за покупками, и уводим его на ваш сайт.
+      Спрос не собираем, а создаём — там, где у вас нет конкурентов из своей ниши.</p>
+    </div>
+  </div>
+  <div class="yline">Услуги в каталогах площадок не продаются — поэтому аукцион за эту аудиторию почти пустой</div>
+  <div class="prompter">
+    <div class="lbl">Что сказать</div>
+    <p>Это ключевой экран. Если человек не понял разницу с Директом и с карточками — дальше можно не идти.</p>
+    <p><b>Проверочный вопрос клиенту:</b> «Вы на маркетплейсах торгуете или нет?» Торгует товаром — говорим и про
+    медийный слой для бренда. Услуги — наш прямой формат.</p>
+    <p><b>Запрещено:</b> «вас будут искать на Ozon», «ваши карточки» — это Click In, не наша история.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 04 Где работает -->
+<section>
+  <div class="num">04</div>
+  <div class="kicker"><div class="bar"></div><span>Где работает</span></div>
+  <h2>Три источника — три разные аудитории</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="big">65 млн</div>
+      <h3>Ozon Performance</h3>
+      <p>Активные покупатели за 2025 год, в среднем 38 заказов на человека. Таргетинг по полу, возрасту, гео,
+      сегментам «покупают / смотрят категорию», плюс загрузка вашей базы.</p>
+      <p class="cap">Форматы: видеобаннер, баннер на главной и в поиске, размещение в карточке, экран «заказ выполнен»</p>
+    </div>
+    <div class="card">
+      <div class="big">до 94 млн</div>
+      <h3>Яндекс Urban Ads</h3>
+      <p>Аудитория в месяц по сервисам Яндекса: Маркет, Еда, Лавка, Go. 60% — доход средний и выше.
+      Интересы, история покупок, подписка Плюс, тарифы такси.</p>
+      <p class="cap">Форматы: видеобаннер, горизонтальный баннер, растяжка, вертикальный баннер</p>
+    </div>
+    <div class="card">
+      <div class="big">79 млн</div>
+      <h3>WB Media</h3>
+      <p>Посетителей, из них 49 млн покупателей. 78% — женщины 25–44. Поведенческие сегменты DMP
+      на основе реальных покупок.</p>
+      <p class="cap">Форматы: баннер на главной, видео 15 секунд, слайдер в личном кабинете, DMP-таргеты</p>
+    </div>
+  </div>
+  <div class="foot">Аудитории площадок не складываются: это три разные среды, и человек может быть сразу в нескольких.
+  Комплекс из трёх источников нужен не ради суммы охвата, а ради частоты касаний и разных сценариев показа.</div>
+  <div class="prompter">
+    <div class="lbl">Что сказать</div>
+    <p><b>Сначала кому, потом чем.</b> Форматы сами по себе ничего не решают — сначала обсуждаем, кто ваш покупатель,
+    потом подбираем площадку и формат под него.</p>
+    <p><b>Быстрая логика выбора:</b> женская аудитория и товары повседневного спроса — WB. Доход средний плюс,
+    городские сервисы, доставка — Urban. Максимальный объём и покупательское намерение — Ozon.</p>
+    <p><b>Не складываем аудитории вслух.</b> Если клиент сам сложит — поправляем: это разные среды.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 05 Чем отличаемся -->
+<section>
+  <div class="num">05</div>
+  <div class="kicker"><div class="bar"></div><span>Чем отличаемся</span></div>
+  <h2>Мы доказываем, что спрос<br>создала реклама</h2>
+  <p class="sub">Обычный отчёт агентства показывает показы, клики и заявки по последнему клику.
+  Он не отвечает на главный вопрос собственника: <b>сколько из этих обращений пришло бы и без рекламы.</b>
+  Мы отвечаем — четырьмя замерами.</p>
+  <div class="rows">
+    <div class="row"><div class="l">Search lift</div><div class="r">Прирост поиска по вашему имени. Снимаем частотность до старта, во время флайта и месяц после, отдельно ведём контрольный запрос категории — чтобы отделить ваш рост от роста рынка.</div></div>
+    <div class="row"><div class="l">Brand lift</div><div class="r">Прирост знания и намерения. Опрос двух групп до кампании и после, город с рекламой против сопоставимого города без неё. Часто это первая в жизни компании цифра узнаваемости.</div></div>
+    <div class="row"><div class="l">Sales lift</div><div class="r">Прирост в деньгах. Гео-эксперимент: районы или города с рекламой против сопоставимых без неё, по выгрузке из вашей CRM. Меряет не мнения, а кассу.</div></div>
+    <div class="row"><div class="l">Post-view</div><div class="r">Эффект показов без клика. Человек увидел баннер, не кликнул, а через две недели пришёл сам — в обычной аналитике это «прямой заход». Мы показываем этот слой отдельно.</div></div>
+  </div>
+  <div class="foot">Часть замеров — наш собственный контур, он доступен на любом бюджете. Исследования площадок
+  (Brand Lift Study, Sales Lift, post-view отчёт) подключаются от своих порогов и работают как подтверждение
+  от третьей стороны, а не от подрядчика.</div>
+  <div class="prompter">
+    <div class="lbl">Что сказать</div>
+    <p><b>Это точка отличия.</b> Тут не рассказываем — спрашиваем: «А вы сейчас как отличаете заявки, которые
+    создала реклама, от тех, что пришли бы и так?» Честный ответ почти всегда «никак». Пауза. Дальше — этот экран.</p>
+    <p><b>Границы:</b> замеры обещаем, влияние на стоимость заявки — замеряем и показываем, но не обещаем.
+    Формулировка «медийка снизит вам стоимость заявки» под запретом.</p>
+    <p><b>Если «мы уже пробовали медийку, не сработало»:</b> спрашиваем, что и сколько мерили. Норма — 6–8 недель
+    и метрики знания, а не CTR за две недели.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 06 Как начинаем -->
+<section>
+  <div class="num">06</div>
+  <div class="kicker"><div class="bar"></div><span>Как начинаем</span></div>
+  <h2>Четыре шага, из них первый —<br>бесплатный</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>1 · Аудит</h3>
+      <p>Бесплатно, 3–5 дней. Смотрим вашу нишу на площадках, конкурентов, стоимость входа и снимаем замер «до»:
+      сколько людей сейчас ищут вас по имени.</p>
+    </div>
+    <div class="card">
+      <h3>2 · Условия теста</h3>
+      <p>До старта письменно фиксируем, какой результат означает «продолжаем», а какой — «останавливаемся».
+      Критерии формулируете вы, мы вносим их в договор.</p>
+    </div>
+    <div class="card">
+      <h3>3 · Тест</h3>
+      <p>Флайт 6–8 недель: короче не покажет эффекта. Точки контроля на 2, 4 и 6–8 неделе — с правом
+      остановиться на любой из них.</p>
+    </div>
+    <div class="card">
+      <h3>4 · Сопровождение</h3>
+      <p>Недельная и месячная отчётность, а в конце цикла — не отчёт о показах, а документ с решением:
+      что дала реклама, что делать дальше и на каких цифрах это основано.</p>
+    </div>
+  </div>
+  <div class="yline">Точка выхода известна до входа — поэтому вход безопасен</div>
+  <div class="prompter">
+    <div class="lbl">Что сказать</div>
+    <p><b>Продаём первый шаг, а не контракт.</b> На выставке цель — договориться об аудите, он ни к чему не обязывает
+    и бесплатный. Всё остальное решается после его цифр.</p>
+    <p><b>Сильная фраза:</b> «Мы заранее договариваемся, при каком результате вы нас остановите. Агентство, которое
+    само называет условия своей остановки, не боится проверки.»</p>
+    <p><b>Бонусы площадок:</b> у Ozon бонусами от оборота оплачивается до 99% медийного размещения. Говорим только
+    если клиент спросил про экономию — как факт, не как обещание.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 07 Условия -->
+<section>
+  <div class="num">07</div>
+  <div class="kicker"><div class="bar"></div><span>Условия работы</span></div>
+  <h2>Сопровождение: чем больше<br>источников, тем ниже цена</h2>
+  <div class="price">
+    <div class="p">
+      <h3>Один источник</h3>
+      <div class="now">50 000 ₽</div>
+      <div class="per">в месяц за сопровождение</div>
+      <ul>
+        <li>Ozon, Urban Ads или WB на выбор</li>
+        <li>Полный аналитический контур</li>
+        <li>Недельная и месячная отчётность</li>
+      </ul>
+    </div>
+    <div class="p">
+      <h3>Два источника</h3>
+      <div class="was">100 000 ₽</div>
+      <div class="now">80 000 ₽</div>
+      <div class="per">в месяц · скидка 20% на тестовый период</div>
+      <ul>
+        <li>Любые два из трёх</li>
+        <li>Сравнение источников на ваших данных</li>
+        <li>Перераспределение бюджета между ними</li>
+      </ul>
+    </div>
+    <div class="p best">
+      <div class="tag">Максимум охвата</div>
+      <h3>Три источника</h3>
+      <div class="was">150 000 ₽</div>
+      <div class="now">90 000 ₽</div>
+      <div class="per">в месяц · скидка 40% на тестовый период</div>
+      <ul>
+        <li>Ozon + Urban Ads + WB</li>
+        <li>Разные среды и сценарии показа</li>
+        <li>Частота касаний, которую не даёт один канал</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rows" style="margin-top:26px">
+    <div class="row"><div class="l">Рекламный бюджет</div><div class="r">От 120 000 ₽ в месяц на каждый источник. Это порог, ниже которого площадка не набирает объём для выводов.</div></div>
+    <div class="row"><div class="l">Срок контракта</div><div class="r">От шести месяцев. Медийный эффект читается на горизонте 6–8 недель, а решения по бюджету принимаются по кварталу.</div></div>
+    <div class="row"><div class="l">Что входит</div><div class="r">Ведение кампаний, креативы, аналитический контур, замеры, отчётность и документ-решение в конце цикла.</div></div>
+  </div>
+  <div class="prompter">
+    <div class="lbl">Что сказать</div>
+    <p><b>Считаем вслух:</b> три источника — это 360 000 ₽ рекламного бюджета плюс 90 000 ₽ сопровождения.
+    Один источник — 120 000 ₽ бюджета плюс 50 000 ₽. Не прячем полную сумму, клиент всё равно её посчитает.</p>
+    <p><b>Скидка — на тестовый период</b>, и это надо произносить прямо. Дальше цена возвращается к базовой,
+    и мы обсуждаем её отдельно, уже на цифрах теста.</p>
+    <p><b>Если бюджет ниже порога:</b> не продаём. Говорим честно: «на таком объёме площадка не даст материал
+    для выводов, вы потратите деньги и не получите ответа». Это сохраняет отношения и репутацию.</p>
+    <p><b>Скидку вне прайса не обещаем.</b> Такие решения принимает только руководитель направления.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 08 Кейсы -->
+<section>
+  <div class="num">08</div>
+  <div class="kicker"><div class="bar"></div><span>Как это выглядит на практике</span></div>
+  <h2>Три работы, за которые<br>не стыдно</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="big">320%</div>
+      <h3>ПиццаФабрика · доставка еды</h3>
+      <p>Федеральная сеть. Начали с ROI 20%, через оптимизацию связок вышли на 58%, затем на 320%.
+      CTR 0,4% при отраслевом ориентире 0,33%.</p>
+    </div>
+    <div class="card">
+      <div class="big">191</div>
+      <h3>Стоматология</h3>
+      <p>Обращений за период работы при среднем чеке клиники 170 000 ₽. Ниша, где на площадках
+      прямых конкурентов практически нет.</p>
+    </div>
+    <div class="card">
+      <div class="big">19,2 млн ₽</div>
+      <h3>Фонд «Дай лапу»</h3>
+      <p>Сборы, привлечённые через click-out размещение. Пример того, что формат работает
+      и там, где нет прямой продажи.</p>
+    </div>
+  </div>
+  <div class="foot">Показатели по нишам разные, и мы не переносим чужой результат на ваш бизнес.
+  Что можно обещать до старта — честный замер «до» и понятные условия остановки.</div>
+  <div class="prompter">
+    <div class="lbl">Что сказать</div>
+    <p><b>Кейс подбираем под нишу собеседника</b>, а не рассказываем все три подряд. HoReCa и доставка — ПиццаФабрика.
+    Клиники, стоматологии, ЭКО — стоматология. Всё остальное — тот, что ближе по модели.</p>
+    <p><b>Никогда:</b> «у вас будет так же». Формулировка: «вот как это устроено у похожего по модели бизнеса».</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 09 Опросник -->
+<section>
+  <div class="num">09</div>
+  <div class="kicker"><div class="bar"></div><span>Пять вопросов</span></div>
+  <h2>Прежде чем что-то предлагать,<br>мы разбираемся</h2>
+  <p class="sub">Эти вопросы мы задаём на аудите. Здесь — короткая версия: пять минут,
+  и уже понятно, есть ли у нас предмет для разговора.</p>
+  <div style="margin-top:28px;max-width:1100px">
+    <div class="q"><div class="qn">01</div><div class="qt">«Расскажите, как к вам сейчас приходят клиенты?»</div></div>
+    <div class="q"><div class="qn">02</div><div class="qt">«Что в привлечении устраивает, а что хотели бы поменять?»</div></div>
+    <div class="q"><div class="qn">03</div><div class="qt">«Как ведёт себя стоимость заявки в последние полгода-год?»</div></div>
+    <div class="q"><div class="qn">04</div><div class="qt">«Как у вас сейчас устроена работа с узнаваемостью бренда?»</div></div>
+    <div class="q"><div class="qn">05</div><div class="qt">«Реклама у вас считается до заявки или до выручки?»</div></div>
+  </div>
+  <div class="prompter">
+    <div class="lbl">Как вести · правила у стенда</div>
+    <p><b>Один вопрос за раз.</b> Задал — молчи и слушай. Клиент говорит 80% времени, вы 20%.</p>
+    <p><b>Каждую ветку закрывай причиной:</b> «как думаете, с чем это связано?» Ответ про причину ценнее самой жалобы —
+    это готовые слова для КП.</p>
+    <p><b>Куда ведёт каждый вопрос:</b> 01 — как устроен поток · 02 — боль дословно, цитату в КП без перевода ·
+    03 — растёт при росте бюджета, значит спрос выбран · 04 — занимается ли брендом, вход в замеры знания ·
+    05 — считает до заявки, а решает по кассе, вход в гео-эксперимент.</p>
+    <p><b>Не показывайте клиенту рабочий опросник со своего экрана</b> — там внутренняя маршрутизация.
+    Полные пятнадцать вопросов заполняются после встречи, у себя.</p>
+    <p><b>Норма дня:</b> 12 контактов · 6 квалифицированных · 3 назначенные встречи. На узком конгрессе контакты ×0,7,
+    в Крокусе всё ×1,2.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<!-- 10 Дальше -->
+<section>
+  <div class="num">10</div>
+  <div class="kicker"><div class="bar"></div><span>Следующий шаг</span></div>
+  <h1>Начнём с бесплатного аудита</h1>
+  <p class="sub">Три–пять дней, ноль обязательств. На выходе вы получаете цифры: сколько людей ищут вас
+  по имени сегодня, кто из конкурентов уже стоит на площадках, во сколько обойдётся вход
+  и какой замер мы предлагаем поставить до старта.</p>
+  <div class="yline">Церебро Таргет · направление Click Out<br>clickout.cerebrotarget.ru</div>
+  <div class="prompter">
+    <div class="lbl">Что сделать до конца дня</div>
+    <p><b>Контакт в мессенджер сразу</b>, пока стоите рядом: короткое резюме разговора одним сообщением.</p>
+    <p><b>Первое касание — в течение 48 часов.</b> По исследованиям выставочного рынка около 80% контактов
+    не обрабатываются вообще, а те, кого касаются в первые сутки-двое, конвертируются кратно лучше.
+    Это самое дешёвое конкурентное преимущество из всех доступных.</p>
+    <p><b>В CRM до 12:00 следующего дня</b>, источник — тег мероприятия. Контакта нет в CRM — контакта не было.</p>
+    <p><b>Встречу ставим в течение 14 дней.</b> Окна конвертации: 02–13.10 и 19–23.10.</p>
+  </div>
+  <div class="mark">Ц</div>
+</section>
+
+<script>
+  const t = document.getElementById('toggle');
+  t.addEventListener('click', () => document.body.classList.toggle('souffleur'));
+  document.addEventListener('keydown', e => {
+    if (e.key === 's' || e.key === 'ы') document.body.classList.toggle('souffleur');
+  });
+</script>
+</body>
+</html>
