@@ -67,6 +67,21 @@
   body.souffleur .toggle{background:var(--yellow);color:#000;border-color:var(--yellow)}
   .btn{display:inline-block;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:clamp(14px,1.3vw,18px);padding:18px 34px;border-radius:100px;text-decoration:none;margin-top:26px}
   .lead{font-family:var(--head);font-weight:500;color:var(--yellow);font-size:clamp(15px,1.5vw,21px);line-height:1.35;margin-bottom:20px}
+  .form{margin-top:26px;max-width:1180px}
+  .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:26px}
+  .fl{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);font-weight:700;margin-bottom:8px}
+  .fi,.ft{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:12px;color:#fff;
+    font-family:inherit;font-size:16px;line-height:1.5;padding:12px 14px;outline:none}
+  .ft{min-height:84px;resize:vertical}
+  .fi:focus,.ft:focus{border-color:var(--yellow)}
+  .fq{margin-bottom:20px}
+  .fq .qq{font-size:19px;font-weight:600;margin-bottom:8px}
+  .fq .qq b{color:var(--yellow);font-family:var(--head);margin-right:10px}
+  .send{background:var(--yellow);color:#000;border:0;border-radius:14px;font-family:var(--head);font-weight:700;
+    font-size:18px;padding:16px 34px;cursor:pointer}
+  .send:disabled{opacity:.5;cursor:default}
+  .st{margin-top:14px;font-size:15px;color:var(--mute)}
+  .st.ok{color:#7fe08a}.st.err{color:#ff8a8a}
   @media screen and (max-width:1100px){
     .price{grid-template-columns:1fr}
     .cards{grid-template-columns:1fr}
@@ -93,10 +108,10 @@
 <section>
   <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
   <div class="kicker"><div class="bar"></div><span>Направление Click Out</span></div>
-  <h1>Реклама там, где человек уже<br>достал кошелёк</h1>
-  <p class="sub">Мы размещаем рекламу внутри маркетплейсов и ведём человека <b>на ваш сайт</b>.
-  Не карточка товара, не аукцион поисковых запросов — площадка, где аудитория находится
-  в режиме покупки каждый день.</p>
+  <h1>Реклама там, где человек<br>пришёл покупать</h1>
+  <p class="sub">Мы размещаем рекламу внутри маркетплейсов и приводим человека <b>на ваш сайт</b>.
+  Это не продажа карточки товара и не ставки за поисковый запрос: сюда люди заходят каждый день,
+  чтобы что-то купить, — просто пока не вашу услугу.</p>
   <div class="yline">Ozon Performance · Яндекс Urban Ads · WB Media</div>
   <div class="prompter">
     <div class="lbl">Что сказать · 30 секунд, потом молчим</div>
@@ -122,8 +137,9 @@
     <div class="stat"><div class="n">89 700+</div><div class="t">заявок клиентам</div></div>
     <div class="stat"><div class="n">3 из 3</div><div class="t">сертифицированный партнёр всех трёх площадок</div></div>
   </div>
-  <p class="sub" style="margin-top:34px">Направление Click Out ведут специалисты сопровождения рекламных источников:
-  у каждого клиента есть свой человек, который отвечает за кампании, отчётность и точки решения.</p>
+  <p class="sub" style="margin-top:34px">За каждым клиентом закреплён специалист по рекламным источникам:
+  он ведёт кампании, готовит отчётность и отвечает за ключевые показатели — стоимость заявки,
+  объём трафика и его качество.</p>
   <div class="prompter">
     <div class="lbl">Что сказать</div>
     <p>Цифры называем спокойно, без нажима — это фон доверия, а не аргумент. Аргумент будет дальше, в замерах.</p>
@@ -151,11 +167,12 @@
     </div>
     <div class="card">
       <h3>Что делаем мы</h3>
-      <p>Показываем ваш баннер человеку, который зашёл за покупками, и уводим его на ваш сайт.
-      Спрос не собираем, а создаём — там, где у вас нет конкурентов из своей ниши.</p>
+      <p>Показываем вашу рекламу человеку, который пришёл на площадку за покупками, и приводим его
+      на ваш сайт. Контекст работает с теми, кто вас уже ищет. Мы начинаем раньше — с человеком,
+      который о вашей услуге ещё не думал.</p>
     </div>
   </div>
-  <div class="yline">Услуги в каталогах площадок не продаются — поэтому аукцион за эту аудиторию почти пустой</div>
+  <div class="yline">Услуги в каталогах площадок не продаются — поэтому за эту аудиторию с вами почти никто не конкурирует</div>
   <div class="prompter">
     <div class="lbl">Что сказать</div>
     <p>Это ключевой экран. Если человек не понял разницу с Директом и с карточками — дальше можно не идти.</p>
@@ -216,7 +233,7 @@
   Он не отвечает на главный вопрос собственника: <b>сколько из этих обращений пришло бы и без рекламы.</b>
   Мы отвечаем — четырьмя замерами.</p>
   <div class="rows">
-    <div class="row"><div class="l">Search lift</div><div class="r">Прирост поиска по вашему имени. Снимаем частотность до старта, во время флайта и месяц после, отдельно ведём контрольный запрос категории — чтобы отделить ваш рост от роста рынка.</div></div>
+    <div class="row"><div class="l">Search lift</div><div class="r">Прирост поиска по вашему имени. Снимаем частотность до старта, во время рекламы и месяц после, отдельно ведём контрольный запрос категории — чтобы отделить ваш рост от роста рынка.</div></div>
     <div class="row"><div class="l">Brand lift</div><div class="r">Прирост знания и намерения. Опрос двух групп до кампании и после, город с рекламой против сопоставимого города без неё. Часто это первая в жизни компании цифра узнаваемости.</div></div>
     <div class="row"><div class="l">Sales lift</div><div class="r">Прирост в деньгах. Гео-эксперимент: районы или города с рекламой против сопоставимых без неё, по выгрузке из вашей CRM. Меряет не мнения, а кассу.</div></div>
     <div class="row"><div class="l">Post-view</div><div class="r">Эффект показов без клика. Человек увидел баннер, не кликнул, а через две недели пришёл сам — в обычной аналитике это «прямой заход». Мы показываем этот слой отдельно.</div></div>
@@ -254,8 +271,9 @@
     </div>
     <div class="card">
       <h3>3 · Тест</h3>
-      <p>Флайт 6–8 недель: короче не покажет эффекта. Точки контроля на 2, 4 и 6–8 неделе — с правом
-      остановиться на любой из них.</p>
+      <p>Тестовый период 6–8 недель: на меньшем сроке результат ещё не читается. Смотрим цифры вместе
+      на 2, 4 и 6–8 неделе. На каждой встрече решаем: идём дальше как есть, что-то меняем —
+      в кампаниях у нас или на сайте и в обработке заявок у вас — либо останавливаемся.</p>
     </div>
     <div class="card">
       <h3>4 · Сопровождение</h3>
@@ -338,7 +356,7 @@
 <section>
   <div class="num">08</div>
   <div class="kicker"><div class="bar"></div><span>Как это выглядит на практике</span></div>
-  <h2>Три работы, за которые<br>не стыдно</h2>
+  <h2>Три работы, которыми<br>гордимся</h2>
   <div class="cards">
     <div class="card">
       <div class="big">320%</div>
@@ -373,17 +391,39 @@
 <!-- 09 Опросник -->
 <section>
   <div class="num">09</div>
-  <div class="kicker"><div class="bar"></div><span>Пять вопросов</span></div>
+  <div class="kicker"><div class="bar"></div><span>Снимаем ответы прямо здесь</span></div>
   <h2>Прежде чем что-то предлагать,<br>мы разбираемся</h2>
-  <p class="sub">Эти вопросы мы задаём на аудите. Здесь — короткая версия: пять минут,
-  и уже понятно, есть ли у нас предмет для разговора.</p>
-  <div style="margin-top:28px;max-width:1100px">
-    <div class="q"><div class="qn">01</div><div class="qt">«Расскажите, как к вам сейчас приходят клиенты?»</div></div>
-    <div class="q"><div class="qn">02</div><div class="qt">«Что в привлечении устраивает, а что хотели бы поменять?»</div></div>
-    <div class="q"><div class="qn">03</div><div class="qt">«Как ведёт себя стоимость заявки в последние полгода-год?»</div></div>
-    <div class="q"><div class="qn">04</div><div class="qt">«Как у вас сейчас устроена работа с узнаваемостью бренда?»</div></div>
-    <div class="q"><div class="qn">05</div><div class="qt">«Реклама у вас считается до заявки или до выручки?»</div></div>
+  <p class="sub">Пять вопросов из рабочего опросника. Записывайте ответы своими словами — строка уйдёт
+  в общую таблицу, и на созвоне вы продолжите с того же места.</p>
+
+  <div class="form">
+    <div class="fgrid">
+      <div><label class="fl" for="client">Клиент *</label><input class="fi" id="client" placeholder="Название компании"></div>
+      <div><label class="fl" for="site">Сайт *</label><input class="fi" id="site" placeholder="адрес посадочной страницы"></div>
+      <div><label class="fl" for="niche">Ниша *</label><input class="fi" id="niche" placeholder="чем занимаются"></div>
+      <div><label class="fl" for="contact">Контакт</label><input class="fi" id="contact" placeholder="имя, должность, телефон или мессенджер"></div>
+    </div>
+
+    <div class="fq"><div class="qq"><b>01</b>«Расскажите, как к вам сейчас приходят клиенты?»</div>
+      <textarea class="ft" id="a1" placeholder="ответ клиента"></textarea></div>
+    <div class="fq"><div class="qq"><b>02</b>«Что в привлечении устраивает, а что хотели бы поменять?»</div>
+      <textarea class="ft" id="a2" placeholder="ответ клиента"></textarea></div>
+    <div class="fq"><div class="qq"><b>03</b>«Как ведёт себя стоимость заявки в последние полгода-год?»</div>
+      <textarea class="ft" id="a3" placeholder="ответ клиента"></textarea></div>
+    <div class="fq"><div class="qq"><b>04</b>«Как у вас сейчас устроена работа с узнаваемостью бренда?»</div>
+      <textarea class="ft" id="a4" placeholder="ответ клиента"></textarea></div>
+    <div class="fq"><div class="qq"><b>05</b>«Реклама у вас считается до заявки или до выручки?»</div>
+      <textarea class="ft" id="a5" placeholder="ответ клиента"></textarea></div>
+
+    <div class="fq"><div class="qq"><b>06</b>Договорились о встрече</div>
+      <input class="fi" id="meeting" placeholder="когда клиенту удобно — дата, время, созвон или офис"></div>
+
+    <div style="margin-top:26px">
+      <button class="send" id="send">Отправить в таблицу</button>
+      <div class="st" id="status"></div>
+    </div>
   </div>
+
   <div class="prompter">
     <div class="lbl">Как вести · правила у стенда</div>
     <p><b>Один вопрос за раз.</b> Задал — молчи и слушай. Клиент говорит 80% времени, вы 20%.</p>
@@ -392,8 +432,10 @@
     <p><b>Куда ведёт каждый вопрос:</b> 01 — как устроен поток · 02 — боль дословно, цитату в КП без перевода ·
     03 — растёт при росте бюджета, значит спрос выбран · 04 — занимается ли брендом, вход в замеры знания ·
     05 — считает до заявки, а решает по кассе, вход в гео-эксперимент.</p>
-    <p><b>Не показывайте клиенту рабочий опросник со своего экрана</b> — там внутренняя маршрутизация.
-    Полные пятнадцать вопросов заполняются после встречи, у себя.</p>
+    <p><b>Закрывайте на встречу, пока стоите рядом:</b> «Соберу по вам аудит за три-пять дней и покажу цифры.
+    Когда вам удобно созвониться на двадцать минут?» Дату вписывайте в поле 06 сразу, не «потом уточним».</p>
+    <p><b>Отправляйте строку до того, как отойдёт следующий человек.</b> Ответы хранятся в черновике,
+    но контакт без записи в таблице не существует.</p>
     <p><b>Норма дня:</b> 12 контактов · 6 квалифицированных · 3 назначенные встречи. На узком конгрессе контакты ×0,7,
     в Крокусе всё ×1,2.</p>
   </div>
@@ -427,6 +469,41 @@
   document.addEventListener('keydown', e => {
     if (e.key === 's' || e.key === 'ы') document.body.classList.toggle('souffleur');
   });
+</script>
+<script>
+const WEBHOOK_URL="https://script.google.com/macros/s/AKfycbxk6iyhU5V-6hkcZbyMODE1YIqrjGNJxz6tjhiiXn7PuxB-W2iWnuBEkfz0kcIpAR3D/exec";
+const MAP={a1:"B1",a2:"B2",a3:"B4",a4:"B13",a5:"B15"};
+const FIELDS=["client","site","niche","contact","meeting","a1","a2","a3","a4","a5"];
+function draftSave(){ try{const d={};FIELDS.forEach(k=>{const e=document.getElementById(k);if(e)d[k]=e.value});
+  localStorage.setItem("expo_draft",JSON.stringify(d));}catch(e){} }
+function draftLoad(){ try{const d=JSON.parse(localStorage.getItem("expo_draft")||"{}");
+  FIELDS.forEach(k=>{const e=document.getElementById(k);if(e&&d[k])e.value=d[k]});}catch(e){} }
+draftLoad();
+document.addEventListener("input",draftSave);
+
+document.getElementById("send").addEventListener("click",async()=>{
+  const st=document.getElementById("status"), btn=document.getElementById("send");
+  const val=id=>document.getElementById(id).value.trim();
+  const client=val("client"), site=val("site"), niche=val("niche");
+  if(!client||!site||!niche){ st.className="st err";
+    st.textContent="Заполните «Клиент», «Сайт» и «Ниша». Нет сайта — так и напишите, это тоже ответ.";
+    document.getElementById(!client?"client":(!site?"site":"niche")).focus(); return; }
+  const answers={}; let filled=0;
+  Object.keys(MAP).forEach(id=>{ const v=val(id); if(v){ answers[MAP[id]]=v; filled++; } });
+  if(!filled){ st.className="st err"; st.textContent="Запишите хотя бы один ответ клиента."; return; }
+  btn.disabled=true; st.className="st"; st.textContent="Отправляю…";
+  try{
+    await fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({client,niche,site,contact:val("contact"),meeting:val("meeting"),
+        answers,source:"выставка",sentAt:new Date().toISOString()})});
+    st.className="st ok"; st.textContent="Готово: «"+client+"» ушёл в таблицу ("+filled+" из 5 ответов). Форма очищена — можно принимать следующего.";
+    FIELDS.forEach(k=>{const e=document.getElementById(k); if(e) e.value="";});
+    try{ localStorage.removeItem("expo_draft"); }catch(e){}
+  }catch(err){
+    st.className="st err"; st.textContent="Не ушло: "+err+". Ответы сохранены в черновике — повторите при связи.";
+  }
+  btn.disabled=false;
+});
 </script>
 </body>
 </html>
