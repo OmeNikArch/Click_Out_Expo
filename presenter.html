@@ -70,10 +70,12 @@
   .form{margin-top:26px;max-width:1180px}
   .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:26px}
   .fl{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);font-weight:700;margin-bottom:8px}
-  .fi,.ft{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:12px;color:#fff;
+  .fi,.fs,.ft{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:12px;color:#fff;
     font-family:inherit;font-size:16px;line-height:1.5;padding:12px 14px;outline:none}
   .ft{min-height:84px;resize:vertical}
-  .fi:focus,.ft:focus{border-color:var(--yellow)}
+  .fi:focus,.fs:focus,.ft:focus{border-color:var(--yellow)}
+  .fs{-webkit-appearance:none;appearance:none;background:#0f0f0f url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23FDD101'><path d='M2 5l5 5 5-5z'/></svg>") no-repeat right 14px center;
+    border:1px solid #2a2a2a;border-radius:12px;color:#fff;font-family:inherit;font-size:16px;padding:12px 38px 12px 14px;outline:none}
   .fq{margin-bottom:20px}
   .fq .qq{font-size:19px;font-weight:600;margin-bottom:8px}
   .fq .qq b{color:var(--yellow);font-family:var(--head);margin-right:10px}
@@ -398,6 +400,20 @@
 
   <div class="form">
     <div class="fgrid">
+      <div style="grid-column:span 2"><label class="fl" for="source">Выставка *</label>
+        <select class="fs" id="source">
+          <option value="">— выберите —</option>
+          <option>Конгресс офтальмологов · 02–04.09</option>
+          <option>XXXVI РАРЧ · 09–12.09</option>
+          <option>WorldFood · 15–18.09</option>
+          <option>Дентал-Экспо · 21–25.09</option>
+          <option>ПаркЗоо · 21–25.09</option>
+          <option>BUYBRAND · 29.09–01.10</option>
+          <option>InterCHARM · 14–16.10</option>
+          <option>PIR Expo · 26–29.10</option>
+          <option value="__other__">Другое — вписать</option>
+        </select>
+        <input class="fi" id="source_other" placeholder="название мероприятия" style="display:none;margin-top:10px"></div>
       <div><label class="fl" for="client">Клиент *</label><input class="fi" id="client" placeholder="Название компании"></div>
       <div><label class="fl" for="site">Сайт *</label><input class="fi" id="site" placeholder="адрес посадочной страницы"></div>
       <div><label class="fl" for="niche">Ниша *</label><input class="fi" id="niche" placeholder="чем занимаются"></div>
@@ -473,18 +489,24 @@
 <script>
 const WEBHOOK_URL="https://script.google.com/macros/s/AKfycbxk6iyhU5V-6hkcZbyMODE1YIqrjGNJxz6tjhiiXn7PuxB-W2iWnuBEkfz0kcIpAR3D/exec";
 const MAP={a1:"B1",a2:"B2",a3:"B4",a4:"B13",a5:"B15"};
-const FIELDS=["client","site","niche","contact","meeting","a1","a2","a3","a4","a5"];
+const FIELDS=["source","source_other","client","site","niche","contact","meeting","a1","a2","a3","a4","a5"];
+const KEEP=["source","source_other"];
 function draftSave(){ try{const d={};FIELDS.forEach(k=>{const e=document.getElementById(k);if(e)d[k]=e.value});
   localStorage.setItem("expo_draft",JSON.stringify(d));}catch(e){} }
 function draftLoad(){ try{const d=JSON.parse(localStorage.getItem("expo_draft")||"{}");
   FIELDS.forEach(k=>{const e=document.getElementById(k);if(e&&d[k])e.value=d[k]});}catch(e){} }
-draftLoad();
+const srcSel=document.getElementById("source"), srcOther=document.getElementById("source_other");
+function srcToggle(){ srcOther.style.display = srcSel.value==="__other__" ? "block" : "none"; }
+srcSel.addEventListener("change",()=>{ srcToggle(); draftSave(); });
+draftLoad(); srcToggle();
 document.addEventListener("input",draftSave);
 
 document.getElementById("send").addEventListener("click",async()=>{
   const st=document.getElementById("status"), btn=document.getElementById("send");
   const val=id=>document.getElementById(id).value.trim();
   const client=val("client"), site=val("site"), niche=val("niche");
+  const source = srcSel.value==="__other__" ? val("source_other") : srcSel.value;
+  if(!source){ st.className="st err"; st.textContent="Выберите выставку — без неё строку не разложить по мероприятиям."; srcSel.focus(); return; }
   if(!client||!site||!niche){ st.className="st err";
     st.textContent="Заполните «Клиент», «Сайт» и «Ниша». Нет сайта — так и напишите, это тоже ответ.";
     document.getElementById(!client?"client":(!site?"site":"niche")).focus(); return; }
@@ -495,10 +517,10 @@ document.getElementById("send").addEventListener("click",async()=>{
   try{
     await fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
       body:JSON.stringify({client,niche,site,contact:val("contact"),meeting:val("meeting"),
-        answers,source:"выставка",sentAt:new Date().toISOString()})});
-    st.className="st ok"; st.textContent="Готово: «"+client+"» ушёл в таблицу ("+filled+" из 5 ответов). Форма очищена — можно принимать следующего.";
-    FIELDS.forEach(k=>{const e=document.getElementById(k); if(e) e.value="";});
-    try{ localStorage.removeItem("expo_draft"); }catch(e){}
+        answers,source,sentAt:new Date().toISOString()})});
+    st.className="st ok"; st.textContent="Готово: «"+client+"» ушёл в таблицу ("+filled+" из 5 ответов). Форма очищена, выставка сохранена — можно принимать следующего.";
+    FIELDS.filter(k=>KEEP.indexOf(k)===-1).forEach(k=>{const e=document.getElementById(k); if(e) e.value="";});
+    draftSave();
   }catch(err){
     st.className="st err"; st.textContent="Не ушло: "+err+". Ответы сохранены в черновике — повторите при связи.";
   }
