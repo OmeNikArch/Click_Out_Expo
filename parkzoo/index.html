@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Церебро Click Out · ПаркЗоо — реклама для зообрендов, ветклиник и груминга</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --card:#272727; --card2:#111;
+    --txt:#E7E6E6; --mute:#A5A5A5; --yellow:#FDD101; --white:#fff;
+    --head:'Unbounded', Arial, sans-serif; --body:Arial, Helvetica, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body)}
+  section{min-height:100vh;padding:6vh 7vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid #1a1a1a}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .bar{width:44px;height:8px;background:var(--yellow);flex:none}
+  .kicker span{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--yellow);text-transform:uppercase}
+  .num{position:absolute;top:5vh;right:7vw;color:var(--mute);font-size:14px}
+  h1{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(28px,4.6vw,58px);line-height:1.1;margin-bottom:24px}
+  h2{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(23px,3.2vw,42px);line-height:1.14;margin-bottom:26px}
+  .sub{font-size:clamp(16px,1.6vw,22px);line-height:1.45;max-width:66ch}
+  .sub b{color:var(--white)}
+  .sub a{color:var(--yellow)}
+  .yline{color:var(--yellow);font-family:var(--head);font-weight:700;font-size:clamp(16px,1.7vw,24px);margin-top:32px;line-height:1.3}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+  .logo .sign{width:56px;height:56px;background:var(--white);border:7px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:26px}
+  .logo .nm{font-family:var(--head);font-weight:700;color:var(--white);font-size:18px;line-height:1.25}
+  .mark{position:absolute;bottom:5vh;right:7vw;width:38px;height:38px;background:var(--white);border:5px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:17px;opacity:.9}
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+  .card{background:var(--card);border-radius:18px;padding:26px 28px}
+  .card h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:12px}
+  .card p{font-size:clamp(13px,1.15vw,17px);line-height:1.5;color:var(--txt)}
+  .card p+p{margin-top:8px}
+  .card .big{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(26px,3.2vw,44px);line-height:1;margin-bottom:10px}
+  .card .cap{color:var(--mute);font-size:13px;margin-top:12px;line-height:1.4}
+  .card.hl{border:1px solid var(--yellow)}
+  .card .tag{display:inline-block;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:14px}
+  .stats{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+  .stat .n{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(30px,4vw,56px);line-height:1}
+  .stat .t{color:var(--txt);font-size:clamp(13px,1.15vw,17px);margin-top:10px;line-height:1.4}
+  .stats.niche{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .stats.niche .n{font-size:clamp(22px,2.6vw,38px);white-space:nowrap}
+  .rows{margin-top:12px;max-width:1150px}
+  .row{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:26px;padding:20px 0;border-top:1px solid #232323;align-items:start}
+  .row .l{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(14px,1.3vw,19px)}
+  .row .r{font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+  .row .r b{color:var(--white)}
+  .foot{margin-top:34px;color:var(--mute);font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:80ch}
+  .foot a{color:var(--yellow)}
+  .price{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:10px}
+  .p{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:26px 28px;position:relative}
+  .p.best{border-color:var(--yellow)}
+  .p .tag{position:absolute;top:-13px;left:26px;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .p h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:16px}
+  .p .was{color:var(--mute);text-decoration:line-through;font-size:15px}
+  .p .now{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(24px,2.8vw,38px);line-height:1.1;margin:6px 0 4px}
+  .p .per{color:var(--mute);font-size:13px}
+  .p ul{list-style:none;margin-top:16px}
+  .p li{font-size:clamp(13px,1.1vw,16px);line-height:1.5;padding-left:18px;position:relative;margin-bottom:8px}
+  .p li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg{list-style:none;margin-top:6px}
+  ul.seg li{font-size:clamp(13px,1.15vw,17px);line-height:1.5;padding-left:20px;position:relative;margin-bottom:9px}
+  ul.seg li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg li b{color:var(--white)}
+  .grid2{display:grid;gap:30px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:10px}
+  .grid3{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:10px}
+  .colh{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.5vw,21px);margin-bottom:14px}
+  .colh small{display:block;color:var(--mute);font-family:var(--body);font-weight:400;font-size:13px;margin-top:6px;line-height:1.4}
+  table.bench{border-collapse:collapse;margin-top:14px;width:100%;max-width:1150px}
+  table.bench th{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(11px,1vw,14px);text-align:left;padding:12px 14px;border-bottom:2px solid var(--yellow);text-transform:uppercase;letter-spacing:.05em}
+  table.bench td{font-size:clamp(13px,1.1vw,16px);padding:12px 14px;border-bottom:1px solid #232323;line-height:1.45;vertical-align:top}
+  table.bench td:first-child{font-family:var(--head);font-weight:700;color:var(--white)}
+  table.bench .tbd{color:var(--mute)}
+  .twrap{overflow-x:auto;max-width:100%}
+  .note{display:inline-block;background:#0d0d0d;border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;font-size:clamp(13px,1.1vw,16px);line-height:1.55;color:#cfcfcf;max-width:80ch}
+  .note b{color:var(--white)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{border:1px solid #3a3a3a;border-radius:100px;color:var(--txt);font-size:clamp(12px,1vw,14px);padding:7px 14px;line-height:1.3}
+  .chip.y{border-color:var(--yellow);color:var(--yellow)}
+  .q{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:24px 28px;margin-bottom:16px}
+  .q .qn{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:13px;letter-spacing:.06em;margin-bottom:10px}
+  .q .qt{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(16px,1.7vw,24px);line-height:1.25}
+  .prompter{display:none;margin-top:26px;border-left:5px solid var(--yellow);background:#0d0d0d;padding:20px 24px;border-radius:0 14px 14px 0}
+  body.souffleur .prompter{display:block}
+  .prompter .lbl{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+  .prompter p{font-size:15px;line-height:1.55;color:#cfcfcf;margin-bottom:9px}
+  .prompter p b{color:var(--white)}
+  .prompter a{color:var(--yellow)}
+  .toggle{position:fixed;right:16px;bottom:16px;z-index:50;background:#151515;border:1px solid #333;color:var(--mute);font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:100px;cursor:pointer}
+  body.souffleur .toggle{background:var(--yellow);color:#000;border-color:var(--yellow)}
+  .btn{display:inline-block;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:clamp(14px,1.3vw,18px);padding:18px 34px;border-radius:100px;text-decoration:none;margin-top:26px}
+  .lead{font-family:var(--head);font-weight:500;color:var(--yellow);font-size:clamp(15px,1.5vw,21px);line-height:1.35;margin-bottom:20px}
+  .form{margin-top:26px;max-width:1180px}
+  .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:26px}
+  .fl{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);font-weight:700;margin-bottom:8px}
+  .fi,.fs,.ft{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:12px;color:#fff;
+    font-family:inherit;font-size:16px;line-height:1.5;padding:12px 14px;outline:none}
+  .ft{min-height:84px;resize:vertical}
+  .fi:focus,.fs:focus,.ft:focus{border-color:var(--yellow)}
+  .fs{-webkit-appearance:none;appearance:none;background:#0f0f0f url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23FDD101'><path d='M2 5l5 5 5-5z'/></svg>") no-repeat right 14px center;
+    border:1px solid #2a2a2a;border-radius:12px;color:#fff;font-family:inherit;font-size:16px;padding:12px 38px 12px 14px;outline:none}
+  .fq{margin-bottom:20px}
+  .fq .qq{font-size:19px;font-weight:600;margin-bottom:8px}
+  .fq .qq b{color:var(--yellow);font-family:var(--head);margin-right:10px}
+  .fq .hint{color:var(--mute);font-size:14px;margin:-4px 0 10px;line-height:1.45}
+  .xa{background:#0d0d0d;border:1px solid #262626;border-radius:16px;padding:20px 22px;margin-bottom:26px}
+  .xa .xh{font-family:var(--head);font-weight:700;color:var(--white);font-size:15px;margin-bottom:6px}
+  .xa .xs{color:var(--mute);font-size:13px;margin-bottom:14px;line-height:1.45}
+  .xgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .send{background:var(--yellow);color:#000;border:0;border-radius:14px;font-family:var(--head);font-weight:700;
+    font-size:18px;padding:16px 34px;cursor:pointer}
+  .send:disabled{opacity:.5;cursor:default}
+  .st{margin-top:14px;font-size:15px;color:var(--mute)}
+  .st.ok{color:#7fe08a}.st.err{color:#ff8a8a}
+  .evhead{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+  .evhead .chip{font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  @media screen and (max-width:1100px){
+    .price{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .grid2,.grid3{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:8px}
+    section{padding:7vh 8vw}
+  }
+  @media print{
+    @page{size:1600px 1500px;margin:0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{background:#000}
+    section{min-height:auto;height:auto;page-break-inside:avoid;page-break-after:always;padding:70px 90px;border-bottom:none;justify-content:flex-start}
+    .num{top:60px;right:90px}
+    .mark{bottom:60px;right:90px}
+    .toggle{display:none!important}
+    .prompter{display:block!important}
+    table.bench td{padding:8px 12px;font-size:13px}
+    table.bench th{padding:8px 12px;font-size:11px}
+    .chips{margin-top:10px}
+    section.long{page-break-inside:auto}
+  }
+</style>
+</head>
+<body>
+
+<section>
+  <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
+  <div class="kicker"><div class="bar"></div><span>Направление Click Out · ПаркЗоо · 23–25.09.2026</span></div>
+  <h1>Реклама там, где хозяин<br>уже покупает корм</h1>
+  <p class="sub">Мы размещаем рекламу внутри Ozon, Яндекс Маркета с Лавкой и Wildberries — там, где владельцы животных каждый месяц покупают корм и наполнитель, — и приводим человека <b>на ваш сайт</b>: в интернет-магазин бренда, на запись в ветклинику или к грумеру. Формат уже работал в зооиндустрии: фонд «Дай лапу» собрал через него 19,2 млн ₽.</p>
+  <div class="yline">Ozon Performance · Яндекс Urban Ads · WB Media</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">02</div>
+  <div class="kicker"><div class="bar"></div><span>Кто мы</span></div>
+  <h2>Диджитал-агентство<br>«Церебро Диджитал»</h2>
+  <div class="stats">
+    <div class="stat"><div class="n">100+</div><div class="t">проектов Click Out в 29 нишах</div></div>
+    <div class="stat"><div class="n">89 700+</div><div class="t">заявок клиентам направления за два года</div></div>
+    <div class="stat"><div class="n">3 из 3</div><div class="t">сертифицированный партнёр Ozon Performance, Яндекс Urban Ads и WB Media</div></div>
+    <div class="stat"><div class="n">10+ лет</div><div class="t">на российских рекламных площадках, 3000+ клиентов агентства</div></div>
+  </div>
+  <p class="sub" style="margin-top:34px">Шесть направлений под одной крышей: Click Out, ВК Реклама, Яндекс Директ, Авито,
+  внешний трафик для селлеров и Яндекс ПромоСтраницы. За каждым клиентом закреплён специалист по источникам:
+  он ведёт кампании, готовит отчётность и отвечает за стоимость заявки, объём и качество трафика.</p>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">03</div>
+  <div class="kicker"><div class="bar"></div><span>Продукт</span></div>
+  <h2>Click Out — это выход<br>с маркетплейса на ваш сайт</h2>
+  <div class="cards">
+    <div class="card"><h3>Что делает контекст</h3>
+      <p>Собирает тех, кто уже сформулировал запрос и пошёл искать. Спрос конечный: когда он выбран,
+      каждая следующая заявка дороже предыдущей.</p></div>
+    <div class="card"><h3>Что делает Click In</h3>
+      <p>Продвигает карточку товара внутри площадки. Работает для тех, кто на площадке торгует.
+      Услугам этот формат недоступен.</p></div>
+    <div class="card"><h3>Что делаем мы</h3>
+      <p>Показываем вашу рекламу человеку, который пришёл на площадку за покупками, и приводим его
+      на ваш сайт. Контекст работает с теми, кто вас уже ищет. Мы начинаем раньше — с человеком,
+      который о вас ещё не думал.</p></div>
+  </div>
+  <div class="yline">Ветклиника и груминг в каталогах не продаются — конкуренции за эту аудиторию нет; бренду кормов с сайтом — прямая дорога к тем, кто уже кормит питомца с площадки</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">04</div>
+  <div class="kicker"><div class="bar"></div><span>Где работает</span></div>
+  <h2>Три источника — три разные аудитории</h2>
+  <div class="cards">
+    <div class="card"><div class="big">65 млн</div><h3>Ozon Performance</h3>
+      <p>Активные покупатели за 2025 год, в среднем 38 заказов на человека, 83% — вне Москвы и Петербурга.
+      Таргетинг по полу, возрасту, гео, сегментам «покупают / смотрят категорию», B2B, плюс загрузка вашей базы.</p>
+      <p class="cap">Форматы: видеобаннер, баннер на главной и в поиске, размещение в карточке, экран «заказ выполнен»</p></div>
+    <div class="card"><div class="big">до 94 млн</div><h3>Яндекс Urban Ads</h3>
+      <p>Аудитория в месяц по сервисам Яндекса: Маркет, Еда, Лавка, Go, Деливери. Доход средний и выше,
+      интересы, история покупок, подписка Плюс, тарифы такси. CPM от 50 ₽.</p>
+      <p class="cap">Форматы: видеобаннер, горизонтальный баннер, растяжка, вертикальный баннер</p></div>
+    <div class="card"><div class="big">79 млн</div><h3>WB Media</h3>
+      <p>Посетителей, из них 49 млн покупателей. 78% — женщины 25–44. Поведенческие сегменты DMP
+      на основе реальных покупок: поиск, корзина, покупка.</p>
+      <p class="cap">Форматы: баннер на главной, видео 15 секунд, слайдер в личном кабинете, DMP-таргеты</p></div>
+  </div>
+  <div class="foot">Владелец животного на площадках виден лучше любой другой аудитории: корм и наполнитель покупают регулярно, поэтому сегменты «покупают в категории Зоотовары» на Ozon и WB — одни из самых точных в каталоге. Urban Ads добавляет Лавку и Маркет: корм заказывают вместе с продуктами.</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">05</div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Ваша ниша в цифрах</span></div>
+  <h2>Зоотовары: рынок удвоился за четыре года,<br>а покупатель ушёл на площадки</h2>
+  <div class="stats niche"><div class="stat"><div class="n">590 млрд ₽</div><div class="t">розничный рынок зоотоваров в 2025 году, +15,8%; удвоение с 2021</div></div><div class="stat"><div class="n">23%</div><div class="t">продаж зоотоваров уже онлайн; маркетплейсы дают 93% онлайн-трансакций</div></div><div class="stat"><div class="n">180</div><div class="t">новых брендов кормов и зоотоваров за 10 месяцев 2025; 622 производителя в стране</div></div><div class="stat"><div class="n">59,9 млрд ₽</div><div class="t">платные ветуслуги 2025, +21%; 9 600 клиник, средний чек визита 2 480 ₽</div></div>
+  </div>
+  <p class="sub" style="margin-top:34px">Маркетплейсы в 2025 году выросли в зоотоварах на 11,5% в деньгах и всего на 0,4% в упаковках — рост идёт за счёт цены, а карточки бьются за одного и того же покупателя; онлайн-зоомагазины при этом прибавили 24% в штуках. 96% кормов производится в России, 30% владельцев узнают о новинках из рекламы на маркетплейсах и сайтах объявлений, 85% семей держат кошку или собаку и тратят на питомца в среднем 4 482 ₽ в месяц. Ветуслуги растут на 24% в квартал, клиник в миллионниках стало больше на 9% за год, груминг-салонов — вдвое за пять лет: конкуренция за владельца растёт быстрее рынка.</p>
+  <div class="foot">Источники: Зооинформ / zooinform.ru (2026), Nielsen (2026), First Data / kommersant.ru (2026), Росстат / vetandlife.ru (2026), RNC Pharma (2026), Яндекс Карты / kommersant.ru (2025), T-Pay и Платформа ОФД (2025), Авито (2026), Ромир (2025), 2ГИС (2025).</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">06</div>
+  <div class="kicker"><div class="bar"></div><span>ПаркЗоо · Кто перед нами</span></div>
+  <h2>Два разговора: производитель на стенде<br>и ветклиника в проходах</h2>
+  <div class="cards"><div class="card hl"><div class=tag>На стендах</div><h3>Производители кормов и зоотоваров, СТМ, дистрибьюторы</h3><p>Продают зоосетям, маркетплейсам и через свои интернет-магазины. Российские бренды растут на освободившемся после импорта месте — и борются за узнаваемость.</p><p><b>Предлагаем:</b> Click Out на сайт бренда (розница, подписка на корм, поиск дилеров) и внешний трафик на карточки WB и Ozon — зоотовары в списке сильных категорий.</p></div><div class="card"><div class=tag>В проходах</div><h3>Ветклиники, сети, груминг-салоны</h3><p>Живут первичными обращениями и записью. Спрос сформирован, Директ дорожает, карты и отзывы — главный канал.</p><p><b>Предлагаем:</b> Click Out на сайт клиники с гео по районам; Авито — кейс ветклиники 1 570 лидов по 690 ₽; VK Ads для сетей.</p></div><div class="card"><div class=tag>Тоже наши</div><h3>Зоомагазины и сети, приюты и фонды</h3><p>Розница с сайтом и доставкой — Click Out под категорийные сегменты. Фонды — модель «Дай лапу»: 11 488 донатов на 19,2 млн ₽ через Click Out на Ozon.</p><p><b>Предлагаем:</b> аудит спроса и посадочной, замер «до» бесплатно.</p></div>
+  </div>
+  <div class="foot">На стендах — производители и дистрибьюторы, а ветклиники и груминг ходят по проходам, на ветеринарном конгрессе и фестивале груминга. Работаем с обоими, но по разным сценариям.</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">07</div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Сегменты на площадках</span></div>
+  <h2>Сегменты под зообренд<br>и ветклинику</h2>
+  <p class="sub">Сегменты собираются из категорий каталогов 1-го и 2-го уровня, поведения (смотрят, кладут в корзину,
+  покупают) и вашей базы. Ниже — стартовая гипотеза для бренда кормов и зоотоваров с сайтом или ветклиники; размеры аудиторий снимем в кабинетах после согласования проекта площадками.</p>
+  <div class="grid3">
+    <div><div class="colh">Ozon Performance<small>сегменты «покупают / смотрят категорию», Premium, B2B, свой сегмент</small></div><ul class="seg"><li>Покупают в категории <b>«Зоотовары»</b>: корма для кошек и собак, лакомства, наполнители — с частотой покупки за 90 дней</li><li>Покупают в категории <b>«Зоотовары → Ветаптека»</b> — витамины, препараты от паразитов: горячий сигнал для ветклиники</li><li>Смотрят категорию <b>«Зоотовары → Груминг и уход»</b>: когтерезы, фурминаторы, шампуни — аудитория груминг-салонов</li><li>Заказывали корм в <b>Ozon fresh</b> — регулярный покупатель</li><li>Экран <b>«Заказ выполнен»</b> после покупки корма — самый конверсионный плейсмент</li><li>Собственный сегмент из базы клиентов (хэш телефонов): возврат на вакцинацию, повторную покупку, подписку</li></ul></div>
+    <div><div class="colh">Яндекс Urban Ads<small>интерес и покупки на Маркете, сервисы Еда · Лавка · Go, доход, тарифы</small></div><ul class="seg"><li>Покупают на Маркете в категории <b>«Товары для животных»</b>: корма, наполнители, амуниция, ветпрепараты</li><li>Заказывали корм и наполнитель в <b>Яндекс Лавке</b> — регулярная покупка в быстрой доставке</li><li>Гео по районам вокруг клиники или салона через <b>Яндекс Go</b>; тарифы Комфорт+ как прокси дохода</li><li>Готовые сегменты медийки: <b>«Домашние животные»</b>, «Семья и дети»</li><li>Доход средний и выше — для премиальных кормов и клиник с чеком выше рынка</li><li>CRM-ретаргетинг по базе и look-alike</li></ul></div>
+    <div><div class="colh">WB Media<small>DMP-сегменты: поиск, корзина, покупка по каталогу WB</small></div><ul class="seg"><li>Покупают в категории <b>«Зоотовары»</b>: корма, лакомства, амуниция, лежанки, груминг</li><li>DMP: <b>клали в корзину</b> корм вашего сегмента (суперпремиум, холистик, ветдиета) за 30 дней</li><li>Интересуются категорией <b>«Зоотовары → Для собак → Одежда»</b> — владельцы мелких пород, аудитория груминга</li><li>Интересуются категорией <b>«Зоотовары → Аптечка»</b> — сигнал для ветклиники</li><li>Женщины 25–44 — ядро WB и основной покупатель зоотоваров</li><li>Гео: города присутствия в рознице или радиус клиники</li></ul></div>
+  </div>
+  <div class="note">Зоотовары — одна из немногих категорий, где покупку видно ежемесячно: человек, купивший корм четыре недели назад, скоро купит снова. Для бренда это частота касаний, для клиники — точный портрет «есть питомец» без опросов.</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section class="long">
+  <div class="num">08</div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Бенчмарки</span></div>
+  <h2>Бенчмарки для предварительного расчёта</h2>
+  <p class="sub">Средние показатели клиентов на сопровождении в направлении Click Out — и строки под сегменты вашей ниши,
+  которые заполняются в аудите из рекламных кабинетов площадок.</p>
+  <div class="twrap"><table class="bench"><tr><th>Источник · сегмент</th><th>Охват</th><th>Показы</th><th>CPM</th><th>CTR</th><th>CPC</th></tr><tr><td>Ozon Performance · средние клиентов СРК</td><td>—</td><td>—</td><td>224 ₽</td><td>0,64%</td><td>35,11 ₽</td></tr><tr><td>Ozon Performance · Зоотовары: корма, 90 дней</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Ozon Performance · Ветаптека + Груминг и уход</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Ozon Performance · База клиентов (хэш) + look-alike</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Яндекс Urban Ads · средние клиентов СРК</td><td>—</td><td>—</td><td>149 ₽</td><td>0,56%</td><td>26,45 ₽</td></tr><tr><td>Яндекс Urban Ads · Маркет · Товары для животных</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Яндекс Urban Ads · Лавка: корм и наполнитель</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Яндекс Urban Ads · Go гео районов клиники</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>WB Media · средние клиентов СРК</td><td>—</td><td>—</td><td>200 ₽</td><td>0,96%</td><td>20,93 ₽</td></tr><tr><td>WB Media · Зоотовары + корзина 30 дней</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>WB Media · Одежда для собак (мелкие породы)</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>WB Media · Женщины 25–44, гео</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr></table></div>
+  <div class="chips"><div class="chip y">Фонд «Дай лапу», Ozon: 11 488 донатов на 19,2 млн ₽ за 1,5 года, ROAS до 700%</div><div class="chip y">Ветклиника, Авито: 1 570 лидов по 690 ₽</div><div class="chip y">WB Media: слайдер на главной CTR 0,5–0,8%, CPM ~230 ₽</div></div>
+  <div class="foot">Аудитории площадок не складываются: это три разные среды, и человек может быть сразу в нескольких.
+  Три источника нужны ради частоты касаний и разных сценариев показа, а не ради суммы охвата. Показатели по вашей нише уточняются после сбора бенчмарков по выбранным сегментам.</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">09</div>
+  <div class="kicker"><div class="bar"></div><span>Чем отличаемся</span></div>
+  <h2>Мы доказываем, что спрос<br>создала реклама</h2>
+  <p class="sub">Обычный отчёт агентства показывает показы, клики и заявки по последнему клику.
+  Он не отвечает на главный вопрос собственника: <b>сколько из этих обращений пришло бы и без рекламы.</b>
+  Мы отвечаем — четырьмя замерами.</p>
+  <div class="rows"><div class="row"><div class="l">Search lift</div><div class="r">Прирост поиска по вашему имени. Снимаем частотность в Вордстате до старта, во время рекламы и месяц после, отдельно ведём контрольный запрос категории — чтобы отделить ваш рост от роста рынка. Для бренда кормов контрольный запрос — «корм для кошек холистик», для клиники — «ветклиника [город]».</div></div><div class="row"><div class="l">Brand lift</div><div class="r">Прирост знания и намерения. Опрос двух групп до кампании и после, город с рекламой против сопоставимого города без неё. Часто это первая в жизни компании цифра узнаваемости. Для бренда — вопрос «какие марки кормов вы знаете?» в городах флайта против контрольных.</div></div><div class="row"><div class="l">Sales lift</div><div class="r">Прирост в деньгах. Гео-эксперимент: районы или города с рекламой против сопоставимых без неё, по выгрузке из вашей учётной системы. Меряет не мнения, а кассу. У бренда — отгрузки в сети и заказы с сайта по регионам; у клиники — первичные по МИС или CRM по районам.</div></div><div class="row"><div class="l">Post-view</div><div class="r">Эффект показов без клика. Человек увидел баннер, не кликнул, а через две недели пришёл сам — в обычной аналитике это «прямой заход». Мы показываем этот слой отдельно: недельные ряды непереходного трафика на календаре флайта. Корм покупают циклом в 3–5 недель — окно 30 дней ловит следующую покупку после показа.</div></div></div>
+  <div class="foot">Часть замеров — наш собственный контур, он доступен на любом бюджете. Исследования площадок
+  (Brand Lift Study, Sales Lift, post-view отчёт) подключаются от своих порогов и работают как подтверждение
+  от третьей стороны, а не от подрядчика.</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">10</div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Что вы получите за 3–5 дней</span></div>
+  <h2>Что проверим у зообренда<br>и клиники до первого рубля</h2>
+  <div class="rows"><div class="row"><div class="l">Спрос по имени</div><div class="r">Частотность бренда или клиники в Вордстате за 12 месяцев и контрольная категория («корм для собак», «ветклиника [город]») — «ноль» замера.</div></div><div class="row"><div class="l">Конкуренты на площадках</div><div class="r">Кто из зообрендов и сетей уже размещает медийку на Ozon, в Urban Ads и WB; какие форматы и посадочные используют.</div></div><div class="row"><div class="l">Согласование категории</div><div class="r">Корма и зоотовары площадки согласуют штатно; ветеринарные препараты и услуги — с оговорками и предупреждениями. Проверяем до старта, что пропустит модерация.</div></div><div class="row"><div class="l">Сайт и путь к заказу</div><div class="r">Интернет-магазин или подписка на корм: корзина, оплата, доставка. У клиники — онлайн-запись, телефон и мессенджер на первом экране, страницы услуг.</div></div><div class="row"><div class="l">Аналитика</div><div class="r">Метрика и пиксели площадок, цели на заказ, запись и звонок; связка с CRM или МИС, чтобы считать до выручки.</div></div><div class="row"><div class="l">Сезонность</div><div class="r">Пики: весна (паразиты, линька), лето (дача и переезды), декабрь (подарки и запасы). Флайт ставим за 4–6 недель до пика.</div></div></div>
+  <div class="yline">Замер «до» снимаем в рамках бесплатного аудита — ещё до подписания договора</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">11</div>
+  <div class="kicker"><div class="bar"></div><span>Как начинаем</span></div>
+  <h2>Четыре шага, из них первый —<br>бесплатный</h2>
+  <div class="cards">
+    <div class="card"><h3>1 · Аудит</h3>
+      <p>Бесплатно, 3–5 дней. Смотрим вашу нишу на площадках, конкурентов, стоимость входа и снимаем замер «до»:
+      сколько людей сейчас ищут вас по имени.</p></div>
+    <div class="card"><h3>2 · Условия теста</h3>
+      <p>До старта письменно фиксируем, какой результат означает «продолжаем», а какой — «останавливаемся».
+      Критерии формулируете вы, мы вносим их в договор.</p></div>
+    <div class="card"><h3>3 · Тест</h3>
+      <p>Тестовый период 6–8 недель: на меньшем сроке результат ещё не читается. Смотрим цифры вместе
+      на 2, 4 и 6–8 неделе и на каждой встрече решаем: идём дальше, что-то меняем — либо останавливаемся.</p></div>
+    <div class="card"><h3>4 · Сопровождение</h3>
+      <p>Недельная и месячная отчётность, а в конце цикла — не отчёт о показах, а документ с решением:
+      что дала реклама, что делать дальше и на каких цифрах это основано.</p></div>
+  </div>
+  <div class="yline">Точка выхода известна до входа — поэтому вход безопасен</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">12</div>
+  <div class="kicker"><div class="bar"></div><span>Условия работы</span></div>
+  <h2>Сопровождение: чем больше<br>источников, тем ниже цена</h2>
+  <div class="price">
+    <div class="p"><h3>Один источник</h3><div class="now">50 000 ₽</div><div class="per">в месяц за сопровождение</div>
+      <ul><li>Ozon, Urban Ads или WB на выбор</li><li>Полный аналитический контур</li><li>Недельная и месячная отчётность</li></ul></div>
+    <div class="p"><h3>Два источника</h3><div class="was">100 000 ₽</div><div class="now">80 000 ₽</div><div class="per">в месяц · скидка 20% на тестовый период</div>
+      <ul><li>Любые два из трёх</li><li>Сравнение источников на ваших данных</li><li>Перераспределение бюджета между ними</li></ul></div>
+    <div class="p best"><div class="tag">Максимум охвата</div><h3>Три источника</h3><div class="was">150 000 ₽</div><div class="now">90 000 ₽</div><div class="per">в месяц · скидка 40% на тестовый период</div>
+      <ul><li>Ozon + Urban Ads + WB</li><li>Разные среды и сценарии показа</li><li>Частота касаний, которую не даёт один канал</li></ul></div>
+  </div>
+  <div class="rows" style="margin-top:26px">
+    <div class="row"><div class="l">Рекламный бюджет</div><div class="r">От 120 000 ₽ в месяц на каждый источник. Это порог, ниже которого площадка не набирает объём для выводов.</div></div>
+    <div class="row"><div class="l">Срок контракта</div><div class="r">От шести месяцев. Медийный эффект читается на горизонте 6–8 недель, а решения по бюджету принимаются по кварталу.</div></div>
+    <div class="row"><div class="l">Что входит</div><div class="r">Ведение кампаний, креативы, аналитический контур, замеры, отчётность и документ-решение в конце цикла.</div></div>
+    <div class="row"><div class="l">Ведёте сами</div><div class="r">Кабинет в агентском аккаунте Церебро с менеджерским доступом и кэшбек от квартального расхода: Ozon до 18%, Urban Ads до 13%, WB до 16%. С сопровождением кэшбек не совмещается.</div></div>
+  </div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">13</div>
+  <div class="kicker"><div class="bar"></div><span>Как это выглядит на практике</span></div>
+  <h2>Зооиндустрия и услуги:<br>три работы по модели</h2>
+  <div class="cards"><div class="card"><div class="big">19,2 млн ₽</div><h3>Фонд «Дай лапу» · Ozon, Click Out</h3><p>11 488 донатов за полтора года через рекламу на Ozon с переходом на сайт фонда. ROAS до 700%, средний 430% в 2025 году. Пример аудитории «есть питомец», которая отзывается на историю.</p></div><div class="card"><div class="big">690 ₽</div><h3>Ветклиника · Авито Реклама</h3><p>1 570 лидов по 690 ₽ при бюджете 1 084 754 ₽ и 155 755 кликах: услуга со сформированным спросом в аукционе, где почти нет рекламодателей.</p><p class=cap>Направление Авито</p></div><div class="card"><div class="big">ROAS 745%</div><h3>Селлер WB и Ozon · внешний трафик из VK</h3><p>6 800+ продаж, ДРР 14%, переход 7–8 ₽. Модель для производителя кормов с карточками: аудитория, которая ещё не видела товар на площадке, приходит на карточку извне.</p><p class=cap>Направление внешнего трафика для селлеров</p></div>
+  </div>
+  <div class="foot">Показатели по нишам разные, и мы не переносим чужой результат на ваш бизнес.
+  Что можно обещать до старта — честный замер «до» и понятные условия остановки.</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">14</div>
+  <div class="kicker"><div class="bar"></div><span>Если задача шире Click Out</span></div>
+  <h2>Зообренду и ветклинике:<br>что ещё умеет агентство</h2>
+  <p class="sub">Если продажи идут через карточки на Ozon и Wildberries, а не через сайт, — это направление внешнего трафика, где зоотовары в списке сильных категорий. Клинике со сформированным спросом — Авито и Директ.</p>
+  <div class="rows"><div class="row"><div class="l">Внешний трафик на карточки</div><div class="r">VK Ads, посевы AdBlogger, ПромоСтраницы и Директ ведут на карточку WB или Ozon. Зоотовары — сильная категория; цель — ДРР до 20%, масштабирование до 5 млн ₽/мес. От 100 000 ₽/мес вместе с работой; тест — бюджет 40–100 тыс. ₽ плюс работа 20–50 тыс. ₽.</div></div><div class="row"><div class="l">Яндекс ПромоСтраницы</div><div class="r">Статья «как выбрать корм», состав, ветеринарная экспертиза — и переход на карточку. Переход 3–10 ₽, 70–75% дочитавших идут на карточку; работает системно.</div></div><div class="row"><div class="l">Авито Реклама</div><div class="r">Ветклиники — сильная ниша: кейс 1 570 лидов по 690 ₽. Груминг, передержка, зоомагазины — сформированный спрос и свободный аукцион. Под ключ от 100 000 ₽, самостоятельно от 5 000 ₽.</div></div><div class="row"><div class="l">ВК Реклама</div><div class="r">Сети клиник и салонов: гео до филиала, лид-формы; посевы в сообществах владельцев животных для товаров с чеком 400–800 ₽. Комиссия 15% (не менее 50 000 ₽) до 500 000 ₽ бюджета.</div></div><div class="row"><div class="l">Яндекс Директ</div><div class="r">Категорийный спрос: «ветклиника круглосуточно», «корм холистик купить». Запуск за 5 рабочих дней, работа 50 000 ₽/мес при бюджете до 500 000 ₽.</div></div></div>
+  <div class="foot">Единый порог по всем направлениям — рекламный бюджет от 100 000 ₽ в месяц (кроме самостоятельного запуска на Авито от 5 000 ₽).
+  Клиент — ИП или юрлицо; кабинеты и креативы принадлежат клиенту, кабинеты открытые.</div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">15</div>
+  <div class="kicker"><div class="bar"></div><span>С чего начинаем разговор</span></div>
+  <h2>Прежде чем что-то предлагать,<br>мы разбираемся</h2>
+  <p class="sub">Пять вопросов, с которых начинается любой наш проект под зообренд и ветклинику. Ответы на них — основа предварительного аудита:
+  без них мы не считаем медиаплан и не называем цифры.</p>
+  <div style="margin-top:20px;max-width:1100px"><div class="q"><div class="qn">ВОПРОС 01</div><div class="qt">«Расскажите, как к вам сейчас приходят клиенты — или покупатели, если вы бренд?»</div></div><div class="q"><div class="qn">ВОПРОС 02</div><div class="qt">«Что в привлечении устраивает, а что хотели бы поменять?»</div></div><div class="q"><div class="qn">ВОПРОС 03</div><div class="qt">«Как ведёт себя стоимость заявки или заказа в последние полгода-год?»</div></div><div class="q"><div class="qn">ВОПРОС 04</div><div class="qt">«Как у вас устроена работа с узнаваемостью бренда или клиники?»</div></div><div class="q"><div class="qn">ВОПРОС 05</div><div class="qt">«Реклама у вас считается до заявки или до выручки?»</div></div></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">16</div>
+  <div class="kicker"><div class="bar"></div><span>Если вы агентство или частный специалист</span></div>
+  <h2>Тринадцать рекламных кабинетов<br>в одном окне</h2>
+  <p class="sub">Мы не только ведём рекламу сами. Через Церебро агентства и специалисты открывают
+  кабинеты своим клиентам и <b>получают часть открученного бюджета обратно — до 18%</b>.</p>
+  <div class="yline" style="margin-top:26px;font-size:clamp(14px,1.35vw,19px);line-height:1.6">
+  VK Ads · VK AdBlogger · Telega.in · Яндекс Директ · Telegram Ads · Яндекс Бизнес · Авито Реклама ·
+  Яндекс ПромоСтраницы · SberAds · Bidfox · Hybrid · Яндекс Навигатор · Ozon Performance</div>
+  <div class="cards" style="margin-top:30px">
+    <div class="card"><h3>Единое окно</h3><p>Софт, в котором кабинет создаётся, доступы выдаются, а деньги перекидываются между кабинетами
+      в несколько кликов. Открытие бесплатное, комиссии за пополнение нет.</p></div>
+    <div class="card"><h3>Документы без нервов</h3><p>Обмен через ЭДО, закрывающие в срок. Отдельно: 3% сбора нет.</p></div>
+    <div class="card"><h3>Живая поддержка</h3><p>Отвечаем по рекламе, помогаем пройти модерацию, разбираем проблемы с документами и сбоями.
+      При откруте от 1,5 млн — чат с персональным менеджером.</p></div>
+    <div class="card"><h3>Аудит и обучение</h3><p>Разбор кампаний практикующими специалистами: точки роста, ошибки, что менять в стратегии.
+      Плюс обучающие курсы для вашей команды.</p></div>
+  </div>
+  
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">17</div>
+  <div class="kicker"><div class="bar"></div><span>Следующий шаг</span></div>
+  <h1>Начнём с бесплатного аудита</h1>
+  <p class="sub">Три–пять дней, ноль обязательств. На выходе вы получаете цифры: сколько людей ищут ваш бренд или клинику по имени сегодня, кто из конкурентов уже стоит на площадках, во сколько обойдётся вход и какой замер мы предлагаем поставить до старта.</p>
+  <div class="yline">Церебро Таргет · направление Click Out<br>clickout.cerebrotarget.ru · t.me/cerebro_manager</div>
+  
+  <div class="mark">Ц</div>
+</section>
+
+</body>
+</html>
