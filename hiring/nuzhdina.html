@@ -1,0 +1,460 @@
+<title>Собеседование с Надеждой Нуждиной</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f6f5f1; --surface:#ffffff; --surface-2:#efede6;
+  --text:#141416; --muted:#6b6a64; --line:#e0ded6;
+  --accent:#FDD101; --accent-ink:#8a6d00; --accent-soft:#fff6c7;
+  --flag:#b3261e; --flag-soft:#fbe9e7; --good:#2e7d4f; --good-soft:#e5f3ea;
+  --now:#fff2a8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c0c0d; --surface:#161618; --surface-2:#1e1e21;
+    --text:#f5f3ec; --muted:#a09d94; --line:#2a2a2e;
+    --accent:#FDD101; --accent-ink:#FDD101; --accent-soft:#2a2610;
+    --flag:#ff7b72; --flag-soft:#2a1614; --good:#7fd19a; --good-soft:#12261a;
+    --now:#2f2a0e;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c0c0d; --surface:#161618; --surface-2:#1e1e21;
+  --text:#f5f3ec; --muted:#a09d94; --line:#2a2a2e;
+  --accent:#FDD101; --accent-ink:#FDD101; --accent-soft:#2a2610;
+  --flag:#ff7b72; --flag-soft:#2a1614; --good:#7fd19a; --good-soft:#12261a;
+  --now:#2f2a0e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,"Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;padding-block:0 64px;padding-inline:16px}
+h1,h2,h3{font-family:Unbounded,"Arial Black",Arial,sans-serif;text-wrap:balance;margin:0}
+h1{font-size:clamp(22px,3vw,30px);font-weight:700;line-height:1.15}
+h2{font-size:clamp(18px,2.2vw,22px);font-weight:500;line-height:1.2}
+h3{font-size:14px;font-weight:500}
+.mono{font-family:"JetBrains Mono",Consolas,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1120px;margin:0 auto}
+.eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.eyebrow::before{content:"";display:inline-block;width:18px;height:3px;background:var(--accent)}
+
+/* header */
+header{padding-block:28px 20px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+header .sub{color:var(--muted);margin-top:6px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px;grid-column:1/-1}
+.fact{background:var(--surface);padding:10px 12px}
+.fact .k{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.fact .v{font-size:14px;font-weight:600;margin-top:2px}
+.fact .v.mono{font-weight:500}
+
+/* risks */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.panel{background:var(--surface);border:1px solid var(--line);padding:16px 18px}
+.panel h3{margin-bottom:10px}
+.panel ul{margin:0;padding-left:18px}
+.panel li{margin:6px 0}
+.panel.flags h3{color:var(--flag)}
+.panel.good h3{color:var(--good)}
+
+/* body grid */
+.grid{display:grid;grid-template-columns:240px 1fr;gap:32px;margin-top:28px;align-items:start}
+.rail{position:sticky;top:12px}
+.timer{background:var(--text);color:var(--bg);padding:14px 16px;margin-bottom:12px}
+.timer .t{font-size:30px;line-height:1;font-weight:500}
+.timer .l{font-size:11px;text-transform:uppercase;letter-spacing:.1em;opacity:.7;margin-top:6px}
+.timer .btns{display:flex;gap:8px;margin-top:12px}
+.timer button{font:inherit;font-family:Manrope,sans-serif;font-weight:600;font-size:13px;padding:7px 12px;border:1px solid var(--accent);background:var(--accent);color:#141416;cursor:pointer}
+.timer button.ghost{background:transparent;color:var(--bg);border-color:rgba(255,255,255,.35)}
+.timer button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.steps{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.steps li{display:grid;grid-template-columns:76px 1fr;gap:10px;padding:9px 4px;border-bottom:1px solid var(--line);font-size:13px}
+.steps li a{color:inherit;text-decoration:none;font-weight:600}
+.steps li .mono{color:var(--muted);font-size:12px}
+.steps li.now{background:var(--now)}
+.steps li.now .mono{color:var(--accent-ink)}
+.steps li.done{opacity:.5}
+
+/* sections */
+section.block{background:var(--surface);border:1px solid var(--line);padding:22px 24px;margin-bottom:20px;scroll-margin-top:12px}
+section.block.now{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.block-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.block-head .mono{color:var(--muted);font-size:13px}
+.goal{margin:8px 0 16px;color:var(--muted);max-width:68ch}
+.goal b{color:var(--text)}
+.qs{list-style:none;margin:0;padding:0}
+.qs li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.qs li:first-child{border-top:0}
+.qs input{margin:4px 0 0;width:16px;height:16px;accent-color:var(--accent-ink)}
+.qs .q{font-weight:600;max-width:72ch}
+.qs .q .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;margin-left:6px;vertical-align:middle;background:var(--accent);color:#141416}
+.qs .q .tag.opt{background:var(--surface-2);color:var(--muted)}
+.qs .a{color:var(--muted);font-size:14px;margin-top:3px;max-width:72ch}
+.qs .a b{color:var(--text);font-weight:600}
+.sub-h{margin:18px 0 6px}
+.flags-inline{margin:16px 0 0;padding:12px 14px;background:var(--flag-soft);border-left:3px solid var(--flag)}
+.flags-inline h3{color:var(--flag);margin-bottom:6px}
+.flags-inline ul{margin:0;padding-left:18px;font-size:14px}
+.flags-inline li{margin:4px 0}
+.script{background:var(--surface-2);padding:12px 14px;margin:10px 0 0;font-size:14px;max-width:72ch}
+.script b{font-weight:700}
+
+/* objections */
+.obj{border:1px solid var(--line);margin-top:12px}
+.obj .say{padding:12px 14px;background:var(--surface-2);display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.obj .say .n{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--accent-ink);padding-top:2px}
+.obj .say .txt{font-weight:600}
+.obj .say .why{color:var(--muted);font-size:13px;font-weight:400;margin-top:2px}
+.obj .gb{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.obj .gb div{padding:10px 14px;font-size:14px}
+.obj .gb .g{border-right:1px solid var(--line)}
+.obj .gb b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.obj .gb .g b{color:var(--good)}
+.obj .gb .b b{color:var(--flag)}
+.score{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:14px;font-size:13px}
+.score div{background:var(--surface);padding:8px 12px}
+.score .mono{color:var(--accent-ink);font-weight:500}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.verdict .panel ul{list-style:none;padding:0}
+.verdict .panel li{display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:start}
+.verdict input{margin:4px 0 0;width:15px;height:15px}
+.verdict .good input{accent-color:var(--good)}
+.verdict .flags input{accent-color:var(--flag)}
+.note{color:var(--muted);font-size:13px;margin-top:14px;max-width:72ch}
+
+@media (max-width:820px){
+  header{grid-template-columns:1fr}
+  .two,.verdict,.obj .gb{grid-template-columns:1fr}
+  .obj .gb .g{border-right:0;border-bottom:1px solid var(--line)}
+  .grid{grid-template-columns:1fr;gap:20px}
+  .rail{position:static}
+  .steps li{grid-template-columns:70px 1fr}
+  section.block{padding:18px 16px}
+  .score{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){
+  section.block{transition:border-color .2s,box-shadow .2s}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <div>
+    <div class="eyebrow">Собеседование · 45 минут · менеджер холодных B2B-продаж</div>
+    <h1 style="margin-top:10px">Нуждина Надежда</h1>
+    <div class="sub">Отклик 10.09.2026 на «Менеджер по продажам B2B». Резюме обновлено 11.09.2026.</div>
+  </div>
+  <div class="mono" style="color:var(--muted);font-size:13px">Роль ведущего: «Марина, директор по маркетингу» в блоке 4</div>
+  <div class="facts">
+    <div class="fact"><div class="k">Возраст / город</div><div class="v">33, Москва, удалёнка или офис</div></div>
+    <div class="fact"><div class="k">Хочет</div><div class="v mono">250 000 ₽ на руки</div></div>
+    <div class="fact"><div class="k">Сейчас</div><div class="v">Zoon, 4 г. 2 мес., ведущий менеджер по продажам</div></div>
+    <div class="fact"><div class="k">До этого</div><div class="v">«IT услуги» 1 г. 10 мес. и Dream Terra 3 г. 6 мес., оба на входящих</div></div>
+    <div class="fact"><div class="k">Заявляет</div><div class="v">план 100–270 % каждый месяц, «клуб миллионеров», доход 250 000+</div></div>
+    <div class="fact"><div class="k">Образование</div><div class="v">МИЭП, юриспруденция, 2018</div></div>
+  </div>
+</header>
+
+<div class="two">
+  <div class="panel flags">
+    <h3>Три риска, которые надо снять за звонок</h3>
+    <ul>
+      <li><b>Масштаб и цикл.</b> Zoon продаёт малому бизнесу быстрыми сделками на десятки тысяч. У нас контракт от 1,2 млн, бюджет от 400 тыс./мес, цикл 1–3 месяца и отложенный эффект. Продавала ли она хоть раз что-то за 300+ тыс. и ждала ли решения два месяца?</li>
+      <li><b>Деньги.</b> Просит 250 на руки. Наш фикс 80–100 плюс процент, совокуп 200 реален. Надо понять, из чего сложены её 250 в Zoon: если фикс там 60–80, а остальное бонус, разрыва нет.</li>
+      <li><b>Уходит ли от холода.</b> Желаемая должность в резюме «менеджер по работе с клиентами», два места из трёх на входящих. У нас чистое привлечение, клиента после подписи ведёт специалист.</li>
+    </ul>
+  </div>
+  <div class="panel good">
+    <h3>Что уже говорит за неё</h3>
+    <ul>
+      <li>4 года на одном месте на холодных звонках, сама искала базу, сама проводила встречи. Это редкость.</li>
+      <li>Наставничество и обучение новичков: умеет объяснять, что делает.</li>
+      <li>Резюме не конструкторное, цифры есть, честная дата рождения, реальное высшее.</li>
+      <li>Готова и к удалёнке, и к офису.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="grid">
+  <aside class="rail">
+    <div class="timer">
+      <div class="t mono" id="clock">00:00</div>
+      <div class="l" id="phase">таймер не запущен</div>
+      <div class="btns">
+        <button id="start" type="button">Старт</button>
+        <button id="reset" type="button" class="ghost">Сброс</button>
+      </div>
+    </div>
+    <ol class="steps" id="steps">
+      <li data-from="0" data-to="300"><span class="mono">0:00–0:05</span><a href="#b1">Знакомство</a></li>
+      <li data-from="300" data-to="900"><span class="mono">0:05–0:15</span><a href="#b2">Карьера и результаты</a></li>
+      <li data-from="900" data-to="1500"><span class="mono">0:15–0:25</span><a href="#b3">Профессионализм</a></li>
+      <li data-from="1500" data-to="1800"><span class="mono">0:25–0:30</span><a href="#b4">Возражения</a></li>
+      <li data-from="1800" data-to="2700"><span class="mono">0:30–0:45</span><a href="#b5">Её вопросы и закрытие</a></li>
+    </ol>
+  </aside>
+
+  <main>
+
+  <section class="block" id="b1" data-from="0" data-to="300">
+    <div class="block-head"><h2>1. Знакомство</h2><span class="mono">0:00–0:05 · 5 мин</span></div>
+    <p class="goal"><b>Цель:</b> задать рамку, снять деньги и оформление сразу, услышать, как она продаёт себя без подсказок.</p>
+    <ul class="qs">
+      <li><input type="checkbox" id="q1-1"><div><label class="q" for="q1-1">Рамка встречи, 1 минута</label>
+        <div class="a">«45 минут: коротко про нас, потом про ваш опыт, потом дам пару возражений отработать, в конце ваши вопросы. Ответ по итогам дам не сегодня».</div></div></li>
+      <li><input type="checkbox" id="q1-2"><div><label class="q" for="q1-2">Про нас, 1 минута</label>
+        <div class="a">Агентство 10+ лет на рекламных площадках, 3000+ клиентов. Продукт: внешний трафик с Ozon, Яндекс Urban Ads и WB Media на сайт клиента плюс медийка. Клиенты: бренды и селлеры, ЛПР обычно директор по маркетингу. Ваша задача: найти, дозвониться, назначить встречу, довести до контракта. Дальше клиента ведёт специалист по источнику.</div></div></li>
+      <li><input type="checkbox" id="q1-3"><div><label class="q" for="q1-3">«Расскажите о себе за 2–3 минуты: что продавали, кому и за сколько».<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> называет ли цифры сама, говорит про «искала и назначала» или про «вела клиентов», укладывается ли в 3 минуты.</div></div></li>
+      <li><input type="checkbox" id="q1-4"><div><label class="q" for="q1-4">Деньги и оформление одной фразой, до всех вопросов.<span class="tag">ключевой</span></label>
+        <div class="a">«Фикс 80–100 плюс процент без потолка, совокуп 200 реален. Оформление СМЗ или ИП, трудовой нет. Если это стоп, скажите сейчас, сэкономим друг другу время».
+        <b>Слушать:</b> пауза, торг, «а фикс 120 возможен?» или спокойное «ок, обсудим по результатам».</div></div></li>
+    </ul>
+  </section>
+
+  <section class="block" id="b2" data-from="300" data-to="900">
+    <div class="block-head"><h2>2. Карьера и результаты</h2><span class="mono">0:05–0:15 · 10 мин</span></div>
+    <p class="goal"><b>Цель:</b> проверить, что «клуб миллионеров» и «250 000+» сходятся в математику воронки, и понять, почему после 4 лет она уходит.</p>
+
+    <h3 class="sub-h">Zoon, 7 минут</h3>
+    <ul class="qs">
+      <li><input type="checkbox" id="q2-1"><div><label class="q" for="q2-1">«Что именно продавали в Zoon, кому и за какой средний чек?»<span class="tag">ключевой</span></label>
+        <div class="a"><b>Ожидание:</b> размещение или подписка для салонов, клиник, автосервисов; ЛПР владелец или администратор; чек десятки тысяч в год. <b>Слушать:</b> знает ли чек с точностью до тысячи.</div></div></li>
+      <li><input type="checkbox" id="q2-2"><div><label class="q" for="q2-2">«Ваша воронка в цифрах: наборов в день, разговоров, встреч в неделю, сделок в месяц».<span class="tag">ключевой</span></label>
+        <div class="a"><b>Проверка:</b> 1 млн в месяц ÷ средний чек = сделок в месяц. Сделки × конверсия из встреч = встреч. Встречи ÷ конверсия из звонков = звонков. Если не сходится с её «наборами в день», цифры завышены. Меньше 40 наборов в день сейчас: отказ.</div></div></li>
+      <li><input type="checkbox" id="q2-3"><div><label class="q" for="q2-3">«Встречи были живые, по видео или это звонок-презентация? Сколько в неделю? Кто назначал?»<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> назначала ли сама с холодного звонка или встречи давала компания. Опыт выезда или Zoom с владельцем это плюс, «встреча» по телефону это не встреча.</div></div></li>
+      <li><input type="checkbox" id="q2-4"><div><label class="q" for="q2-4">«Из чего состоят ваши 250 000+: фикс сколько, бонус сколько? Какие три последних месяца по деньгам?»<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> фикс в Zoon. Если он 60–80, наш оффер сопоставим. Если она называет фикс 120+, разрыв реальный, и 250 на руки это требование к фиксу, а не к совокупу. Сверить с резюме: «стабильный доход 250 000+».</div></div></li>
+      <li><input type="checkbox" id="q2-5"><div><label class="q" for="q2-5">«100–270 % каждый месяц четыре года подряд. Какой был худший месяц и почему? Какой план в деньгах?»</label>
+        <div class="a"><b>Слушать:</b> честность. Кто ни разу не провалил план за 48 месяцев, либо врёт, либо план низкий. Хороший ответ: называет провал и причину без оправданий.</div></div></li>
+      <li><input type="checkbox" id="q2-6"><div><label class="q" for="q2-6">«Почему уходите из Zoon после четырёх лет при таком доходе? Уже уволились или смотрите?»<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> поменяли план или условия, выгорела база, конфликт, «устала от холода». Последнее для нашей позиции стоп. Спросить сразу: «Есть другие офферы, на какой стадии?»</div></div></li>
+      <li><input type="checkbox" id="q2-7"><div><label class="q" for="q2-7">«Самая крупная сделка за карьеру в деньгах. Самая долгая: сколько шла и что вы делали, пока клиент думал?»<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> был ли хоть один чек 300+ тыс. и цикл больше месяца. Если всё закрывалось за неделю, наш цикл 1–3 месяца для неё новый режим. Это не отказ, но проверить реакцию, когда скажете про отложенный эффект.</div></div></li>
+      <li><input type="checkbox" id="q2-8"><div><label class="q" for="q2-8">«Наставничество: сколько человек, это была ставка тимлида с доплатой или так?»<span class="tag opt">если есть время</span></label>
+        <div class="a"><b>Слушать:</b> амбиции на РОП. Если хочет «расти в руководителя», честно сказать, что трека нет и роль линейная на годы.</div></div></li>
+    </ul>
+
+    <h3 class="sub-h">Два прошлых места, 3 минуты</h3>
+    <ul class="qs">
+      <li><input type="checkbox" id="q2-9"><div><label class="q" for="q2-9">«„IT услуги“ это какая компания и какой продукт? Там был холод или только входящие?»</label>
+        <div class="a">В резюме название компании скрыто. <b>Слушать:</b> назовёт ли её и что продавала. По обязанностям там только входящие и ведение.</div></div></li>
+      <li><input type="checkbox" id="q2-10"><div><label class="q" for="q2-10">«Dream Terra и „IT услуги“ пересекаются с сентября 2020 по ноябрь 2021. Как совмещали?»</label>
+        <div class="a">14 месяцев параллельно. <b>Слушать:</b> подработка, свой или семейный бизнес, ошибка в датах. Dream Terra по обязанностям похожа на маленький бренд: съёмки, блогеры, логистика, найм.</div></div></li>
+      <li><input type="checkbox" id="q2-11"><div><label class="q" for="q2-11">«В резюме желаемая должность „менеджер по работе с клиентами“. Вы хотите вести клиентов или искать новых?»<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> прямой ответ. У нас клиент после подписания уходит специалисту, аккаунтинга нет. Если хочет «долгие отношения с клиентом», это не наша позиция.</div></div></li>
+    </ul>
+
+    <div class="flags-inline">
+      <h3>Что ведёт к отказу в этом блоке</h3>
+      <ul>
+        <li>Встречи и лиды давала компания, сама базу не искала.</li>
+        <li>Не помнит свои цифры или воронка не сходится с «миллионом в месяц».</li>
+        <li>Уходит потому, что «надоели холодные звонки».</li>
+        <li>Фикс в Zoon 120+ и 250 это требование к фиксу.</li>
+        <li>Цифры в разговоре расходятся с резюме.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="b3" data-from="900" data-to="1500">
+    <div class="block-head"><h2>3. Профессионализм: от тайм-менеджмента до технологии продаж</h2><span class="mono">0:15–0:25 · 10 мин</span></div>
+    <p class="goal"><b>Цель:</b> не спрашивать «что такое SPIN», а заставить показать: как устроен день, как выходит на ЛПР, как держит длинную сделку.</p>
+
+    <h3 class="sub-h">Тайм-менеджмент, 3 минуты</h3>
+    <ul class="qs">
+      <li><input type="checkbox" id="q3-1"><div><label class="q" for="q3-1">«Опишите вчерашний рабочий день по часам».<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> есть ли блоки звонков с фиксированным временем, когда встречи, когда CRM. Плохо: «с утра ищу базу, потом звоню, как получится». Хорошо: база готовится вечером, с 10 до 13 только звонки, встречи после обеда.</div></div></li>
+      <li><input type="checkbox" id="q3-2"><div><label class="q" for="q3-2">«Что должно стоять в календаре в понедельник утром, чтобы неделя была хорошей?»</label>
+        <div class="a"><b>Слушать:</b> считает ли она опережающие показатели: сколько встреч назначено вперёд, сколько сделок в работе, а не «сколько закрыла».</div></div></li>
+      <li><input type="checkbox" id="q3-3"><div><label class="q" for="q3-3">«К обеду ни одной назначенной встречи. Что делаете?»</label>
+        <div class="a"><b>Слушать:</b> конкретное действие: меняет сегмент, меняет заход, звонит старым «подумаю», а не «продолжаю звонить».</div></div></li>
+    </ul>
+
+    <h3 class="sub-h">Технология продаж, 7 минут</h3>
+    <ul class="qs">
+      <li><input type="checkbox" id="q3-4"><div><label class="q" for="q3-4">«Как выходите на директора по маркетингу бренда: где берёте имя, что говорите секретарю?»<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> инструменты: сайт, hh, TenChat, соцсети компании, звонок «как к знакомому» по имени. В Zoon она звонила владельцам салонов напрямую, секретарей могло не быть. Это её первый барьер у нас.</div></div></li>
+      <li><input type="checkbox" id="q3-5"><div><label class="q" for="q3-5">«Скажите прямо сейчас первые 20 секунд холодного звонка директору по маркетингу бренда косметики, который продаётся на Ozon».<span class="tag">ключевой</span></label>
+        <div class="a"><b>Хорошо:</b> имя, компания, одна фраза зачем звонит, один вопрос, цель встреча. <b>Плохо:</b> «удобно ли говорить», презентация продукта на 40 секунд, «хотела бы предложить сотрудничество».</div></div></li>
+      <li><input type="checkbox" id="q3-6"><div><label class="q" for="q3-6">«Три вопроса на первой встрече, чтобы понять, наш ли это клиент».<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> есть ли сайт и учёт заявок, какой бюджет сейчас на рекламу и куда идёт, кто принимает решение и как. Если только «расскажите о бизнесе», квалификации нет.</div></div></li>
+      <li><input type="checkbox" id="q3-7"><div><label class="q" for="q3-7">«После встречи клиент пропал на три недели. Ваши действия по дням».</label>
+        <div class="a"><b>Слушать:</b> график касаний по разным каналам с поводом (кейс, цифра, вопрос), а не «напоминаю о себе». Хорошо, если ещё на встрече договаривается о дате следующего контакта.</div></div></li>
+      <li><input type="checkbox" id="q3-8"><div><label class="q" for="q3-8">«Сделка идёт два месяца. Какие промежуточные обязательства берёте с клиента, чтобы она не умерла?»<span class="tag">ключевой</span></label>
+        <div class="a"><b>Слушать:</b> бриф, встреча со специалистом, согласование тестового бюджета, дата решения, доступ к кабинету. Если ответа нет, длинных сделок она не вела.</div></div></li>
+      <li><input type="checkbox" id="q3-9"><div><label class="q" for="q3-9">«Что заносите в CRM после звонка? Какие этапы у вашей воронки?»<span class="tag opt">если есть время</span></label>
+        <div class="a">amoCRM и Битрикс в навыках. <b>Слушать:</b> задачи с датой, причина отказа, следующий шаг. Проверка дисциплины, не знания кнопок.</div></div></li>
+    </ul>
+
+    <div class="flags-inline">
+      <h3>Что ведёт к отказу в этом блоке</h3>
+      <ul>
+        <li>Говорит терминами, но 20-секундный звонок не может произнести.</li>
+        <li>В звонке презентует продукт вместо назначения встречи.</li>
+        <li>Не знает, что делать с клиентом, который думает дольше недели.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="b4" data-from="1500" data-to="1800">
+    <div class="block-head"><h2>4. Возражения</h2><span class="mono">0:25–0:30 · 5 мин</span></div>
+    <p class="goal"><b>Цель:</b> увидеть технику, а не знание продукта: принимает, уточняет, разворачивает и выводит на следующий шаг. По минуте на возражение, не помогать, обрывать после трёх реплик.</p>
+
+    <div class="script"><b>Вводная для неё, 30 секунд:</b> «Я Марина, директор по маркетингу бренда косметики. Продаёмся на Ozon и WB, есть свой сайт. Вы звоните мне впервые. Продукт: внешний трафик с рекламы Ozon, Urban Ads и WB Media на наш сайт. Минимальный бюджет 100 тыс. в месяц, рекомендуемый 200 на источник, ведение 50 тыс. в месяц. Эффект оцениваем через 1–3 месяца. Гарантий результата агентство не даёт. Поехали».</div>
+
+    <div class="obj">
+      <div class="say"><span class="n">1</span><div><div class="txt">«Отправьте КП на почту, если заинтересует, свяжемся».</div><div class="why">Обязательное. Первый барьер любого холодного звонка.</div></div></div>
+      <div class="gb">
+        <div class="g"><b>Хорошо</b>Соглашается, уточняет два факта, чтобы КП было «под вас», и предлагает 15 минут в Zoom с конкретным днём и временем.</div>
+        <div class="b"><b>Плохо</b>«Хорошо, отправлю» и конец разговора. Или спор: «КП без разговора бесполезно».</div>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="say"><span class="n">2</span><div><div class="txt">«Мы всё ведём сами внутри кабинета Ozon, внешний трафик нам не нужен».</div><div class="why">Обязательное. Проверяет, отделяет ли она наш продукт от внутреннего продвижения.</div></div></div>
+      <div class="gb">
+        <div class="g"><b>Хорошо</b>Не спорит. Спрашивает, откуда сейчас идут клиенты на сайт и сколько стоит заявка. Объясняет, что мы ведём покупателя с площадки на ваш сайт, а не продвигаем карточку. Предлагает показать на встрече.</div>
+        <div class="b"><b>Плохо</b>«Вы теряете деньги», «все так делают», давление на страх.</div>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="say"><span class="n">3</span><div><div class="txt">«200 тысяч в месяц дорого. Давайте тест на 50».</div><div class="why">Обязательное. Проверяет, держит ли порог без скидок и обещаний.</div></div></div>
+      <div class="gb">
+        <div class="g"><b>Хорошо</b>Спрашивает, откуда цифра 50 и какой бюджет на рекламу сейчас. Объясняет, почему ниже порога тест ничего не покажет. Предлагает один источник на 100–200 вместо трёх.</div>
+        <div class="b"><b>Плохо</b>«Я уточню у руководства, может, сделаем скидку». Или соглашается на 50.</div>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="say"><span class="n">4</span><div><div class="txt">«Мы пробовали внешний трафик, выхлопа не увидели».</div><div class="why">По желанию. Наше главное возражение в работе, эффект отложенный.</div></div></div>
+      <div class="gb">
+        <div class="g"><b>Хорошо</b>Спрашивает, что пробовали, сколько ждали, как считали. Говорит про 1–3 месяца и про то, что именно замеряем. Предлагает разобрать их прошлый запуск на встрече.</div>
+        <div class="b"><b>Плохо</b>«У нас точно будет по-другому», обещает лиды и окупаемость.</div>
+      </div>
+    </div>
+
+    <div class="obj">
+      <div class="say"><span class="n">5</span><div><div class="txt">«Вы гарантируете результат?»</div><div class="why">По желанию. Ловушка: правильный ответ «нет».</div></div></div>
+      <div class="gb">
+        <div class="g"><b>Хорошо</b>Честное «нет». Гарантирует прозрачность бюджета, проверку гипотез, честное решение по итогам теста. Переводит на цифры кейсов и следующий шаг.</div>
+        <div class="b"><b>Плохо</b>«Да, конечно» или «в среднем окупается за месяц».</div>
+      </div>
+    </div>
+
+    <div class="score">
+      <div><span class="mono">0</span> сдалась или спорила</div>
+      <div><span class="mono">1</span> отработала, но не вывела на следующий шаг</div>
+      <div><span class="mono">2</span> отработала и закрыла на встречу или дату</div>
+    </div>
+    <p class="note">Проходной уровень: три обязательных возражения на «1» и хотя бы одно на «2».</p>
+  </section>
+
+  <section class="block" id="b5" data-from="1800" data-to="2700">
+    <div class="block-head"><h2>5. Её вопросы и закрытие</h2><span class="mono">0:30–0:45 · 10–15 мин</span></div>
+    <p class="goal"><b>Цель:</b> по её вопросам понять, что для неё главное. Проговорить то, что она может не спросить, чтобы потом не было сюрпризов.</p>
+
+    <h3 class="sub-h">Что она скорее всего спросит</h3>
+    <ul class="qs">
+      <li><input type="checkbox" id="q5-1"><div><span class="q">База: дают или искать самой. Скрипт и обучение продукту.</span>
+        <div class="a">Топ Zoon привык к отлаженной системе. <b>Слушать:</b> напрягает ли её самостоятельный поиск базы.</div></div></li>
+      <li><input type="checkbox" id="q5-2"><div><span class="q">План, порог бонуса, как считается процент, когда выплата, испытательный.</span>
+        <div class="a">Нормальные вопросы сильного продавца. Плохо, если спрашивает только про фикс.</div></div></li>
+      <li><input type="checkbox" id="q5-3"><div><span class="q">Кто ведёт клиента после сделки. Команда, удалёнка, офис.</span>
+        <div class="a"><b>Слушать:</b> реакцию на «клиент уходит специалисту». Если расстроилась, вернуться к вопросу из блока 2 про «вести или искать».</div></div></li>
+    </ul>
+
+    <h3 class="sub-h">Проговорить самому, даже если не спросит</h3>
+    <ul class="qs">
+      <li><input type="checkbox" id="q5-4"><div><span class="q">Роль линейная на годы, РОП-трека нет. Тимлид возможен только для играющего тренера без просадки личных продаж, сроков не обещаем.</span></div></li>
+      <li><input type="checkbox" id="q5-5"><div><span class="q">Аккаунтинга нет: подписала и передала. Процент и норма звонков считаются с этого.</span></div></li>
+      <li><input type="checkbox" id="q5-6"><div><span class="q">40+ холодных звонков в день на старте, ядро позиции назначение встреч с ЛПР.</span></div></li>
+      <li><input type="checkbox" id="q5-7"><div><span class="q">Цикл 1–3 месяца, клиент часто говорит «не видим выхлопа». Это норма продукта, а не провал менеджера.</span></div></li>
+    </ul>
+
+    <h3 class="sub-h">Закрывающие вопросы, последние 3 минуты</h3>
+    <ul class="qs">
+      <li><input type="checkbox" id="q5-8"><div><span class="q">«Если сравнить с Zoon по деньгам и нагрузке, что у нас хуже?»<span class="tag">ключевой</span></span>
+        <div class="a"><b>Слушать:</b> честный ответ про фикс или цикл лучше, чем «всё отлично».</div></div></li>
+      <li><input type="checkbox" id="q5-9"><div><span class="q">«Что для вас стоп-фактор в нашем предложении?»</span></div></li>
+      <li><input type="checkbox" id="q5-10"><div><span class="q">«Когда можете выйти? Есть ли ещё офферы и на какой они стадии?»</span></div></li>
+      <li><input type="checkbox" id="q5-11"><div><span class="q">«Что вы успели посмотреть про нас перед звонком?»<span class="tag opt">если есть время</span></span>
+        <div class="a">Самостоятельное изучение продукта ценим. Если не открывала сайт, минус, но не стоп.</div></div></li>
+    </ul>
+    <p class="note">Финал: «Спасибо, ответ дам в течение двух-трёх дней». Решение на звонке не озвучивать.</p>
+  </section>
+
+  <section class="block" id="b6">
+    <div class="block-head"><h2>Итог после звонка</h2><span class="mono">2 минуты сразу после</span></div>
+    <div class="verdict">
+      <div class="panel good">
+        <h3>Идём дальше, если всё отмечено</h3>
+        <ul>
+          <li><input type="checkbox" id="v1"><label for="v1">Холод в Zoon настоящий: сама искала базу, сама назначала встречи, 40+ наборов в день.</label></li>
+          <li><input type="checkbox" id="v2"><label for="v2">Воронка сходится с «миллионом в месяц», цифры называет без пауз.</label></li>
+          <li><input type="checkbox" id="v3"><label for="v3">Честно назвала худший месяц и причину ухода, и это не «устала от холода».</label></li>
+          <li><input type="checkbox" id="v4"><label for="v4">Спокойно приняла 80–100 плюс процент и СМЗ/ИП.</label></li>
+          <li><input type="checkbox" id="v5"><label for="v5">Нет амбиций на РОП, готова к линейной роли на годы.</label></li>
+          <li><input type="checkbox" id="v6"><label for="v6">Три обязательных возражения отработаны, хотя бы одно с выходом на встречу.</label></li>
+          <li><input type="checkbox" id="v7"><label for="v7">Передача клиента специалисту не расстроила.</label></li>
+        </ul>
+      </div>
+      <div class="panel flags">
+        <h3>Отказ, если хоть одно</h3>
+        <ul>
+          <li><input type="checkbox" id="n1"><label for="n1">250 на руки это требование к фиксу.</label></li>
+          <li><input type="checkbox" id="n2"><label for="n2">Лиды и встречи в Zoon давала компания.</label></li>
+          <li><input type="checkbox" id="n3"><label for="n3">Хочет вести клиентов, а не искать.</label></li>
+          <li><input type="checkbox" id="n4"><label for="n4">Цифры разговора расходятся с резюме.</label></li>
+          <li><input type="checkbox" id="n5"><label for="n5">Спорит с клиентом или обещает гарантии в ролевой игре.</label></li>
+          <li><input type="checkbox" id="n6"><label for="n6">Наставничество оказалось заявкой на тимлида с первого дня.</label></li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Главный открытый вопрос, который остаётся даже при «да»: чек и цикл. Ни одна сделка в Zoon не похожа на контракт 1,2 млн с ожиданием два месяца. Если по всему остальному проходит, решение принимать с этим риском осознанно, а не делать вид, что его нет.</p>
+  </section>
+
+  </main>
+</div>
+</div>
+
+<script>
+(function(){
+  var clock=document.getElementById('clock'),phase=document.getElementById('phase');
+  var startBtn=document.getElementById('start'),resetBtn=document.getElementById('reset');
+  var steps=[].slice.call(document.querySelectorAll('#steps li'));
+  var blocks=[].slice.call(document.querySelectorAll('section.block[data-from]'));
+  var names=['Знакомство','Карьера и результаты','Профессионализм','Возражения','Её вопросы и закрытие'];
+  var startedAt=null,timer=null,running=false;
+  function pad(n){return (n<10?'0':'')+n;}
+  function fmt(s){return pad(Math.floor(s/60))+':'+pad(s%60);}
+  function render(){
+    var s=startedAt?Math.floor((Date.now()-startedAt)/1000):0;
+    clock.textContent=fmt(s);
+    var idx=-1;
+    steps.forEach(function(li,i){
+      var a=+li.dataset.from,b=+li.dataset.to;
+      li.classList.toggle('now',startedAt!==null&&s>=a&&s<b);
+      li.classList.toggle('done',startedAt!==null&&s>=b);
+      if(s>=a&&s<b)idx=i;
+    });
+    blocks.forEach(function(sec,i){sec.classList.toggle('now',startedAt!==null&&i===idx);});
+    if(startedAt===null){phase.textContent='таймер не запущен';}
+    else if(idx>=0){var left=+steps[idx].dataset.to-s;phase.textContent=names[idx]+' · осталось '+fmt(left);}
+    else{phase.textContent='время вышло';}
+  }
+  startBtn.addEventListener('click',function(){
+    if(running){clearInterval(timer);running=false;startBtn.textContent='Продолжить';return;}
+    if(startedAt===null){startedAt=Date.now();}
+    else{startedAt=Date.now()-pausedElapsed;}
+    running=true;startBtn.textContent='Пауза';
+    timer=setInterval(function(){pausedElapsed=Date.now()-startedAt;render();},500);
+    render();
+  });
+  var pausedElapsed=0;
+  resetBtn.addEventListener('click',function(){
+    clearInterval(timer);running=false;startedAt=null;pausedElapsed=0;startBtn.textContent='Старт';render();
+  });
+  render();
+})();
+</script>
