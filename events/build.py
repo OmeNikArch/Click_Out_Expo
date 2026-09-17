@@ -645,14 +645,17 @@ document.getElementById("send").addEventListener("click",async()=>{{
 
 
 def build_hub():
-    cards = "".join(
-        f'<div class="card"><div class="tag">{ev["dates"]}</div><h3>{ev["name"]}</h3>'
-        f'<p>{ev["hub_line"]}</p>'
-        f'<p style="margin-top:14px"><a href="{ev["slug"]}/presenter.html" style="color:var(--yellow)">Версия ведущего</a> · '
-        f'<a href="{ev["slug"]}/index.html" style="color:var(--yellow)">Клиентская</a>'
-        + "".join(f' · <a href="{h}" style="color:var(--yellow)">{l}</a>' for h, l in ev.get("extra_links", []))
-        + '</p></div>'
-        for ev in EVENTS)
+    def card(tag, title, line, links):
+        return (f'<div class="card"><div class="tag">{tag}</div><h3>{title}</h3><p>{line}</p>'
+                f'<p style="margin-top:14px">' + " · ".join(f'<a href="{h}" style="color:var(--yellow)">{l}</a>' for h, l in links) + '</p></div>')
+    cards = ""
+    for ev in EVENTS:
+        base = [(f'{ev["slug"]}/presenter.html', "Версия ведущего"), (f'{ev["slug"]}/index.html', "Клиентская")]
+        for c in ev.get("hub_split") or [None]:
+            if c is None:
+                cards += card(ev["dates"], ev["name"], ev["hub_line"], base + list(ev.get("extra_links", [])))
+            else:
+                cards += card(c.get("dates", ev["dates"]), c["name"], c["line"], base + list(c.get("links", [])))
     return f"""<!doctype html>
 <html lang="ru">
 <head>
@@ -668,7 +671,7 @@ def build_hub():
 <section>
   <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
   <div class="kicker"><div class="bar"></div><span>Направление Click Out · презентации под выставки</span></div>
-  <h1>Пять выставок —<br>пять презентаций</h1>
+  <h1>Шесть выставок —<br>пять презентаций</h1>
   <p class="sub">Каждая — клон базовой презентации Click Out, адаптированный под нишу площадки: ниша в цифрах, сегменты
   по Ozon, Urban Ads и WB, бенчмарки, чек-лист аудита, кейсы и опросник, который отправляет строку в общую таблицу.
   «Версия ведущего» — с суфлёром (клавиша S) и формой; «Клиентская» — для отправки ссылкой.</p>

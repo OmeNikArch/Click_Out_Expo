@@ -167,7 +167,8 @@ def page(rows):
 </div>
 <script>
 const DATA={data};
-const state={{expo:"",prio:new Set(["A"]),tags:new Set(),q:""}};
+const state={{expo:(new URLSearchParams(location.search).get("expo")||""),prio:new Set(["A"]),tags:new Set(),q:""}};
+document.querySelectorAll('.chip[data-f="expo"]').forEach(x=>x.classList.toggle("on",x.dataset.v===state.expo));
 const TAGS=[...new Set(DATA.flatMap(r=>r.tags))].filter(t=>t!=="иностр.").sort();
 const tagsRow=document.getElementById("tags");
 TAGS.forEach(t=>{{const b=document.createElement("button");b.className="chip";b.dataset.f="tag";b.dataset.v=t;b.textContent=t;tagsRow.appendChild(b);}});
