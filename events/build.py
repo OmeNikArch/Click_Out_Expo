@@ -26,6 +26,7 @@ WEBHOOK_URL = ("https://script.google.com/macros/s/AKfycbxk6iyhU5V-6hkcZbyMODE1Y
 SOURCE_OPTIONS = [
     "ОТДЫХ Leisure · 02–04.09",
     "WorldFood · 15–18.09",
+    "Мир детства + CJF · 16–18.09",
     "Дентал-Экспо · 21–24.09",
     "ПаркЗоо · 23–25.09",
     "BUYBRAND · 29.09–01.10",
@@ -648,7 +649,9 @@ def build_hub():
         f'<div class="card"><div class="tag">{ev["dates"]}</div><h3>{ev["name"]}</h3>'
         f'<p>{ev["hub_line"]}</p>'
         f'<p style="margin-top:14px"><a href="{ev["slug"]}/presenter.html" style="color:var(--yellow)">Версия ведущего</a> · '
-        f'<a href="{ev["slug"]}/index.html" style="color:var(--yellow)">Клиентская</a></p></div>'
+        f'<a href="{ev["slug"]}/index.html" style="color:var(--yellow)">Клиентская</a>'
+        + "".join(f' · <a href="{h}" style="color:var(--yellow)">{l}</a>' for h, l in ev.get("extra_links", []))
+        + '</p></div>'
         for ev in EVENTS)
     return f"""<!doctype html>
 <html lang="ru">
@@ -665,7 +668,7 @@ def build_hub():
 <section>
   <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
   <div class="kicker"><div class="bar"></div><span>Направление Click Out · презентации под выставки</span></div>
-  <h1>Четыре выставки —<br>четыре презентации</h1>
+  <h1>Пять выставок —<br>пять презентаций</h1>
   <p class="sub">Каждая — клон базовой презентации Click Out, адаптированный под нишу площадки: ниша в цифрах, сегменты
   по Ozon, Urban Ads и WB, бенчмарки, чек-лист аудита, кейсы и опросник, который отправляет строку в общую таблицу.
   «Версия ведущего» — с суфлёром (клавиша S) и формой; «Клиентская» — для отправки ссылкой.</p>

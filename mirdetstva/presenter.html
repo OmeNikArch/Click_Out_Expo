@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Мир детства + CJF Детская мода · Click Out — версия ведущего (с суфлёром)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --card:#272727; --card2:#111;
+    --txt:#E7E6E6; --mute:#A5A5A5; --yellow:#FDD101; --white:#fff;
+    --head:'Unbounded', Arial, sans-serif; --body:Arial, Helvetica, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body)}
+  section{min-height:100vh;padding:6vh 7vw;display:flex;flex-direction:column;justify-content:center;position:relative;border-bottom:1px solid #1a1a1a}
+  .kicker{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .kicker .bar{width:44px;height:8px;background:var(--yellow);flex:none}
+  .kicker span{font-family:var(--head);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--yellow);text-transform:uppercase}
+  .num{position:absolute;top:5vh;right:7vw;color:var(--mute);font-size:14px}
+  h1{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(28px,4.6vw,58px);line-height:1.1;margin-bottom:24px}
+  h2{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(23px,3.2vw,42px);line-height:1.14;margin-bottom:26px}
+  .sub{font-size:clamp(16px,1.6vw,22px);line-height:1.45;max-width:66ch}
+  .sub b{color:var(--white)}
+  .sub a{color:var(--yellow)}
+  .yline{color:var(--yellow);font-family:var(--head);font-weight:700;font-size:clamp(16px,1.7vw,24px);margin-top:32px;line-height:1.3}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:44px}
+  .logo .sign{width:56px;height:56px;background:var(--white);border:7px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:26px}
+  .logo .nm{font-family:var(--head);font-weight:700;color:var(--white);font-size:18px;line-height:1.25}
+  .mark{position:absolute;bottom:5vh;right:7vw;width:38px;height:38px;background:var(--white);border:5px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;color:#000;font-size:17px;opacity:.9}
+  .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:10px}
+  .card{background:var(--card);border-radius:18px;padding:26px 28px}
+  .card h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:12px}
+  .card p{font-size:clamp(13px,1.15vw,17px);line-height:1.5;color:var(--txt)}
+  .card p+p{margin-top:8px}
+  .card .big{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(26px,3.2vw,44px);line-height:1;margin-bottom:10px}
+  .card .cap{color:var(--mute);font-size:13px;margin-top:12px;line-height:1.4}
+  .card.hl{border:1px solid var(--yellow)}
+  .card .tag{display:inline-block;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:14px}
+  .stats{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:14px}
+  .stat .n{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(30px,4vw,56px);line-height:1}
+  .stat .t{color:var(--txt);font-size:clamp(13px,1.15vw,17px);margin-top:10px;line-height:1.4}
+  .stats.niche{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .stats.niche .n{font-size:clamp(22px,2.6vw,38px);white-space:nowrap}
+  .rows{margin-top:12px;max-width:1150px}
+  .row{display:grid;grid-template-columns:minmax(150px,240px) 1fr;gap:26px;padding:20px 0;border-top:1px solid #232323;align-items:start}
+  .row .l{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(14px,1.3vw,19px)}
+  .row .r{font-size:clamp(14px,1.2vw,18px);line-height:1.5}
+  .row .r b{color:var(--white)}
+  .foot{margin-top:34px;color:var(--mute);font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:80ch}
+  .foot a{color:var(--yellow)}
+  .price{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:10px}
+  .p{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:26px 28px;position:relative}
+  .p.best{border-color:var(--yellow)}
+  .p .tag{position:absolute;top:-13px;left:26px;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+  .p h3{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.4vw,20px);margin-bottom:16px}
+  .p .was{color:var(--mute);text-decoration:line-through;font-size:15px}
+  .p .now{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(24px,2.8vw,38px);line-height:1.1;margin:6px 0 4px}
+  .p .per{color:var(--mute);font-size:13px}
+  .p ul{list-style:none;margin-top:16px}
+  .p li{font-size:clamp(13px,1.1vw,16px);line-height:1.5;padding-left:18px;position:relative;margin-bottom:8px}
+  .p li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg{list-style:none;margin-top:6px}
+  ul.seg li{font-size:clamp(13px,1.15vw,17px);line-height:1.5;padding-left:20px;position:relative;margin-bottom:9px}
+  ul.seg li:before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--yellow)}
+  ul.seg li b{color:var(--white)}
+  .grid2{display:grid;gap:30px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:10px}
+  .grid3{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:10px}
+  .colh{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(15px,1.5vw,21px);margin-bottom:14px}
+  .colh small{display:block;color:var(--mute);font-family:var(--body);font-weight:400;font-size:13px;margin-top:6px;line-height:1.4}
+  table.bench{border-collapse:collapse;margin-top:14px;width:100%;max-width:1150px}
+  table.bench th{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:clamp(11px,1vw,14px);text-align:left;padding:12px 14px;border-bottom:2px solid var(--yellow);text-transform:uppercase;letter-spacing:.05em}
+  table.bench td{font-size:clamp(13px,1.1vw,16px);padding:12px 14px;border-bottom:1px solid #232323;line-height:1.45;vertical-align:top}
+  table.bench td:first-child{font-family:var(--head);font-weight:700;color:var(--white)}
+  table.bench .tbd{color:var(--mute)}
+  .twrap{overflow-x:auto;max-width:100%}
+  .note{display:inline-block;background:#0d0d0d;border-left:5px solid var(--yellow);border-radius:0 12px 12px 0;padding:16px 20px;margin-top:24px;font-size:clamp(13px,1.1vw,16px);line-height:1.55;color:#cfcfcf;max-width:80ch}
+  .note b{color:var(--white)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{border:1px solid #3a3a3a;border-radius:100px;color:var(--txt);font-size:clamp(12px,1vw,14px);padding:7px 14px;line-height:1.3}
+  .chip.y{border-color:var(--yellow);color:var(--yellow)}
+  .q{background:var(--card2);border:1px solid #262626;border-radius:18px;padding:24px 28px;margin-bottom:16px}
+  .q .qn{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:13px;letter-spacing:.06em;margin-bottom:10px}
+  .q .qt{font-family:var(--head);font-weight:700;color:var(--white);font-size:clamp(16px,1.7vw,24px);line-height:1.25}
+  .prompter{display:none;margin-top:26px;border-left:5px solid var(--yellow);background:#0d0d0d;padding:20px 24px;border-radius:0 14px 14px 0}
+  body.souffleur .prompter{display:block}
+  .prompter .lbl{font-family:var(--head);font-weight:700;color:var(--yellow);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+  .prompter p{font-size:15px;line-height:1.55;color:#cfcfcf;margin-bottom:9px}
+  .prompter p b{color:var(--white)}
+  .prompter a{color:var(--yellow)}
+  .toggle{position:fixed;right:16px;bottom:16px;z-index:50;background:#151515;border:1px solid #333;color:var(--mute);font-family:var(--head);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:100px;cursor:pointer}
+  body.souffleur .toggle{background:var(--yellow);color:#000;border-color:var(--yellow)}
+  .btn{display:inline-block;background:var(--yellow);color:#000;font-family:var(--head);font-weight:700;font-size:clamp(14px,1.3vw,18px);padding:18px 34px;border-radius:100px;text-decoration:none;margin-top:26px}
+  .lead{font-family:var(--head);font-weight:500;color:var(--yellow);font-size:clamp(15px,1.5vw,21px);line-height:1.35;margin-bottom:20px}
+  .form{margin-top:26px;max-width:1180px}
+  .fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:26px}
+  .fl{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);font-weight:700;margin-bottom:8px}
+  .fi,.fs,.ft{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:12px;color:#fff;
+    font-family:inherit;font-size:16px;line-height:1.5;padding:12px 14px;outline:none}
+  .ft{min-height:84px;resize:vertical}
+  .fi:focus,.fs:focus,.ft:focus{border-color:var(--yellow)}
+  .fs{-webkit-appearance:none;appearance:none;background:#0f0f0f url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23FDD101'><path d='M2 5l5 5 5-5z'/></svg>") no-repeat right 14px center;
+    border:1px solid #2a2a2a;border-radius:12px;color:#fff;font-family:inherit;font-size:16px;padding:12px 38px 12px 14px;outline:none}
+  .fq{margin-bottom:20px}
+  .fq .qq{font-size:19px;font-weight:600;margin-bottom:8px}
+  .fq .qq b{color:var(--yellow);font-family:var(--head);margin-right:10px}
+  .fq .hint{color:var(--mute);font-size:14px;margin:-4px 0 10px;line-height:1.45}
+  .xa{background:#0d0d0d;border:1px solid #262626;border-radius:16px;padding:20px 22px;margin-bottom:26px}
+  .xa .xh{font-family:var(--head);font-weight:700;color:var(--white);font-size:15px;margin-bottom:6px}
+  .xa .xs{color:var(--mute);font-size:13px;margin-bottom:14px;line-height:1.45}
+  .xgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .send{background:var(--yellow);color:#000;border:0;border-radius:14px;font-family:var(--head);font-weight:700;
+    font-size:18px;padding:16px 34px;cursor:pointer}
+  .send:disabled{opacity:.5;cursor:default}
+  .st{margin-top:14px;font-size:15px;color:var(--mute)}
+  .st.ok{color:#7fe08a}.st.err{color:#ff8a8a}
+  .evhead{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+  .evhead .chip{font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  @media screen and (max-width:1100px){
+    .price{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .grid2,.grid3{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:8px}
+    section{padding:7vh 8vw}
+  }
+  @media print{
+    @page{size:1600px 1500px;margin:0}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body{background:#000}
+    section{min-height:auto;height:auto;page-break-inside:avoid;page-break-after:always;padding:70px 90px;border-bottom:none;justify-content:flex-start}
+    .num{top:60px;right:90px}
+    .mark{bottom:60px;right:90px}
+    .toggle{display:none!important}
+    .prompter{display:block!important}
+    table.bench td{padding:8px 12px;font-size:13px}
+    table.bench th{padding:8px 12px;font-size:11px}
+    .chips{margin-top:10px}
+    section.long{page-break-inside:auto}
+  }
+</style>
+</head>
+<body>
+
+<section>
+  <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
+  <div class="kicker"><div class="bar"></div><span>Направление Click Out · Мир детства + CJF Детская мода · 16–18.09.2026</span></div>
+  <h1>Реклама там, где родители<br>уже покупают детям</h1>
+  <p class="sub">Мы размещаем рекламу внутри Ozon, Wildberries и сервисов Яндекса — Маркета, Лавки и Go — и приводим родителя <b>на ваш сайт</b>: в интернет-магазин бренда, на страницу новой коллекции или на посадочную для оптовых покупателей. Это не карточка товара и не ставки за поисковый запрос — это покупатель, который уже зашёл за детскими вещами.</p>
+  <div class="yline">Ozon Performance · Яндекс Urban Ads · WB Media</div>
+  <div class="prompter"><div class="lbl">Что сказать · 30 секунд, потом молчим</div><p><b>Формула:</b> кому помогаем → одну задачу решаем → почему это важно. Дальше вопрос и тишина.</p><p>«Мы агентство Церебро, направление Click Out. Работаем с брендами детских товаров и детской одежды, которым нужны заказы со своего сайта и узнаваемость: ставим рекламу внутри Ozon, Wildberries и сервисов Яндекса, а родитель уходит на ваш сайт. Это аудитория, которая прямо сейчас покупает детям, и за неё почти никто не конкурирует.»</p><p><b>Дальше — вопрос, не продолжение:</b> «А у вас покупатель откуда приходит — опт и сети, маркетплейсы, свой магазин?» И слушаем. Правило 80/20.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">02</div>
+  <div class="kicker"><div class="bar"></div><span>Кто мы</span></div>
+  <h2>Диджитал-агентство<br>«Церебро Диджитал»</h2>
+  <div class="stats">
+    <div class="stat"><div class="n">100+</div><div class="t">проектов Click Out в 29 нишах</div></div>
+    <div class="stat"><div class="n">89 700+</div><div class="t">заявок клиентам направления за два года</div></div>
+    <div class="stat"><div class="n">3 из 3</div><div class="t">сертифицированный партнёр Ozon Performance, Яндекс Urban Ads и WB Media</div></div>
+    <div class="stat"><div class="n">10+ лет</div><div class="t">на российских рекламных площадках, 3000+ клиентов агентства</div></div>
+  </div>
+  <p class="sub" style="margin-top:34px">Шесть направлений под одной крышей: Click Out, ВК Реклама, Яндекс Директ, Авито,
+  внешний трафик для селлеров и Яндекс ПромоСтраницы. За каждым клиентом закреплён специалист по источникам:
+  он ведёт кампании, готовит отчётность и отвечает за стоимость заявки, объём и качество трафика.</p>
+  <div class="prompter"><div class="lbl">Что сказать</div><p>Цифры называем спокойно, без нажима — это фон доверия, а не аргумент. Аргумент будет дальше, в замерах.</p><p><b>Если спросят про имя:</b> ООО «Церебро Диджитал», бренд Церебро Таргет, официальный партнёр VK Рекламы, Яндекса и Авито, сертифицированный партнёр Ozon Performance, Яндекс Urban Ads, WB Media и Яндекс ПромоСтраниц. Команда распределённая, юрлицо в Петербурге.</p><p><b>Не говорим:</b> «мы лидеры рынка», «гарантируем результат». Никогда.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">03</div>
+  <div class="kicker"><div class="bar"></div><span>Продукт</span></div>
+  <h2>Click Out — это выход<br>с маркетплейса на ваш сайт</h2>
+  <div class="cards">
+    <div class="card"><h3>Что делает контекст</h3>
+      <p>Собирает тех, кто уже сформулировал запрос и пошёл искать. Спрос конечный: когда он выбран,
+      каждая следующая заявка дороже предыдущей.</p></div>
+    <div class="card"><h3>Что делает Click In</h3>
+      <p>Продвигает карточку товара внутри площадки. Работает для тех, кто на площадке торгует.
+      Услугам этот формат недоступен.</p></div>
+    <div class="card"><h3>Что делаем мы</h3>
+      <p>Показываем вашу рекламу человеку, который пришёл на площадку за покупками, и приводим его
+      на ваш сайт. Контекст работает с теми, кто вас уже ищет. Мы начинаем раньше — с человеком,
+      который о вас ещё не думал.</p></div>
+  </div>
+  <div class="yline">Бренд с собственным интернет-магазином — прямой формат Click Out; продаёте через карточки WB и Ozon — разговор про внешний трафик на них; только опт и сети — B2B-посадочная и сегмент «Клиент B2B»</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p>Это ключевой экран. Если человек не понял разницу с Директом и с продвижением карточек — дальше можно не идти.</p><p><b>Проверочный вопрос:</b> «Родитель может купить у вас напрямую — на сайте?» Свой магазин, предзаказ коллекции, подписка на размер — Click Out. Только карточки — экран «Если задача шире»: внешний трафик на карточки. Только опт — B2B-посадочная и сегмент «Клиент B2B» на Ozon для закупщиков розницы.</p><p><b>Запрещено:</b> «поднимем ваши карточки», «выведем в топ на WB» — это Click In и внутренняя реклама площадки, не наша история.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">04</div>
+  <div class="kicker"><div class="bar"></div><span>Где работает</span></div>
+  <h2>Три источника — три разные аудитории</h2>
+  <div class="cards">
+    <div class="card"><div class="big">65 млн</div><h3>Ozon Performance</h3>
+      <p>Активные покупатели за 2025 год, в среднем 38 заказов на человека, 83% — вне Москвы и Петербурга.
+      Таргетинг по полу, возрасту, гео, сегментам «покупают / смотрят категорию», B2B, плюс загрузка вашей базы.</p>
+      <p class="cap">Форматы: видеобаннер, баннер на главной и в поиске, размещение в карточке, экран «заказ выполнен»</p></div>
+    <div class="card"><div class="big">до 94 млн</div><h3>Яндекс Urban Ads</h3>
+      <p>Аудитория в месяц по сервисам Яндекса: Маркет, Еда, Лавка, Go, Деливери. Доход средний и выше,
+      интересы, история покупок, подписка Плюс, тарифы такси. CPM от 50 ₽.</p>
+      <p class="cap">Форматы: видеобаннер, горизонтальный баннер, растяжка, вертикальный баннер</p></div>
+    <div class="card"><div class="big">79 млн</div><h3>WB Media</h3>
+      <p>Посетителей, из них 49 млн покупателей. 78% — женщины 25–44. Поведенческие сегменты DMP
+      на основе реальных покупок: поиск, корзина, покупка.</p>
+      <p class="cap">Форматы: баннер на главной, видео 15 секунд, слайдер в личном кабинете, DMP-таргеты</p></div>
+  </div>
+  <div class="foot">Для детских товаров три среды разные: на Ozon — категории «Детские товары» и «Детская одежда и обувь», покупка «на вырост» повторяется каждые несколько месяцев; Urban Ads показывает баннер родителю в Маркете, Лавке и Go — там, где заказывают подгузники, питание и такси с детским креслом; WB — 78% женщин 25–44, то есть мама, которая решает за детский гардероб и игрушки.</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p><b>Сначала кому, потом чем.</b> Бренду одежды и обуви первым ставим WB: женская аудитория 25–44 и DMP по корзине — это мама, которая выбирает размер на сезон. Игрушкам и подаркам — Ozon: категория «Детские товары» плюс экран «Заказ выполнен» перед Новым годом. Товарам для малышей — Urban Ads: Лавка с подгузниками и питанием и Go с детским креслом — самый точный сигнал «в семье маленький ребёнок».</p><p><b>Не складываем аудитории вслух.</b> Если клиент сам сложит — поправляем: это разные среды и разные родители.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">05</div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Ваша ниша в цифрах</span></div>
+  <h2>Родители ушли на маркетплейсы,<br>бренды — вслед за ними</h2>
+  <div class="stats niche"><div class="stat"><div class="n">2,1 трлн ₽</div><div class="t">рынок детских товаров в 2025 году по оценке АИДТ; одежда — 26% рынка, обувь — 11%, игрушки — 254 млрд ₽</div></div><div class="stat"><div class="n">~55%</div><div class="t">продаж детских товаров идёт онлайн: Wildberries держит около четверти рынка, «Детский мир» — 12%, Ozon — 6%</div></div><div class="stat"><div class="n">>50%</div><div class="t">доля российских брендов в детской одежде на Wildberries; продажи детской одежды на Ozon — +67% за три квартала 2025</div></div><div class="stat"><div class="n">−7,9%</div><div class="t">продажи в штуках в 2024 году при среднем чеке +17%, до 3,5 тыс. ₽: рынок растёт ценой, а не объёмом</div></div>
+  </div>
+  <p class="sub" style="margin-top:34px">Онлайн-продажи детских товаров без одежды и обуви — 510 млрд ₽ за год (+21,5%), офлайн стоит на месте — 315 млрд ₽. Родители делят каналы: подгузники и питание заказывают онлайн, одежду, обувь и игрушки чаще выбирают в магазине — бренду нужны и карточка, и полка, и имя, которое ищут по названию. Импорт — 65–90% в зависимости от категории, отечественная лишь одна игрушка из десяти: половина стендов «Мира детства» — китайские фабрики, которые ищут дистрибьютора, а не покупателя. Сезон у ниши жёсткий: игрушки продаются к Новому году, школьная форма — в июле и августе, верхняя одежда — прямо сейчас.</p>
+  <div class="foot">Источники: АИДТ / kommersant.ru (24.07.2026), Infoline-Аналитика / kommersant.ru (19.11.2025), kommersant.ru Review (03.12.2025), rdt-info.ru (07.12.2025), «Деловой профиль» (12.08.2025), BusinesStat / kommersant.ru (2026), онлайн-каталог Экспоцентра icatalog.expocentr.ru (снят 17.09.2026).</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p>Цифры ниши — не аргумент «за нас», а фон: показываем, что мы в теме, и переходим к его цифрам. Формулировка: «а у вас как?».</p><p><b>Никаких чужих цифр раньше цифр клиента.</b> Экран показываем после того, как он сам рассказал про свои продажи.</p><p><b>Половина «Мира детства» — не наши:</b> китайские фабрики контрактного производства. К их стендам не подходим, это экономит половину дня.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">06</div>
+  <div class="kicker"><div class="bar"></div><span>Мир детства + CJF Детская мода · Кто перед нами</span></div>
+  <h2>Три разговора: бренд на стенде,<br>дистрибьютор и байер в проходах</h2>
+  <div class="cards"><div class="card hl"><div class=tag>На стендах</div><h3>Российские бренды игрушек, одежды и товаров для малышей</h3><p>118 российских компаний в «Мире детства» и 75 в CJF: фабрики игрушек, школьной формы, верхней одежды, трикотажа для новорождённых, детской мебели. Продают оптом и в сети, почти все — на WB и Ozon, у сильных есть свой интернет-магазин.</p><p><b>Предлагаем:</b> Click Out на сайт бренда (коллекция, предзаказ, оптовая страница) и внешний трафик на карточки, если продажи идут через площадки. Игрушкам — флайт к Новому году со стартом в середине октября.</p></div><div class="card"><div class=tag>Тоже на стендах</div><h3>Дистрибьюторы, оптовики, контрактное производство</h3><p>«Урал Тойз», MTA, «Стелла+», Mila&Max, «Самсон», «Детское время»: импортируют бренды, продают розничным сетям и селлерам. Плюс фабрики, которые шьют и льют под чужой бренд.</p><p><b>Предлагаем:</b> разговор про B2B — сегмент «Клиент B2B» на Ozon, посадочная для оптовых заявок, Директ по запросам «игрушки оптом»; их собственным брендам — внешний трафик на карточки. Контрактному производству без бренда механику не разворачиваем.</p></div><div class="card"><div class=tag>В проходах</div><h3>Байеры сетей, владельцы магазинов и детских центров, селлеры</h3><p>Закупщики федеральных и региональных сетей, интернет-магазины детских товаров, детские клубы и центры, селлеры WB и Ozon — 10 000+ посетителей за три дня.</p><p><b>Предлагаем:</b> магазину и центру — Click Out с гео на сайт или запись; селлеру — внешний трафик на карточки и ПромоСтраницы; байеру — визитка и кейс, разговор короткий.</p></div>
+  </div>
+  <div class="foot">Половина стендов «Мира детства» — китайские фабрики контрактного производства (140 из 270), к ним не подходим. В CJF 75 из 92 участников — российские швейные фабрики, 41 из них — школьная форма: их сезон уже прошёл, разговор — про следующий и про верхнюю одежду сейчас. Размеченный список участников — <a href="exhibitors.html">exhibitors.html</a>.</div>
+  <div class="prompter"><div class="lbl">Как вести</div><p><b>Первый вопрос у стенда:</b> «Вы под своим брендом или под контракт?» — по ответу видно, есть ли что рекламировать. Второй: «Родитель может купить у вас напрямую — на сайте?» Третий: «Привлечением покупателей кто занимается — своя команда или на подряде?»</p><p><b>Приоритет A в списке:</b> российский бренд, есть сайт с заказом, стенд большой, есть человек по маркетингу. Только опт и контракт — записываем как B2B, механику не разворачиваем.</p><p><b>Не наш:</b> китайская фабрика или бренд, живущий одной карточкой без сайта — второму показываем экран «Если задача шире» и передаём товарному направлению. В поле «Ниша» — «товарка».</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">07</div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Сегменты на площадках</span></div>
+  <h2>Сегменты под бренд детских товаров<br>и детской одежды</h2>
+  <p class="sub">Сегменты собираются из категорий каталогов 1-го и 2-го уровня, поведения (смотрят, кладут в корзину,
+  покупают) и вашей базы. Ниже — стартовая гипотеза для бренда детских товаров или одежды с собственным интернет-магазином; размеры аудиторий снимем в кабинетах после согласования проекта площадками.</p>
+  <div class="grid3">
+    <div><div class="colh">Ozon Performance<small>сегменты «покупают / смотрят категорию», Premium, B2B, свой сегмент</small></div><ul class="seg"><li>Покупают в категории <b>«Детские товары»</b>: игрушки, конструкторы, творчество, товары для новорождённых — под вашу подкатегорию</li><li>Покупают <b>«Детскую одежду и обувь»</b> и «Школу и канцелярию» — покупка на вырост повторяется каждые несколько месяцев</li><li>Заказывали <b>подгузники и детское питание</b> — самый надёжный сигнал «в семье ребёнок до трёх лет»</li><li><b>«Клиент B2B»</b> — компании и ИП, закупающиеся на Ozon: вход к байерам розницы и селлерам для оптовой посадочной</li><li>Экран <b>«Заказ выполнен»</b> после покупки детских товаров — родитель только что оплатил заказ и видит ваш баннер</li><li>Собственный сегмент из базы покупателей (хэш телефонов) и look-alike на неё — повторные заказы на новый размер</li></ul></div>
+    <div><div class="colh">Яндекс Urban Ads<small>интерес и покупки на Маркете, сервисы Еда · Лавка · Go, доход, тарифы</small></div><ul class="seg"><li>Покупают на Маркете в категории <b>«Детские товары»</b> и «Детская одежда»: игрушки, коляски, одежда по сезону</li><li>Заказывают в <b>Лавке</b> подгузники, смеси и детское питание — семья с малышом, показ в момент заказа</li><li>Пользователи <b>Яндекс Go</b> с опцией «детское кресло» и тарифами Комфорт+ — родители с доходом средний и выше</li><li>Готовые сегменты медийки: <b>«Семья и дети»</b>, «Родители дошкольников», «Школьники»</li><li>Подписка Плюс — регулярные заказы на семью</li><li>CRM-ретаргетинг по вашей базе и look-alike на неё</li></ul></div>
+    <div><div class="colh">WB Media<small>DMP-сегменты: поиск, корзина, покупка по каталогу WB</small></div><ul class="seg"><li>Покупают в категории <b>«Детям»</b>: одежда для девочек и мальчиков, обувь, игрушки, школа, товары для малышей</li><li>DMP: <b>клали в корзину</b> товары вашей подкатегории за последние 30 дней — размер выбран, бренд ещё нет</li><li>Покупали <b>школьную форму</b> или верхнюю одежду в прошлом сезоне — покупка повторится в этом</li><li>Интересуются категорией <b>«Для беременных»</b> и «Для новорождённых» — вход в аудиторию на два года вперёд</li><li>Женщины 25–44 — ядро WB, решают за детский гардероб и подарки</li><li>Гео: города присутствия в рознице или регионы, где продаёт ваш дистрибьютор</li></ul></div>
+  </div>
+  <div class="note">Для бренда одежды и обуви сезон важнее интересов: верхняя одежда — сентябрь и октябрь, школьная форма — с июня, флайт ставим за 4–6 недель до пика. Для игрушек главный сезон один — Новый год: старт в середине октября, экран «Заказ выполнен» на Ozon и слайдер WB — в ноябре и декабре.</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p>Спрашиваем, где продукт покупают сейчас: маркетплейс, свой сайт, полка партнёра. Под ответ подсвечиваем один столбец, а не читаем все три.</p><p><b>«Детское кресло» в Go и подгузники в Лавке</b> — сильный аргумент для товаров 0–3: это не «интересуется детьми», это факт наличия ребёнка.</p><p>Размеры аудиторий не называем: они снимаются в кабинете после согласования проекта площадкой. Так и говорим.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section class="long">
+  <div class="num">08</div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Бенчмарки</span></div>
+  <h2>Бенчмарки для предварительного расчёта</h2>
+  <p class="sub">Средние показатели клиентов на сопровождении в направлении Click Out — и строки под сегменты вашей ниши,
+  которые заполняются в аудите из рекламных кабинетов площадок.</p>
+  <div class="twrap"><table class="bench"><tr><th>Источник · сегмент</th><th>Охват</th><th>Показы</th><th>CPM</th><th>CTR</th><th>CPC</th></tr><tr><td>Ozon Performance · средние клиентов СРК</td><td>—</td><td>—</td><td>224 ₽</td><td>0,64%</td><td>35,11 ₽</td></tr><tr><td>Ozon Performance · Детские товары + Игрушки, 90 дней</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Ozon Performance · Детская одежда и обувь / Школа</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Ozon Performance · Клиент B2B (байеры и селлеры)</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Яндекс Urban Ads · средние клиентов СРК</td><td>—</td><td>—</td><td>149 ₽</td><td>0,56%</td><td>26,45 ₽</td></tr><tr><td>Яндекс Urban Ads · Маркет · Детские товары и одежда</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Яндекс Urban Ads · Лавка: подгузники и питание</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>Яндекс Urban Ads · Go: детское кресло, Комфорт+</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>WB Media · средние клиентов СРК</td><td>—</td><td>—</td><td>200 ₽</td><td>0,96%</td><td>20,93 ₽</td></tr><tr><td>WB Media · Детям → Игрушки + корзина 30 дней</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>WB Media · Детям → Одежда / Школьная форма</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr><tr><td>WB Media · Женщины 25–44, гео присутствия</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td><td class="tbd">после аудита</td></tr></table></div>
+  <div class="chips"><div class="chip y">WB Media: 78% аудитории — женщины 25–44, слайдер на главной CTR 0,5–0,8% при CPM около 230 ₽</div><div class="chip y">Обзор Ozon по 53 проектам клиентов Click Out: 746 792 клика, CTR 0,67%, CPC 31 ₽</div><div class="chip y">Urban Ads по клиентам на сопровождении: CTR 0,56%, CPC 26,45 ₽, окупаемость до 299%</div></div>
+  <div class="foot">Аудитории площадок не складываются: это три разные среды, и человек может быть сразу в нескольких.
+  Три источника нужны ради частоты касаний и разных сценариев показа, а не ради суммы охвата. Показатели по вашей нише уточняются после сбора бенчмарков по выбранным сегментам.</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p>Таблица — не обещание, а рамка для расчёта. Средние — по всем нишам клиентов на сопровождении; строки под нишу заполняются в аудите из кабинетов.</p><p><b>Если спросят «сколько будет стоить заказ»:</b> «CPC по площадкам у наших клиентов 20–35 ₽, стоимость заказа зависит от вашего сайта и чека. Посчитаем в аудите на ваших конверсиях.»</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">09</div>
+  <div class="kicker"><div class="bar"></div><span>Чем отличаемся</span></div>
+  <h2>Мы доказываем, что спрос<br>создала реклама</h2>
+  <p class="sub">Обычный отчёт агентства показывает показы, клики и заявки по последнему клику.
+  Он не отвечает на главный вопрос собственника: <b>сколько из этих обращений пришло бы и без рекламы.</b>
+  Мы отвечаем — четырьмя замерами.</p>
+  <div class="rows"><div class="row"><div class="l">Search lift</div><div class="r">Прирост поиска по вашему имени. Снимаем частотность в Вордстате до старта, во время рекламы и месяц после, отдельно ведём контрольный запрос категории — чтобы отделить ваш рост от роста рынка. Для бренда детских товаров контрольный запрос — категория: «школьная форма для мальчика», «зимний комбинезон детский», «деревянный конструктор».</div></div><div class="row"><div class="l">Brand lift</div><div class="r">Прирост знания и намерения. Опрос двух групп до кампании и после, город с рекламой против сопоставимого города без неё. Часто это первая в жизни компании цифра узнаваемости. Вопрос «какие марки детской одежды [игрушек] вы знаете?» родителям в городах флайта и контрольных.</div></div><div class="row"><div class="l">Sales lift</div><div class="r">Прирост в деньгах. Гео-эксперимент: районы или города с рекламой против сопоставимых без неё, по выгрузке из вашей учётной системы. Меряет не мнения, а кассу. У бренда — заказы с сайта и продажи карточек по регионам флайта; у производителя с оптом — отгрузки дистрибьюторам и сетям по тем же регионам.</div></div><div class="row"><div class="l">Post-view</div><div class="r">Эффект показов без клика. Человек увидел баннер, не кликнул, а через две недели пришёл сам — в обычной аналитике это «прямой заход». Мы показываем этот слой отдельно: недельные ряды непереходного трафика на календаре флайта. Для детских товаров окно длиннее, чем у еды: игрушку берут к дате, одежду — к сезону, ставим 14–30 дней.</div></div></div>
+  <div class="foot">Часть замеров — наш собственный контур, он доступен на любом бюджете. Исследования площадок
+  (Brand Lift Study, Sales Lift, post-view отчёт) подключаются от своих порогов и работают как подтверждение
+  от третьей стороны, а не от подрядчика.</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p><b>Это точка отличия.</b> Тут не рассказываем — спрашиваем: «А вы сейчас как отличаете заказы, которые создала реклама, от тех, что пришли бы и так?» Честный ответ почти всегда «никак». Пауза. Дальше — этот экран.</p><p><b>Бренду с оптом:</b> sales lift считаем по отгрузкам в сети и дистрибьюторам по регионам флайта против контрольных — это те же данные, что вы даёте байерам.</p><p><b>Границы:</b> замеры обещаем, влияние на стоимость заказа замеряем и показываем, но не обещаем. «Медийка снизит ДРР» — под запретом.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">10</div>
+  <div class="kicker"><div class="bar"></div><span>Предварительный аудит · Что вы получите за 3–5 дней</span></div>
+  <h2>Что проверим у детского бренда<br>до первого рубля</h2>
+  <div class="rows"><div class="row"><div class="l">Спрос по имени</div><div class="r">Частотность запросов с вашим брендом в Вордстате за 12 месяцев и контрольная категория: это «ноль» замера, от которого считаем search lift.</div></div><div class="row"><div class="l">Конкуренты на площадках</div><div class="r">Кто из брендов вашей категории уже размещает медийку на Ozon, в Urban Ads и WB, с какими форматами, посадочными и в какой сезон.</div></div><div class="row"><div class="l">Согласование категории</div><div class="r">Детские товары площадки согласуют с документами: сертификаты ЕАС, маркировка «Честный знак» для одежды и обуви, ограничения на образы детей в рекламе по ст. 6 ФЗ «О рекламе». До старта проверяем, что пропустит модерация.</div></div><div class="row"><div class="l">Сайт и путь к заказу</div><div class="r">Скорость, мобильная версия, размерная сетка и наличие, корзина, оплата, доставка по регионам. Заказы должны учитываться: без счёта заказов тест не имеет смысла.</div></div><div class="row"><div class="l">Аналитика</div><div class="r">Метрика и пиксели площадок, цели на заказ и звонок, связка с CRM или 1С — чтобы считать до выручки и отгрузок, а не до клика.</div></div><div class="row"><div class="l">Сезонность и окно</div><div class="r">Игрушки — Новый год, школьная форма — июль и август, верхняя одежда — сентябрь и октябрь, товары для малышей — круглый год. Флайт ставим за 4–6 недель до пика, а не в пик.</div></div></div>
+  <div class="yline">Замер «до» снимаем в рамках бесплатного аудита — ещё до подписания договора</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p>Аудит — документ на 20+ экранов по образцу с выставки ОТДЫХ: что услышали, ниша в цифрах, площадки, сегменты, бенчмарки, план замеров, условия. Пример можно показать: <a href="https://omenikarch.github.io/Preliminary_audit/">omenikarch.github.io/Preliminary_audit</a>.</p><p>Если сайт — витрина без корзины (так у большинства фабрик на CJF) — говорим прямо: «сначала посадочная, потом трафик». Это сохраняет отношения и их бюджет.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">11</div>
+  <div class="kicker"><div class="bar"></div><span>Как начинаем</span></div>
+  <h2>Четыре шага, из них первый —<br>бесплатный</h2>
+  <div class="cards">
+    <div class="card"><h3>1 · Аудит</h3>
+      <p>Бесплатно, 3–5 дней. Смотрим вашу нишу на площадках, конкурентов, стоимость входа и снимаем замер «до»:
+      сколько людей сейчас ищут вас по имени.</p></div>
+    <div class="card"><h3>2 · Условия теста</h3>
+      <p>До старта письменно фиксируем, какой результат означает «продолжаем», а какой — «останавливаемся».
+      Критерии формулируете вы, мы вносим их в договор.</p></div>
+    <div class="card"><h3>3 · Тест</h3>
+      <p>Тестовый период 6–8 недель: на меньшем сроке результат ещё не читается. Смотрим цифры вместе
+      на 2, 4 и 6–8 неделе и на каждой встрече решаем: идём дальше, что-то меняем — либо останавливаемся.</p></div>
+    <div class="card"><h3>4 · Сопровождение</h3>
+      <p>Недельная и месячная отчётность, а в конце цикла — не отчёт о показах, а документ с решением:
+      что дала реклама, что делать дальше и на каких цифрах это основано.</p></div>
+  </div>
+  <div class="yline">Точка выхода известна до входа — поэтому вход безопасен</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p><b>Продаём первый шаг, а не контракт.</b> На выставке цель — договориться об аудите, он ни к чему не обязывает и бесплатный. Всё остальное решается после его цифр.</p><p><b>Сильная фраза:</b> «Мы заранее договариваемся, при каком результате вы нас остановите. Агентство, которое само называет условия своей остановки, не боится проверки.»</p><p><b>Бонусы площадок:</b> у Ozon бонусами от оборота оплачивается до 99% медийного размещения. Говорим только если клиент спросил про экономию — как факт, не как обещание.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">12</div>
+  <div class="kicker"><div class="bar"></div><span>Условия работы</span></div>
+  <h2>Сопровождение: чем больше<br>источников, тем ниже цена</h2>
+  <div class="price">
+    <div class="p"><h3>Один источник</h3><div class="now">50 000 ₽</div><div class="per">в месяц за сопровождение</div>
+      <ul><li>Ozon, Urban Ads или WB на выбор</li><li>Полный аналитический контур</li><li>Недельная и месячная отчётность</li></ul></div>
+    <div class="p"><h3>Два источника</h3><div class="was">100 000 ₽</div><div class="now">80 000 ₽</div><div class="per">в месяц · скидка 20% на тестовый период</div>
+      <ul><li>Любые два из трёх</li><li>Сравнение источников на ваших данных</li><li>Перераспределение бюджета между ними</li></ul></div>
+    <div class="p best"><div class="tag">Максимум охвата</div><h3>Три источника</h3><div class="was">150 000 ₽</div><div class="now">90 000 ₽</div><div class="per">в месяц · скидка 40% на тестовый период</div>
+      <ul><li>Ozon + Urban Ads + WB</li><li>Разные среды и сценарии показа</li><li>Частота касаний, которую не даёт один канал</li></ul></div>
+  </div>
+  <div class="rows" style="margin-top:26px">
+    <div class="row"><div class="l">Рекламный бюджет</div><div class="r">От 120 000 ₽ в месяц на каждый источник. Это порог, ниже которого площадка не набирает объём для выводов.</div></div>
+    <div class="row"><div class="l">Срок контракта</div><div class="r">От шести месяцев. Медийный эффект читается на горизонте 6–8 недель, а решения по бюджету принимаются по кварталу.</div></div>
+    <div class="row"><div class="l">Что входит</div><div class="r">Ведение кампаний, креативы, аналитический контур, замеры, отчётность и документ-решение в конце цикла.</div></div>
+    <div class="row"><div class="l">Ведёте сами</div><div class="r">Кабинет в агентском аккаунте Церебро с менеджерским доступом и кэшбек от квартального расхода: Ozon до 18%, Urban Ads до 13%, WB до 16%. С сопровождением кэшбек не совмещается.</div></div>
+  </div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p><b>Считаем вслух:</b> три источника — это 360 000 ₽ рекламного бюджета плюс 90 000 ₽ сопровождения. Один источник — 120 000 ₽ бюджета плюс 50 000 ₽. Не прячем полную сумму, клиент всё равно её посчитает.</p><p><b>Скидка — на тестовый период</b>, и это надо произносить прямо. Дальше цена возвращается к базовой, и мы обсуждаем её отдельно, уже на цифрах теста.</p><p><b>Если бюджет ниже порога:</b> не продаём. Говорим честно: «на таком объёме площадка не даст материал для выводов, вы потратите деньги и не получите ответа». Это сохраняет отношения и репутацию.</p><p><b>Кэшбек при самостоятельном ведении</b> начинается от ~360 тыс. ₽ расхода в квартал на Ozon и Urban и от 1,25 млн ₽ на WB — мелкому клиенту его не обещаем; ему рабочий формат — сопровождение. С сопровождением кэшбек не совмещается.</p><p><b>Скидку вне прайса не обещаем.</b> Такие решения принимает только руководитель направления.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">13</div>
+  <div class="kicker"><div class="bar"></div><span>Как это выглядит на практике</span></div>
+  <h2>Кейсов в детских товарах у нас нет —<br>показываем модель на соседних нишах</h2>
+  <div class="cards"><div class="card"><div class="big">320%</div><h3>ПиццаФабрика · федеральный бренд, Click Out на сайт</h3><p>5 779 заказов и более 2 млн ₽ выручки за 8 месяцев на Ozon; ROI вырос с 20% до 58%, затем до 320%. CTR видеобаннеров 0,4%+ при ориентире площадки 0,33%.</p><p class=cap>Та же механика для бренда с интернет-магазином: баннер на площадке → ваш сайт → заказ</p></div><div class="card"><div class="big">ROI ×4</div><h3>GRASS · FMCG, внешний трафик на карточки</h3><p>Бытовая и автохимия: 420 млн+ охвата, 3,4 млн+ переходов, 72 900+ дочитываний ПромоСтраниц; связка-лидер держится полтора года, склад распродан полностью.</p><p class=cap>Направление внешнего трафика для селлеров — модель для бренда, который живёт карточками WB и Ozon</p></div><div class="card"><div class="big">×5–7</div><h3>Косметика для волос · карточка на WB</h3><p>С 10 до 48–76 продаж в день: 5 500+ продаж и 3,85 млн ₽ за 8 месяцев при переходе 4–5,5 ₽. Товар с чеком, сравнимым с детской одеждой и игрушками.</p><p class=cap>Внешний трафик на карточку — тот же формат для детского бренда на маркетплейсе</p></div>
+  </div>
+  <div class="foot">Показатели по нишам разные, и мы не переносим чужой результат на ваш бизнес.
+  Что можно обещать до старта — честный замер «до» и понятные условия остановки.</div>
+  <div class="prompter"><div class="lbl">Что сказать</div><p><b>Кейс подбираем под модель собеседника</b>, а не рассказываем все три. Бренду с интернет-магазином — ПиццаФабрика как модель Click Out. Производителю с карточками — GRASS и косметика для волос как модель внешнего трафика. Оптовику — ни одного кейса, разговор про B2B-сегмент.</p><p><b>Про детские товары говорим честно:</b> «в этой нише кейсов у нас пока нет, поэтому первый шаг — аудит и тест с замером, а не обещание». Никогда: «у вас будет так же».</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">14</div>
+  <div class="kicker"><div class="bar"></div><span>Если задача шире Click Out</span></div>
+  <h2>Бренду детских товаров:<br>что ещё умеет агентство</h2>
+  <p class="sub">Если продажи идут через карточки на Wildberries и Ozon, а не через сайт, — это другое направление агентства, и у него свои цифры. Тот же менеджер, тот же договор.</p>
+  <div class="rows"><div class="row"><div class="l">Внешний трафик на карточки</div><div class="r">VK Ads, посевы AdBlogger, ПромоСтраницы и Директ ведут покупателя на вашу карточку WB или Ozon. Одежда и товары для дома — в списке сильных категорий; цель — ДРР до 20%; переход 3–20 ₽ в зависимости от канала. От 100 000 ₽/мес вместе с работой, сопровождение до 5% при росте оборота. Карточке нужны 10–15 положительных отзывов до старта.</div></div><div class="row"><div class="l">Яндекс ПромоСтраницы</div><div class="r">Статья в РСЯ как прогрев: «как выбрать зимний комбинезон», «чем занять ребёнка в три года», история фабрики — и бесшовный переход на карточку. Переход 3–10 ₽, 70–75% дочитавших идут на карточку. Работает системно, не разовыми флайтами.</div></div><div class="row"><div class="l">ВК Реклама</div><div class="r">Посевы в родительских и городских сообществах для игрушек и одежды с чеком 400–800 ₽; таргет VK Ads с гео до района — для детских центров, магазинов и сетей филиалов. Комиссия 15% (не менее 50 000 ₽) до 500 000 ₽ бюджета.</div></div><div class="row"><div class="l">Яндекс Директ</div><div class="r">Категорийный спрос «купить школьную форму», «детская кроватка с маятником», «игрушки оптом от производителя»: Поиск, РСЯ, ЕПК; запуск за 5 рабочих дней, тест 30 дней. Работа 50 000 ₽/мес при бюджете до 500 000 ₽.</div></div><div class="row"><div class="l">Авито</div><div class="r">Товары в магазин на Авито, оптовые запросы, франшизы детских центров и магазинов — спрос сформирован, клики от 1 ₽. Под ключ от 100 000 ₽; селлеров маркетплейсов на Авито не ведём.</div></div></div>
+  <div class="foot">Единый порог по всем направлениям — рекламный бюджет от 100 000 ₽ в месяц (кроме самостоятельного запуска на Авито от 5 000 ₽).
+  Клиент — ИП или юрлицо; кабинеты и креативы принадлежат клиенту, кабинеты открытые.</div>
+  <div class="prompter"><div class="lbl">Как вести</div><p><b>Сюда листаем</b>, когда выяснилось: сайта нет, продажи через карточки. Не продаём сами — квалифицируем: категория, оборот на площадке, отзывы (нужно 10–15 положительных), бюджет.</p><p><b>Чеки называем как рамку</b>, не как смету. Точные условия — после брифа у руководителя направления.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section class="long">
+  <div class="num">15</div>
+  <div class="kicker"><div class="bar"></div><span>Снимаем ответы прямо здесь</span></div>
+  <h2>Прежде чем что-то предлагать,<br>мы разбираемся</h2>
+  <p class="sub">Пять вопросов из рабочего опросника под бренд детских товаров или детской одежды. Записывайте ответы своими словами — строка уйдёт
+  в общую таблицу, и на созвоне вы продолжите с того же места. Полный опросник из 15 вопросов —
+  <a href="https://omenikarch.github.io/qnr-page/" target="_blank" rel="noopener">omenikarch.github.io/qnr-page</a>.</p>
+
+  <div class="form">
+    <div class="fgrid">
+      <div style="grid-column:span 2"><label class="fl" for="source">Выставка *</label>
+        <select class="fs" id="source"><option value="">— выберите —</option><option>ОТДЫХ Leisure · 02–04.09</option><option>WorldFood · 15–18.09</option><option selected>Мир детства + CJF · 16–18.09</option><option>Дентал-Экспо · 21–24.09</option><option>ПаркЗоо · 23–25.09</option><option>BUYBRAND · 29.09–01.10</option><option>InterCHARM · 14–17.10</option><option>РАППА Осень · 21–22.10</option><option>PIR Expo · 26–29.10</option><option value="__other__">Другое — вписать</option></select>
+        <input class="fi" id="source_other" placeholder="название мероприятия" style="display:none;margin-top:10px"></div>
+      <div><label class="fl" for="client">Клиент *</label><input class="fi" id="client" placeholder="Название компании"></div>
+      <div><label class="fl" for="site">Сайт *</label><input class="fi" id="site" placeholder="адрес посадочной — или «нет сайта»"></div>
+      <div><label class="fl" for="niche">Ниша *</label><input class="fi" id="niche" placeholder="например: фабрика школьной формы, опт + WB + свой магазин"></div>
+      <div><label class="fl" for="contact">Контакт</label><input class="fi" id="contact" placeholder="имя, должность, телефон или мессенджер"></div>
+    </div>
+
+    <div class="xa">
+      <div class="xh">Экспресс-квалификация у стенда</div>
+      <div class="xs">Четыре переключателя вместо длинного разговора. Итог добавится к полю «Ниша» одной строкой — по нему руководитель сразу видит, наш ли это контакт.</div>
+      <div class="xgrid"><div><label class="fl" for="x_model">Модель продаж</label><select class="fs" id="x_model"><option value="">—</option><option>свой интернет-магазин / D2C</option><option>маркетплейсы WB / Ozon</option><option>только опт и сети</option><option>контрактное производство</option></select></div><div><label class="fl" for="x_site">Сайт с заказом</label><select class="fs" id="x_site"><option value="">—</option><option>сайт с заказом есть</option><option>сайт-витрина без заказа</option><option>сайта нет</option></select></div><div><label class="fl" for="x_budget">Бюджет на рекламу</label><select class="fs" id="x_budget"><option value="">—</option><option>бюджет до 100 тыс./мес</option><option>бюджет 100–300 тыс./мес</option><option>бюджет 300 тыс.+/мес</option><option>бюджет не назвал</option></select></div><div><label class="fl" for="x_role">Кто перед нами</label><select class="fs" id="x_role"><option value="">—</option><option>владелец / комдир</option><option>маркетинг / e-com</option><option>стендист</option><option>закупщик / другое</option></select></div></div>
+    </div>
+
+    <div class="fq"><div class="qq"><b>01</b>«Расскажите, как к вам сейчас приходит покупатель — через опт и сети, маркетплейсы или свой магазин?»</div><div class="hint">Доли каналов и что приходит «само», по имени бренда</div><textarea class="ft" id="a1" placeholder="ответ клиента"></textarea></div><div class="fq"><div class="qq"><b>02</b>«Что в продвижении бренда устраивает, а что хотели бы поменять?»</div><div class="hint">Боль дословно — цитата уйдёт в КП без перевода</div><textarea class="ft" id="a2" placeholder="ответ клиента"></textarea></div><div class="fq"><div class="qq"><b>03</b>«Как ведёт себя стоимость заказа или ДРР на площадках за последний год?»</div><div class="hint">Растёт при росте бюджета — горячий спрос выбран</div><textarea class="ft" id="a3" placeholder="ответ клиента"></textarea></div><div class="fq"><div class="qq"><b>04</b>«Родители ищут вас по названию бренда? Есть цифры знания?»</div><div class="hint">Нет цифр — заходим с замера знания и поиска по имени</div><textarea class="ft" id="a4" placeholder="ответ клиента"></textarea></div><div class="fq"><div class="qq"><b>05</b>«Реклама у вас считается до заказа или до выручки и отгрузок?»</div><div class="hint">Считает до заказа — разрыв между рекламой и кассой</div><textarea class="ft" id="a5" placeholder="ответ клиента"></textarea></div>
+
+    <div class="fq"><div class="qq"><b>06</b>Договорились о встрече</div>
+      <input class="fi" id="meeting" placeholder="когда клиенту удобно — дата, время, созвон или офис"></div>
+
+    <div style="margin-top:26px">
+      <button class="send" id="send">Отправить в таблицу</button>
+      <div class="st" id="status"></div>
+    </div>
+  </div>
+  <div class="prompter"><div class="lbl">Как вести · правила у стенда</div><p><b>Один вопрос за раз.</b> Задал — молчи и слушай. Клиент говорит 80% времени, вы 20%. Вопросы задаём вразброс, по ходу разговора, а не списком.</p><p><b>Каждую ветку закрывай причиной:</b> «как думаете, с чем это связано?» Ответ про причину ценнее самой жалобы — это готовые слова для КП.</p><p><b>Экспресс-квалификация</b> — четыре переключателя, заполняются за десять секунд после разговора. Итог уходит в поле «Ниша» одной строкой: по нему видно, наш ли контакт, без чтения ответов.</p><p><b>Закрывайте на встречу, пока стоите рядом:</b> «Соберу по вам аудит за три-пять дней и покажу цифры. Когда вам удобно созвониться на двадцать минут?» Дату вписывайте сразу, не «потом уточним».</p><p><b>Отправляйте строку до того, как отойдёт следующий человек.</b> Черновик хранится в браузере планшета, но контакт без записи в таблице не существует.</p><p><b>Куда ведёт каждый вопрос:</b> 01 — модель продаж и хрупкость потока · 02 — боль дословно · 03 — растёт при росте бюджета, значит спрос выбран · 04 — есть ли цифры знания, вход в замеры · 05 — считает до заказа, а решает по кассе, вход в гео-эксперимент.</p><p><b>Норма дня:</b> 12 контактов · 6 квалифицированных · 3 назначенные встречи. Три зала, 362 стенда — идём по списку A в exhibitors.html, а не по рядам.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">16</div>
+  <div class="kicker"><div class="bar"></div><span>Если вы агентство или частный специалист</span></div>
+  <h2>Тринадцать рекламных кабинетов<br>в одном окне</h2>
+  <p class="sub">Мы не только ведём рекламу сами. Через Церебро агентства и специалисты открывают
+  кабинеты своим клиентам и <b>получают часть открученного бюджета обратно — до 18%</b>.</p>
+  <div class="yline" style="margin-top:26px;font-size:clamp(14px,1.35vw,19px);line-height:1.6">
+  VK Ads · VK AdBlogger · Telega.in · Яндекс Директ · Telegram Ads · Яндекс Бизнес · Авито Реклама ·
+  Яндекс ПромоСтраницы · SberAds · Bidfox · Hybrid · Яндекс Навигатор · Ozon Performance</div>
+  <div class="cards" style="margin-top:30px">
+    <div class="card"><h3>Единое окно</h3><p>Софт, в котором кабинет создаётся, доступы выдаются, а деньги перекидываются между кабинетами
+      в несколько кликов. Открытие бесплатное, комиссии за пополнение нет.</p></div>
+    <div class="card"><h3>Документы без нервов</h3><p>Обмен через ЭДО, закрывающие в срок. Отдельно: 3% сбора нет.</p></div>
+    <div class="card"><h3>Живая поддержка</h3><p>Отвечаем по рекламе, помогаем пройти модерацию, разбираем проблемы с документами и сбоями.
+      При откруте от 1,5 млн — чат с персональным менеджером.</p></div>
+    <div class="card"><h3>Аудит и обучение</h3><p>Разбор кампаний практикующими специалистами: точки роста, ошибки, что менять в стратегии.
+      Плюс обучающие курсы для вашей команды.</p></div>
+  </div>
+  <div class="prompter"><div class="lbl">Как вести · агентство вместо клиента</div><p><b>Листайте сюда сразу</b>, как только выяснилось, что перед вами подрядчик, а не рекламодатель: остальные экраны ему не про него.</p><p><b>Крючок один — возврат.</b> Прямой кабинет площадки его не даёт вообще. Всё остальное (софт, документы, поддержка) — причины остаться, а не причины прийти.</p><p><b>Процент наугад не называем.</b> «До 18%» — верхняя граница, конкретная цифра зависит от оборота и площадки. Говорим: «посчитаю под ваш объём и пришлю».</p><p><b>Сроки запуска не обещаем.</b> Каждый проект площадка согласовывает персонально, бриф обязателен, кабинет только на ИП или юрлицо.</p><p><b>В форме в поле «Ниша» пишем «агентство»</b> — это другой тип контакта, и разбирается он отдельно.</p></div>
+  <div class="mark">Ц</div>
+</section>
+<section>
+  <div class="num">17</div>
+  <div class="kicker"><div class="bar"></div><span>Следующий шаг</span></div>
+  <h1>Начнём с бесплатного аудита</h1>
+  <p class="sub">Три–пять дней, ноль обязательств. На выходе вы получаете цифры: сколько родителей ищут ваш бренд по имени сегодня, кто из брендов категории уже стоит на площадках, во сколько обойдётся вход и какой замер мы предлагаем поставить до старта — с учётом вашего сезона.</p>
+  <div class="yline">Церебро Таргет · направление Click Out<br>clickout.cerebrotarget.ru · t.me/cerebro_manager</div>
+  <div class="prompter"><div class="lbl">Что сделать до конца дня</div><p><b>Контакт в мессенджер сразу</b>, пока стоите рядом: короткое резюме разговора одним сообщением.</p><p><b>Первое касание — в течение 48 часов:</b> 18–20.09, вечером после площадки или в выходные дома. Около 80% выставочных контактов не обрабатываются вообще — это самое дешёвое преимущество.</p><p><b>В CRM до 12:00 следующего дня</b>, тег «Мир детства 2026» или «CJF 2026». Контакта нет в CRM — контакта не было.</p><p><b>Встречу ставим в течение 14 дней.</b> Окна созвонов: вечера 21–25.09 (Дентал и ПаркЗоо в том же Крокусе), 26–27.09 и 02–13.10. Игрушкам напоминаем: флайт к Новому году надо согласовать с площадкой до середины октября.</p><p><b>Полный скрипт работы на выставке</b> — подход к стенду, выход на ЛПР, возражения, закрытие: <a href="../script.html">script.html</a>. Список участников с приоритетами: <a href="exhibitors.html">exhibitors.html</a>.</p></div>
+  <div class="mark">Ц</div>
+</section>
+
+<button class="toggle" id="toggle">Суфлёр</button>
+<script>
+  const t = document.getElementById('toggle');
+  t.addEventListener('click', () => document.body.classList.toggle('souffleur'));
+  document.addEventListener('keydown', e => {
+    if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (e.key === 's' || e.key === 'ы') document.body.classList.toggle('souffleur');
+  });
+</script>
+<script>
+const WEBHOOK_URL="https://script.google.com/macros/s/AKfycbxk6iyhU5V-6hkcZbyMODE1YIqrjGNJxz6tjhiiXn7PuxB-W2iWnuBEkfz0kcIpAR3D/exec";
+const EVENT_SOURCE='Мир детства + CJF · 16–18.09';
+const DRAFT_KEY="expo_draft_mirdetstva";
+const MAP={'a1': 'B1', 'a2': 'B2', 'a3': 'B4', 'a4': 'B13', 'a5': 'B15'};
+const XKEYS=['model', 'site', 'budget', 'role'];
+const FIELDS=["source","source_other","client","site","niche","contact","meeting",...Object.keys(MAP),...XKEYS.map(k=>"x_"+k)];
+const KEEP=["source","source_other"];
+function draftSave(){ try{const d={};FIELDS.forEach(k=>{const e=document.getElementById(k);if(e)d[k]=e.value});
+  localStorage.setItem(DRAFT_KEY,JSON.stringify(d));}catch(e){} }
+function draftLoad(){ try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||"{}");
+  FIELDS.forEach(k=>{const e=document.getElementById(k);if(e&&d[k])e.value=d[k]});}catch(e){} }
+const srcSel=document.getElementById("source"), srcOther=document.getElementById("source_other");
+function srcToggle(){ srcOther.style.display = srcSel.value==="__other__" ? "block" : "none"; }
+srcSel.addEventListener("change",()=>{ srcToggle(); draftSave(); });
+draftLoad(); if(!srcSel.value) srcSel.value=EVENT_SOURCE; srcToggle();
+document.addEventListener("input",draftSave);
+document.addEventListener("change",draftSave);
+function expressLine(){
+  const parts=[]; XKEYS.forEach(k=>{const e=document.getElementById("x_"+k); if(e&&e.value) parts.push(e.value);});
+  return parts.join(", ");
+}
+document.getElementById("send").addEventListener("click",async()=>{
+  const st=document.getElementById("status"), btn=document.getElementById("send");
+  const val=id=>document.getElementById(id).value.trim();
+  const client=val("client"), site=val("site"); let niche=val("niche");
+  const source = srcSel.value==="__other__" ? val("source_other") : srcSel.value;
+  if(!source){ st.className="st err"; st.textContent="Выберите выставку — без неё строку не разложить по мероприятиям."; srcSel.focus(); return; }
+  if(!client||!site||!niche){ st.className="st err";
+    st.textContent="Заполните «Клиент», «Сайт» и «Ниша». Нет сайта — так и напишите, это тоже ответ.";
+    document.getElementById(!client?"client":(!site?"site":"niche")).focus(); return; }
+  const answers={}; let filled=0;
+  Object.keys(MAP).forEach(id=>{ const v=val(id); if(v){ answers[MAP[id]]=v; filled++; } });
+  if(!filled){ st.className="st err"; st.textContent="Запишите хотя бы один ответ клиента."; return; }
+  const xl=expressLine(); if(xl) niche = niche + " · экспресс: " + xl;
+  btn.disabled=true; st.className="st"; st.textContent="Отправляю…";
+  try{
+    await fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({client,niche,site,contact:val("contact"),meeting:val("meeting"),
+        answers,source,sentAt:new Date().toISOString()})});
+    st.className="st ok"; st.textContent="Готово: «"+client+"» ушёл в таблицу ("+filled+" из "+Object.keys(MAP).length+" ответов). Форма очищена, выставка сохранена — можно принимать следующего.";
+    FIELDS.filter(k=>KEEP.indexOf(k)===-1).forEach(k=>{const e=document.getElementById(k); if(e) e.value="";});
+    draftSave();
+  }catch(err){
+    st.className="st err"; st.textContent="Не ушло: "+err+". Ответы сохранены в черновике — повторите при связи.";
+  }
+  btn.disabled=false;
+});
+</script>
+</body>
+</html>
