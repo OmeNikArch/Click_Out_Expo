@@ -74,7 +74,7 @@ const TAGS=[...new Set(DATA.flatMap(r=>r.tags))].filter(t=>t!=="иностр.").
 const tagsRow=document.getElementById("tags");
 TAGS.forEach(t=>{const b=document.createElement("button");b.className="chip";b.dataset.f="tag";b.dataset.v=t;b.textContent=t;tagsRow.appendChild(b);});
 function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
-function host(u){return u.replace(/^https?:\/\//,"").replace(/^www\./,"").replace(/\/.*$/,"")}
+function host(u){return u.replace(/^https?:[/][/]/,"").replace(/^www[.]/,"").replace(/[/].*$/,"")}
 function render(){
   const q=state.q.trim().toLowerCase();
   const rows=DATA.filter(r=>{
