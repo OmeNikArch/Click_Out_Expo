@@ -50,7 +50,16 @@ def tags_of(r):
     if ECOM.search(r["descr"]): tags.append("свой интернет-магазин")
     return tags or ["прочее"], b2c_products
 
+# ручные поправки по названию: потребительские бренды, которых правила отнесли к дилерам, и дилеры, попавшие в A
+FORCE_A = ["хайджин технолоджис", "стэйноу", "дабл вайт", "ксилибон", "раудентал", "ратадент", "наири-х", "нанодент"]
+FORCE_B = ["мегадента", "корал - дистриб", "нск рус", "евразия денталъ"]
+
 def priority(r, tags):
+    n = r["name"].lower()
+    if any(k in n for k in FORCE_A) and r["site"]:
+        if "B2C: бренд для пациентов" not in tags: tags.insert(0, "B2C: бренд для пациентов")
+        return "A"
+    if any(k in n for k in FORCE_B): return "B"
     if "иностр." in tags or "пресса" in tags or "ассоциация" in tags: return "C"
     if not r["site"]: return "C"
     if "B2C: бренд для пациентов" in tags or "клиника / сеть" in tags: return "A"
