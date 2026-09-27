@@ -18,6 +18,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from data import EVENTS, COMMON  # noqa: E402
+from presenter_short import build_short  # noqa: E402
 
 ROOT = pathlib.Path(__file__).parent.parent
 
@@ -686,12 +687,20 @@ def build_hub():
 
 
 if __name__ == "__main__":
+    # каталоги участников для поиска клиента в короткой версии: выставка → ../<slug>/exhibitors.json
+    lists = {ev["source"]: f"../{ev['slug']}/exhibitors.json" for ev in EVENTS if (ROOT / ev["slug"] / "exhibitors.json").exists()}
     for ev in EVENTS:
         d = ROOT / ev["slug"]
         d.mkdir(exist_ok=True)
-        for presenter, fname in ((True, "presenter.html"), (False, "index.html")):
+        # с ключом "short": presenter.html — короткая версия для стенда, полная дека — presenter-full.html
+        full_name = "presenter-full.html" if ev.get("short") else "presenter.html"
+        for presenter, fname in ((True, full_name), (False, "index.html")):
             html = build(ev, presenter=presenter)
             (d / fname).write_text(html, encoding="utf-8")
             print(f"OK {ev['slug']}/{fname} ({len(html)} bytes)")
+        if ev.get("short"):
+            html = build_short(ev, SOURCE_OPTIONS, WEBHOOK_URL, lists)
+            (d / "presenter.html").write_text(html, encoding="utf-8")
+            print(f"OK {ev['slug']}/presenter.html — короткая ({len(html)} bytes)")
     (ROOT / "events.html").write_text(build_hub(), encoding="utf-8")
     print("OK events.html")
