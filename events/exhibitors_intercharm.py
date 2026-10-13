@@ -81,6 +81,23 @@ NONE_CATEGORIES = {
     "Дизайн интерьера",
 }
 
+# B2B-товар: магазин на сайте у таких компаний продаёт сырьё, упаковку, оборудование — это не
+# потребительский канал, поэтому корзина на сайте не выводит их из none.
+B2B_GOODS = {
+    "Сырье и ингредиенты для производства",
+    "Разработка рецептур",
+    "Лабораторные услуги",
+    "Производство упаковки",
+    "Производство этикетки",
+    "Производственное оборудование",
+    "Парикмахерское оборудование (сушки; мойки)",
+    "Оборудование для маникюра и педикюра (аппараты; лампы)",
+    "Специализированная мебель",
+}
+
+# Подтверждённые WB/Ozon из таблицы Андрея (проверка 09.10.2026): все — сегмент mp.
+ANDREY_MP = {r["id"]: r for r in json.load(open(pathlib.Path(__file__).parent / "intercharm_andrey_mp.json", encoding="utf-8"))["rows"]}
+
 # Явный B2B-профиль по тексту каталога — узкие формулировки, чтобы не задеть потребительские бренды
 # («натуральные ингредиенты», «экологичная упаковка», «современное оборудование в салоне» — не B2B).
 B2B_TEXT = re.compile(
@@ -549,14 +566,30 @@ def segment_for(row, country, prio, site_info):
     has_a_cat = any(c in A_CATEGORIES for c in cats)
     service = bool(SERVICE_TEXT.search(text)) or bool(SERVICE_NAME.search(name)) or (bool(site_info.get("service")) and not has_a_cat)
     foreign = bool(country) and country not in EAEU
+    # Свой потребительский бренд + свой канал (магазин, заказ, приложение) — не none, даже если компания
+    # ещё и контрактный производитель или оптовик (Никита, 13.10.2026: пример — Dance Legend).
+    goods_b2b = any(c in B2B_GOODS for c in cats)
+    consumer_channel = has_a_cat and (own or app) and not goods_b2b
+    andrey = ANDREY_MP.get(row.get("_id"))
+    if andrey:
+        mp = sorted(set(mp) | {{"WB": "wb", "Ozon": "ozon"}[m.strip()] for m in (andrey["mp"] or "").split("/") if m.strip() in ("WB", "Ozon")},
+                    key=["ozon", "wb", "ym", "megamarket", "lamoda", "goldapple"].index)
 
-    if mp:
+    if andrey:
+        seg = "mp"
+        reason = "Андрей проверил 09.10: есть на " + (andrey["mp"] or "WB/Ozon") + (" (" + andrey["source"] + ")" if andrey["source"] else "")
+        if own: reason += "; свой магазин тоже есть — всё равно Андрей"
+    elif mp:
         seg = "mp"
         src = []
         if site_info.get("mp"): src.append("сайт ссылается на " + ", ".join(site_info["mp"]))
         if cat["mp"]: src.append("в описании каталога упомянуты " + ", ".join(cat["mp"]))
         reason = "присутствие на МП подтверждено: " + "; ".join(src)
         if own: reason += "; свой магазин тоже есть — всё равно Андрей"
+    elif b2b and consumer_channel and not re.search(r"\boem\b|\bodm\b|оборудован|аппарат", b2b, re.I):
+        seg = "both"
+        reason = ("свой потребительский бренд и свой канал продаж (" + ("магазин/заказ" if own else "приложение") +
+                  "), хотя в профиле есть B2B (" + b2b + "); ссылок на МП не найдено — уточнить у стенда")
     elif b2b:
         seg = "none"
         reason = "B2B-профиль (" + b2b + ") — ни Никите, ни Андрею"
@@ -766,6 +799,7 @@ def load():
         full = " ".join(x for x in [about, descr] if x)
         city = txt(contacts.get("city"))
         out.append({
+            "id": r.get("_id") or "",
             "hall": h,
             "stand": r.get("stand") or "",
             "name": name,

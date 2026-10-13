@@ -1,0 +1,320 @@
+{
+ "about": "Подтверждённые WB/Ozon из таблицы Андрея Плешакова (docs.google.com/spreadsheets/d/1FbrjXZ5vF4n8rh3G_4tdQLByq1GixPwdXKsHSaZ-CWI, лист «Компании», проверка 09.10.2026). Снимок 13.10.2026.",
+ "rows": [
+  {
+   "id": "6a0732f663aa2ec91678531f",
+   "name": "1WIN",
+   "mp": "WB",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6a0732f663aa2ec91678531f",
+   "site": "https://www.wildberries.ru/seller/50708"
+  },
+  {
+   "id": "6a42760881e2ea78990c658a",
+   "name": "7DAYS",
+   "mp": "WB / Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6a42760881e2ea78990c658a",
+   "site": "https://my7days.ru"
+  },
+  {
+   "id": "6a452bab81e2ea78990d3e26",
+   "name": "ART-VISAGE",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/product/art-visage-zhidkaya-pomada-dlya-gub-love-matte-60-1022720677/",
+   "site": ""
+  },
+  {
+   "id": "6a3ce8fc81e2ea78990b97a0",
+   "name": "LIBREDERM",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/category/librederm-dlya-ruk/",
+   "site": "https://www.librederm.ru"
+  },
+  {
+   "id": "6a27a3fb81e2ea7899092b11",
+   "name": "MIXIT",
+   "mp": "WB / Ozon",
+   "source": "https://promo.mixit.ru/",
+   "site": "https://mixit.ru/"
+  },
+  {
+   "id": "6aacf9161e9e40fcf3d3bff5",
+   "name": "PERMEGI",
+   "mp": "WB / Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6aacf9161e9e40fcf3d3bff5\nhttps://permegi.ru",
+   "site": "https://permegi.ru"
+  },
+  {
+   "id": "6a468f6b81e2ea78990da595",
+   "name": "Semily",
+   "mp": "WB / Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6a468f6b81e2ea78990da595\nhttps://semily.ru/",
+   "site": "https://semily.ru/"
+  },
+  {
+   "id": "6a477d4a81e2ea78990dcd70",
+   "name": "SYNERGETIC",
+   "mp": "WB / Ozon",
+   "source": "https://synergetic.ru/\nhttps://synergetic.ru/adresa-magazinov/",
+   "site": "https://synergetic.ru/"
+  },
+  {
+   "id": "6a43769881e2ea78990c9450",
+   "name": "TENSURA",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/category/cp-1-bc-intense-nourishing-shampoo-version20/",
+   "site": "https://tensura.ru/"
+  },
+  {
+   "id": "6a3ce51b81e2ea78990b94f3",
+   "name": "Ами Бьюти",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/category/kremy-dlya-litsa-6562/dr-f5-87379452/",
+   "site": "https://amibeauty.ru/"
+  },
+  {
+   "id": "6a479ad581e2ea78990de9a2",
+   "name": "Амида",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/seller/amidaglobal/krasota-i-zdorove-6500/",
+   "site": "https://amidaworld.ru/"
+  },
+  {
+   "id": "6a1ec297abda71a4e02052e1",
+   "name": "БЕЛИТА",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/seller/kosmetika-belita-viteks/",
+   "site": "https://belita.by/"
+  },
+  {
+   "id": "6a1ec345abda71a4e0205372",
+   "name": "ВИТЭКС",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/seller/kosmetika-belita-viteks/brand/viteks-141233381/",
+   "site": "https://www.vitex.by"
+  },
+  {
+   "id": "6a216c44abda71a4e0208d26",
+   "name": "Гельтек",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/seller/geltek/",
+   "site": "https://geltek.ru/cosmetics/"
+  },
+  {
+   "id": "6a6b450781e2ea78991a0078",
+   "name": "Группа компаний Qharisma",
+   "mp": "WB / Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6a6b450781e2ea78991a0078",
+   "site": "https://qharisma.group/"
+  },
+  {
+   "id": "6a27d0f581e2ea789909341d",
+   "name": "ЛИМОНИ / LIMONI",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/product/limoni-podarochnyy-nabor-dlya-litsa-s-kollagenom-koreya-538271028/",
+   "site": "https://www.limoni.ru"
+  },
+  {
+   "id": "6a427b3581e2ea78990c6b5d",
+   "name": "МайМьюз",
+   "mp": "WB",
+   "source": "https://mymuse.pro",
+   "site": "https://mymuse.pro"
+  },
+  {
+   "id": "6a2169aaabda71a4e0208c27",
+   "name": "Народные промыслы",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/seller/narodnye-promysly/",
+   "site": "https://www.narodkosmetika.ru/"
+  },
+  {
+   "id": "6a47a2b281e2ea78990df027",
+   "name": "ООО \"БИГ\"",
+   "mp": "WB / Ozon",
+   "source": "https://www.bigcom.ru/",
+   "site": "https://www.bigcom.ru/"
+  },
+  {
+   "id": "6a68588c81e2ea7899179f03",
+   "name": "Фитокосметик",
+   "mp": "WB",
+   "source": "https://fitocosmetic.ru/gde-kupit/",
+   "site": "https://fitocosmetic.ru/"
+  },
+  {
+   "id": "6a216d0eabda71a4e0208db6",
+   "name": "Флоресан",
+   "mp": "Ozon",
+   "source": "https://www.ozon.ru/product/floresan-litso-bez-problem-loson-salitsilovyy-protivovospalitelnyy-dlya-litsa-boltushka-25ml-f-65-3468672890/",
+   "site": "https://www.floresan.ru"
+  },
+  {
+   "id": "6a47d2d181e2ea78990e0d99",
+   "name": "be.sage",
+   "mp": "WB / Ozon",
+   "source": "https://besage.store/",
+   "site": "https://besage.store/"
+  },
+  {
+   "id": "6aabc69210762d77a1b0d382",
+   "name": "ENELLIN",
+   "mp": "WB / Ozon",
+   "source": "https://enellin-cosmetic.ru",
+   "site": "https://enellin-cosmetic.ru"
+  },
+  {
+   "id": "6a9576bb3458addbca9d30b7",
+   "name": "GUANGZHOU HUAXIN BIOTECHNOLOGY CO., LTD.",
+   "mp": "WB / Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6a9576bb3458addbca9d30b7",
+   "site": ""
+  },
+  {
+   "id": "6a1ec3e0abda71a4e02053cd",
+   "name": "Алабино",
+   "mp": "WB / Ozon",
+   "source": "https://hplb.ru/",
+   "site": "https://hplb.ru/"
+  },
+  {
+   "id": "6a46922681e2ea78990da6cd",
+   "name": "АЛЬТЕРХИМ-ПРО",
+   "mp": "WB / Ozon",
+   "source": "https://alterhimpro.ru",
+   "site": "https://alterhimpro.ru"
+  },
+  {
+   "id": "6a47ab3481e2ea78990dfbe8",
+   "name": "Арома Дзен",
+   "mp": "WB / Ozon",
+   "source": "https://aroma-dzen.ru/",
+   "site": "https://aroma-dzen.ru/"
+  },
+  {
+   "id": "6a1ea38aabda71a4e0204ab2",
+   "name": "АСКМАСК",
+   "mp": "WB / Ozon",
+   "source": "https://askmask.ru",
+   "site": "https://askmask.ru"
+  },
+  {
+   "id": "6a50d5b781e2ea7899100995",
+   "name": "Астибьюти",
+   "mp": "WB",
+   "source": "https://astibeauty.info",
+   "site": "https://astibeauty.info"
+  },
+  {
+   "id": "6a46748381e2ea78990d9a36",
+   "name": "Вертекс",
+   "mp": "WB / Ozon",
+   "source": "https://vertex-pro.ru",
+   "site": "https://vertex-pro.ru"
+  },
+  {
+   "id": "6a3ce45281e2ea78990b9468",
+   "name": "Дигидон",
+   "mp": "WB / Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6a3ce45281e2ea78990b9468",
+   "site": "https://www.digidon.ru"
+  },
+  {
+   "id": "6a4529bf81e2ea78990d3caf",
+   "name": "ЕвроТек",
+   "mp": "WB / Ozon",
+   "source": "https://evropro.com",
+   "site": "https://evropro.com, https://www.mister-dez.ru"
+  },
+  {
+   "id": "6a468c4981e2ea78990da4cf",
+   "name": "ИМБИАН",
+   "mp": "WB / Ozon",
+   "source": "https://imbian.ru/",
+   "site": "https://www.imbian.ru"
+  },
+  {
+   "id": "6aad1abd1e9e40fcf3d45b0e",
+   "name": "ИП Масленникова Людмила Викторовна",
+   "mp": "WB",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6aad1abd1e9e40fcf3d45b0e",
+   "site": "https://www.wildberries.ru/brands/955658-lumabb"
+  },
+  {
+   "id": "6a44bb0781e2ea78990ce0ac",
+   "name": "КЕРАСИС",
+   "mp": "WB / Ozon",
+   "source": "https://kerasys.ru:443/",
+   "site": "https://www.kerasys.ru"
+  },
+  {
+   "id": "6a3c041981e2ea78990b8207",
+   "name": "Компания ФармОушен",
+   "mp": "WB / Ozon",
+   "source": "https://www.pharmocean.ru/",
+   "site": "https://www.pharmocean.ru/"
+  },
+  {
+   "id": "6aabc49e10762d77a1b0c5be",
+   "name": "Космецевтика DR.SADYKOVA",
+   "mp": "WB",
+   "source": "https://drsadykova.pro/",
+   "site": "https://drsadykova.pro/"
+  },
+  {
+   "id": "6aa171413458addbcaadfabd",
+   "name": "ЛАБОРАТОРИЯ С.А.ПОПРАВКО",
+   "mp": "WB / Ozon",
+   "source": "https://popravko.com/",
+   "site": "https://www.popravko.com"
+  },
+  {
+   "id": "6aaaa0ea10762d77a1af4493",
+   "name": "МЕРИДИАН",
+   "mp": "WB / Ozon",
+   "source": "https://meridian110.ru/",
+   "site": "https://meridian110.ru/"
+  },
+  {
+   "id": "6a75a96381e2ea78991fc22b",
+   "name": "ОК-ЛОСК",
+   "mp": "WB / Ozon",
+   "source": "https://tavelazoo.ru/",
+   "site": "https://tavelazoo.ru/"
+  },
+  {
+   "id": "6a45400c81e2ea78990d44c2",
+   "name": "Оскар Бьюти",
+   "mp": "WB / Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6a45400c81e2ea78990d44c2",
+   "site": "https://www.ozon.ru/seller/oscar-beauty/"
+  },
+  {
+   "id": "6a3cfdee81e2ea78990ba67c",
+   "name": "ПРОФИ ХОМ",
+   "mp": "Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6a3cfdee81e2ea78990ba67c",
+   "site": "https://профихом.рф/"
+  },
+  {
+   "id": "6abb5c46bcbc2722c467794f",
+   "name": "Руслан Татьянин",
+   "mp": "WB / Ozon",
+   "source": "https://ruslantatyanin.shop/",
+   "site": "https://ruslantatyanin.shop/"
+  },
+  {
+   "id": "6aa3b1aa3458addbcab02301",
+   "name": "Сделано пчелой",
+   "mp": "WB / Ozon",
+   "source": "https://catalog.expovr.ru/catalog/exhibitor/6aa3b1aa3458addbcab02301\nhttps://xn--80ahdbujcojcir9f.xn--p1ai",
+   "site": "https://сделанопчелой.рф"
+  },
+  {
+   "id": "6a477ab381e2ea78990dcb0a",
+   "name": "ЭКО-Мегаполис",
+   "mp": "WB / Ozon",
+   "source": "https://ecomegapolis.ru/",
+   "site": "https://ecomegapolis.ru/"
+  }
+ ]
+}

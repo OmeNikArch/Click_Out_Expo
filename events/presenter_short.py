@@ -176,10 +176,12 @@ PAGE = """<!doctype html>
   <ul class="dots">__FACTS__</ul>
   <p class="more">Полная дека с суфлёром: <a href="presenter-full.html">presenter-full.html</a> · клиенту ссылкой: <a href="index.html">index.html</a> ·
   участники списком: <a href="exhibitors.html">exhibitors.html</a></p>
+__PITCHALT__
 </section>
 
 <section class="pane" id="p-form">
   <h2>Опрос у стенда</h2>
+__MGRHTML__
   <div class="fld"><label class="fl" for="source">Выставка</label>
     <select class="fs" id="source">__SRC_OPTS__<option value="__other__">Другое — вписать</option></select>
     <input class="fi" id="source_other" placeholder="название мероприятия" style="display:none;margin-top:8px"></div>
@@ -225,6 +227,7 @@ PAGE = """<!doctype html>
 
 <section class="pane" id="p-map">
   <h2>Карта стендов</h2>
+__MAPLINK__
   <div class="legend"><span><i style="background:var(--A)"></i>Эшелон A</span><span><i style="background:var(--B)"></i>Эшелон B</span>
     <span><i style="background:var(--C)"></i>Эшелон C</span><span><i style="background:var(--V)"></i>Уже были</span><span>★ — идти первыми</span></div>
   <div class="mapnote" id="mapnote"></div>
@@ -528,6 +531,7 @@ function showTab(t){
 }
 document.querySelectorAll(".tab").forEach(x=>x.addEventListener("click",()=>showTab(x.dataset.t)));
 
+__MGRJS__
 /* ---------- старт ---------- */
 const srcSel=$("source"), srcOther=$("source_other");
 function srcToggle(){srcOther.style.display=srcSel.value==="__other__"?"block":"none";}
@@ -595,6 +599,61 @@ def _chips(target, opts, single=False):
             + "</div>")
 
 
+def _pitch_html(pt):
+    """Питч другого менеджера в той же разметке, что основной."""
+    h = [f'<h2>{pt.get("title", "Питч за минуту")}</h2>',
+         '<div class="lbl">Открытие · 30 секунд</div>',
+         f'<div class="say">{pt["opener"]}<div class="hook">{pt["hook"]}</div></div>']
+    for lbl, key in (("Три вопроса вместо презентации", "value"), ("Предложение", "offer")):
+        if pt.get(key):
+            h.append(f'<div class="lbl">{lbl}</div><ul class="dots">' + "".join(f"<li>{v}</li>" for v in pt[key]) + "</ul>")
+    h.append('<div class="lbl">Цель контакта — договориться</div><ol class="goal">' + "".join(f"<li>{v}</li>" for v in pt["goal"]) + "</ol>")
+    h.append('<div class="lbl">Возражения</div>' + "".join(f'<details class="ob"><summary>{q}</summary><p>{a}</p></details>' for q, a in pt["objections"]))
+    if pt.get("facts"):
+        h.append('<div class="lbl">Если спросят</div><ul class="dots">' + "".join(f"<li>{v}</li>" for v in pt["facts"]) + "</ul>")
+    if pt.get("more"):
+        h.append(f'<p class="more">{pt["more"]}</p>')
+    return "\n  ".join(h)
+
+
+def mgr_tokens(ev, sh):
+    """Выбор «Кто заполняет» (ev["managers"]), питч второго менеджера (sh["alt"]) и ссылка на план залов
+    (ev["plan_map"]). Выбор хранится на устройстве в localStorage "expo_manager" — его же читает map.html.
+    При отправке к источнику дописывается « · <менеджер>»: по нему строки уходят на вкладки таблицы."""
+    out = {}
+    if ev.get("plan_map"):
+        out["__MAPLINK__"] = (f'  <p class="mapnote"><a href="{ev["plan_map"]}"><b>Официальный план залов с метками →</b></a> '
+                              'цвет — чей клиент, фиолетовый — уже подходили. Ниже — схема по номерам стендов.</p>\n')
+    mg = ev.get("managers") or []
+    if not mg:
+        return out
+    chips = "".join(f'<button class="chip" type="button" data-m="mgr" data-mgr="{html.escape(m)}">{html.escape(m)}</button>' for m in mg)
+    out["__MGRHTML__"] = (f'  <div class="fld" id="mgrbox"><label class="fl">Кто заполняет *</label><div class="chips" id="mgr">{chips}</div>'
+                          '<div class="stt mute" id="mgrhint"></div></div>\n')
+    alt = sh.get("alt") or {}
+    if alt:
+        out["__PITCHALT__"] = "".join(f'<div class="pitchalt" data-for-mgr="{html.escape(m)}" hidden>\n  {_pitch_html(pt)}\n</div>\n' for m, pt in alt.items())
+    owner = ev.get("seg_owner") or {}
+    out["__MGRJS__"] = ("/* ---------- кто заполняет ---------- */\n"
+        "const MGR_KEY=\"expo_manager\", MGRS=" + json.dumps(mg, ensure_ascii=False) + ", SEG_OWNER=" + json.dumps(owner, ensure_ascii=False) + ";\n"
+        "let MGR=LS.get(MGR_KEY,\"\"); if(MGRS.indexOf(MGR)<0) MGR=\"\";\n"
+        "function mgrRender(){\n"
+        "  document.querySelectorAll(\"#mgr .chip\").forEach(b=>b.classList.toggle(\"on\",b.dataset.mgr===MGR));\n"
+        "  $(\"mgrhint\").textContent=MGR?\"Анкеты уходят на вкладку «\"+EVENT_SOURCE.split(\"·\")[0].trim()+\" — \"+MGR+\"» таблицы. Выбор запомнен на этом телефоне.\":\"Выберите себя один раз — телефон запомнит.\";\n"
+        "  const alt=[...document.querySelectorAll(\".pitchalt\")], mine=alt.find(a=>a.dataset.forMgr===MGR);\n"
+        "  [...$(\"p-pitch\").children].forEach(e=>{if(!e.classList.contains(\"pitchalt\"))e.hidden=!!mine;});\n"
+        "  alt.forEach(a=>a.hidden=a!==mine);\n"
+        "  if(typeof renderCard===\"function\") renderCard();\n"
+        "}\n"
+        "$(\"mgr\").addEventListener(\"click\",e=>{const b=e.target.closest(\".chip\");if(!b)return;MGR=b.dataset.mgr;LS.set(MGR_KEY,MGR);mgrRender();});\n"
+        "$(\"send\").addEventListener(\"click\",e=>{if(!MGR){e.stopImmediatePropagation();const st=$(\"status\");st.className=\"st err\";st.textContent=\"Выберите, кто заполняет: \"+MGRS.join(\" или \")+\".\";$(\"mgrbox\").scrollIntoView({block:\"center\"});}},true);\n"
+        "const _post=post; post=function(p){const q=Object.assign({},p);if(MGR&&String(q.source||\"\").indexOf(\" · \"+MGR)<0&&srcKey(q.source)===srcKey(EVENT_SOURCE))q.source=q.source+\" · \"+MGR;return _post(q);};\n"
+        "const _renderCard=renderCard; renderCard=function(){_renderCard();const own=SEL&&SEL.seg?SEG_OWNER[SEL.seg]:\"\";\n"
+        "  if(SEL&&MGR&&own&&own!==MGR){$(\"cardD\").textContent=\"Это клиент: \"+own+\" — возьмите контакт и передайте. \"+$(\"cardD\").textContent;}};\n"
+        "mgrRender();\n")
+    return out
+
+
 def build_short(ev, source_options, webhook, lists):
     """ev — словарь события с ключом "short"; lists — {source: "../slug/exhibitors.json"} для выставок с каталогом."""
     sh = ev["short"]
@@ -659,6 +718,12 @@ def build_short(ev, source_options, webhook, lists):
         rep["__PREPSEG__\n"] = ""
         rep["__MAPSEGLINE__\n"] = ""
         rep["__POPV__\n"] = ""
+    mt = mgr_tokens(ev, sh)
+    for k in ("__MGRHTML__", "__PITCHALT__", "__MAPLINK__", "__MGRJS__"):
+        if mt.get(k):
+            rep[k] = mt[k]
+        else:
+            rep[k + "\n"] = ""   # выставки без менеджеров — байт-в-байт как раньше
     out = PAGE
     for k, v in rep.items():
         out = out.replace(k, v)
