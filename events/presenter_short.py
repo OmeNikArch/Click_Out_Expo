@@ -219,6 +219,8 @@ __MGRHTML__
   <div class="fld"><label class="fl" for="meeting">Договорились</label>
     <div class="chips" data-for="meeting">__MCHIPS__</div>
     <input class="fi" id="meeting" placeholder="что и когда — дата созвона или встречи"></div>
+  <div class="fld"><label class="fl" for="comment">Комментарий (необязательно)</label>
+    <textarea class="ft" id="comment" placeholder="например: передать Никите, клиент не на маркетплейсах"></textarea></div>
 
   <button class="send" id="send">Отправить в таблицу</button>
   <div class="st" id="status"></div>
@@ -430,7 +432,7 @@ function syncChips(box){const ta=$(box.dataset.for);const parts=ta.value.split(/
   box.querySelectorAll(".chip").forEach(b=>b.classList.toggle("on",parts.indexOf(b.dataset.v.replace(/:$/,":"))>=0||(box.dataset.single==="1"&&ta.value===b.dataset.v)));}
 
 /* ---------- черновик ---------- */
-const FIELDS=["source","source_other","client","site","niche","site_new","niche_new","contact","meeting",...Object.keys(QCODES),...XKEYS.map(k=>"x_"+k)];
+const FIELDS=["source","source_other","client","site","niche","site_new","niche_new","contact","meeting","comment",...Object.keys(QCODES),...XKEYS.map(k=>"x_"+k)];
 function draftSave(){const d={};FIELDS.forEach(k=>{const e=$(k);if(e)d[k]=e.value});d._sel=SEL?SEL.name:"";LS.set(DRAFT_KEY,d);}
 function draftLoad(){const d=LS.get(DRAFT_KEY,{});FIELDS.forEach(k=>{const e=$(k);if(e&&d[k])e.value=d[k]});return d;}
 document.addEventListener("input",e=>{if(e.target.id!=="client")draftSave();});
@@ -462,7 +464,8 @@ $("send").addEventListener("click",async()=>{
   const tags=[];
   if(SEL){tags.push("стенд "+(SEL.stand||"—"),"эшелон "+SEL.prio+(SEL.top?"★":""));} else if(ROWS.length) tags.push("нет в каталоге");
   const xl=XKEYS.map(k=>val("x_"+k)).filter(Boolean);
-  niche=[niche||"не записана"].concat(tags).join(" · ")+(xl.length?" · экспресс: "+xl.join(", "):"");
+  const comment=val("comment");
+  niche=[niche||"не записана"].concat(tags).join(" · ")+(xl.length?" · экспресс: "+xl.join(", "):"")+(comment?" · комментарий: "+comment:"");
   const p={client,niche,site,contact:val("contact"),meeting:val("meeting"),answers,source,sentAt:new Date().toISOString()};
   btn.disabled=true; st.className="st"; st.textContent="Отправляю…";
   const vs=LS.get(VISIT_KEY,[]); vs.push({client,stand:SEL?SEL.stand:"",site,source,t:p.sentAt,contact:p.contact,meeting:p.meeting}); LS.set(VISIT_KEY,vs);
