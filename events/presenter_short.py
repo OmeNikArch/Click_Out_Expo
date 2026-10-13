@@ -230,7 +230,7 @@ PAGE = """<!doctype html>
   <div class="mapnote" id="mapnote"></div>
   <div class="fbar" id="fbar">
     <button class="chip on" data-m="all">все</button><button class="chip" data-m="A">A</button><button class="chip" data-m="B">B</button>
-    <button class="chip" data-m="C">C</button><button class="chip" data-m="left">ещё не были</button><button class="chip" data-m="V">уже были</button></div>
+    <button class="chip" data-m="C">C</button><button class="chip" data-m="clickout">Никита</button><button class="chip" data-m="mp">Андрей</button><button class="chip" data-m="both">оба</button><button class="chip" data-m="unknown">не определено</button><button class="chip" data-m="left">ещё не были</button><button class="chip" data-m="V">уже были</button></div>
   <div id="map"></div>
   <div class="route"><div class="lbl">Маршрут: A и ★, где ещё не были</div><div id="route"></div></div>
   <div class="sync" id="sync"></div>
@@ -245,6 +245,8 @@ const SHEET_CSV="https://docs.google.com/spreadsheets/d/__SHEET__/gviz/tq?tqx=ou
 const EVENT_SOURCE=__EVENT_SOURCE__;
 const LISTS=__LISTS__;
 const EMBED={source:__EVENT_SOURCE__,rows:__EMBED__};
+const SEG_LABELS={clickout:"Никита · Click Out",mp:"Андрей · внешний трафик",both:"Оба: Андрей + Никите тоже",none:"Никому",unknown:"Не определено"};
+const SEG_PITCH={clickout:"Питч: Click Out — реклама на маркетплейсах ведёт на собственный сайт/магазин/запись.",mp:"Питч: внешний трафик из Директа, ЯПС и VK на карточки/брендовые листинги маркетплейсов.",both:"Основной владелец Андрей: компания на маркетплейсах. Есть свой магазин — Никите тоже.",none:"Низкий приоритет: нет своего канала продаж и маркетплейсов.",unknown:"Проверить у стенда: есть ли собственный заказ и/или карточки на маркетплейсах."};
 const QCODES=__QCODES__;
 const XKEYS=__XKEYS__;
 const DRAFT_KEY="expo_short_draft___SLUG__", VISIT_KEY="expo_visits", OUTBOX_KEY="expo_outbox";
@@ -281,6 +283,7 @@ function parseStand(s){
 let ROWS=[], CUR_SRC="";
 function prep(rows){return rows.map((r,i)=>{const st=parseStand(r.stand);return {i,name:r.name,stand:r.stand||"",code:st.code,row:st.row,n:st.n,
   site:r.site||"",prio:r.prio||"C",top:!!r.top,hall:r.hall||"",meta:r.meta||"",tags:r.tags||[],descr:r.descr||"",
+  seg:r.seg||"",seg_evidence:r.seg_evidence||"",mp:r.mp||[],own_shop:!!r.own_shop,app:!!r.app,
   k:key(r.name),nw:norm(r.name),tw:tr(norm(r.name)),h:host(r.site)}});}
 async function loadList(src){
   CUR_SRC=src; ROWS=[];
@@ -380,8 +383,8 @@ function renderCard(){
   c.classList.add("on");
   const r=SEL;
   $("cardH").innerHTML=`<span class="pr ${r.prio}">${r.prio}</span>${esc(r.name)}${r.top?" ★":""}`;
-  $("cardM").innerHTML=[`стенд ${esc(r.stand||"—")}`, esc(r.hall), esc(r.meta), r.site?`<a href="${esc(r.site.startsWith("http")?r.site:"http://"+r.site)}" target="_blank" rel="noopener">${esc(r.h)}</a>`:"сайта нет"].filter(Boolean).join(" · ");
-  $("cardD").textContent=r.descr||""; $("cardD").classList.remove("open");
+  $("cardM").innerHTML=[`стенд ${esc(r.stand||"—")}`, esc(r.hall), r.seg?esc(SEG_LABELS[r.seg]||r.seg):"", r.mp&&r.mp.length?"МП: "+esc(r.mp.join(", ")):"", r.own_shop?"свой магазин":"", r.app?"приложение":"", r.site?`<a href="${esc(r.site.startsWith("http")?r.site:"http://"+r.site)}" target="_blank" rel="noopener">${esc(r.h)}</a>`:"сайта нет"].filter(Boolean).join(" · ");
+  $("cardD").textContent=[SEG_PITCH[r.seg]||"", r.seg_evidence||"", r.descr||""].filter(Boolean).join(" "); $("cardD").classList.remove("open");
 }
 function renderSeen(){
   const box=$("seen"); let vs=[];
@@ -488,14 +491,15 @@ function renderMap(){
   });
   const vCount=ROWS.filter(vis).length;
   const bd=$("bdV"); bd.hidden=!vCount; bd.textContent=vCount;
-  const show=c=>MF==="all"||(MF==="V"?c.v:MF==="left"?!c.v:(c.prio===MF||c.items.some(r=>r.prio===MF)));
+  const show=c=>MF==="all"||(MF==="V"?c.v:MF==="left"?!c.v:["clickout","mp","both","unknown","none"].includes(MF)?c.items.some(r=>r.seg===MF):(c.prio===MF||c.items.some(r=>r.prio===MF)));
   const keys=Object.keys(rows).sort((a,b)=>a==="—"?1:b==="—"?-1:a.localeCompare(b,"en",{numeric:true}));
   $("map").innerHTML=ROWS.length?keys.map(k=>`<div class="mrow"><div class="rl">${esc(k.replace("·"," ")+(k.indexOf("·")>=0?"xx":""))}</div><div class="cells">${
     rows[k].sort((a,b)=>a.n-b.n).map(c=>`<button class="cell ${c.v?"V":c.prio}${c.top?" top":""}${show(c)?"":" dim"}" data-g="${esc(c.row+"|"+c.code)}">${esc(c.code==="—"?"?":c.code)}${c.items.length>1?`<span class="n">×${c.items.length}</span>`:""}</button>`).join("")
   }</div></div>`).join(""):'<p class="mapnote">Для этой выставки каталога участников нет.</p>';
   $("map").groups=groups;
-  const c={A:0,B:0,C:0}; ROWS.forEach(r=>c[r.prio]=(c[r.prio]||0)+1);
-  $("mapnote").innerHTML=ROWS.length?`${ROWS.length} участников: A — ${c.A||0}, B — ${c.B||0}, C — ${c.C||0}. Уже были: <b>${vCount}</b>. Схема разложена по номерам стендов (ряд = буква и сотня номера): официальный план зала организатор не публикует, так что это ориентир по рядам, а не чертёж.`:"";
+  const c={A:0,B:0,C:0}, s={clickout:0,mp:0,both:0,unknown:0,none:0}; ROWS.forEach(r=>{c[r.prio]=(c[r.prio]||0)+1;if(r.seg)s[r.seg]=(s[r.seg]||0)+1});
+  const segLine=ROWS.some(r=>r.seg)?` Никита — ${s.clickout||0}, Андрей — ${s.mp||0}, оба — ${s.both||0}, не определено — ${s.unknown||0}.`:"";
+  $("mapnote").innerHTML=ROWS.length?`${ROWS.length} участников: A — ${c.A||0}, B — ${c.B||0}, C — ${c.C||0}.${segLine} Уже были: <b>${vCount}</b>. Схема разложена по номерам стендов (ряд = буква и сотня номера): официальный план зала организатор не публикует, так что это ориентир по рядам, а не чертёж.`:"";
   const route=ROWS.filter(r=>(r.prio==="A"||r.top)&&!vis(r)).sort((a,b)=>(b.top-a.top)||a.row.localeCompare(b.row,"en",{numeric:true})||a.n-b.n);
   $("route").innerHTML=route.length?route.map(r=>`<div class="it" data-i="${r.i}"><span class="s">${esc(r.stand||"—")}</span><span class="pr ${r.prio}">${r.prio}</span><span class="nm">${esc(r.name)}${r.top?" ★":""}</span></div>`).join(""):'<p class="mapnote">Все из эшелона A пройдены.</p>';
   $("sync").textContent=SHEET_ERR||(SHEET_AT?`Отметки из таблицы обновлены в ${SHEET_AT.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"})}; обновляются раз в полторы минуты.`:"Загружаю отметки из таблицы…");
@@ -503,7 +507,8 @@ function renderMap(){
 $("fbar").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;MF=b.dataset.m;$("fbar").querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));renderMap();});
 function openPop(items){
   $("pop").innerHTML=`<button class="x" id="popX">×</button>`+items.map(r=>{const vs=visitsOf(r);return `<div class="it"><div class="ttl"><span class="pr ${r.prio}">${r.prio}</span>${esc(r.name)}${r.top?" ★":""}</div>
-    <div class="m">стенд ${esc(r.stand||"—")} · ${esc([r.hall,r.meta].filter(Boolean).join(" · "))}</div>
+    <div class="m">стенд ${esc(r.stand||"—")} · ${esc([r.hall,r.meta,SEG_LABELS[r.seg]||""].filter(Boolean).join(" · "))}</div>
+    ${r.seg?`<div class="v">${esc(SEG_PITCH[r.seg]||"")} ${esc(r.seg_evidence||"")}</div>`:""}
     ${vs.length?`<div class="v">Уже были: ${vs.map(v=>esc(fmtDate(v.date||v.t))+(v.meeting?" — "+esc(v.meeting):"")).join("; ")}</div>`:""}
     <button class="go" data-i="${r.i}">${vs.length?"Ещё раз к ним — открыть опрос":"Подойти — открыть опрос"}</button></div>`}).join("");
   $("pop").classList.add("on");
@@ -553,7 +558,7 @@ def build_short(ev, source_options, webhook, lists):
     """ev — словарь события с ключом "short"; lists — {source: "../slug/exhibitors.json"} для выставок с каталогом."""
     sh = ev["short"]
     rows = json.loads((ROOT / ev["slug"] / "exhibitors.json").read_text(encoding="utf-8"))
-    embed = [{k: (r.get(k)[:260] if k == "descr" else r.get(k)) for k in ("name", "stand", "site", "prio", "top", "hall", "meta", "tags", "descr")}
+    embed = [{k: (r.get(k)[:260] if k == "descr" else r.get(k)) for k in ("name", "stand", "site", "prio", "top", "hall", "meta", "tags", "descr", "seg", "seg_evidence", "mp", "own_shop", "app")}
              for r in rows]
     qs = "".join(
         f'<div class="q"><div class="qq"><b>{i+1:02d}</b>{html.escape(q["q"])}</div>{_chips(f"a{i+1}", q["chips"])}'

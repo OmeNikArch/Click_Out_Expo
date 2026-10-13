@@ -5,13 +5,42 @@
 Источник: официальный API каталога expovr, событие 69d8e35163aa2ec91670244b.
 Запуск из корня репозитория: python3 events/exhibitors_intercharm.py [--xlsx путь.xlsx]
 """
-import json, pathlib, re, sys, unicodedata
+import concurrent.futures, hashlib, html, json, pathlib, re, socket, sys, time, unicodedata
 from collections import Counter
+from urllib.parse import urljoin, urlparse
+from urllib.request import Request, urlopen
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from exhibitors_page import emit, ROOT
 
 RAW = ROOT / "events" / "raw_icatalog" / "intercharm_expovr_rows.json"
+CACHE = pathlib.Path("/home/omenik/Programs/Multi-Agent Orchestration Platform/cache/intercharm-sites")
+UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141 Safari/537.36"
+FETCH_TIMEOUT = 12
+FETCH_WORKERS = 16
+
+MP_DOMAINS = {
+    "ozon": ("ozon.ru", "ozon.com"),
+    "wb": ("wildberries.ru", "wb.ru"),
+    "ym": ("market.yandex.ru", "market.yandex.com", "pokupki.market.yandex.ru"),
+    "megamarket": ("megamarket.ru", "sbermegamarket.ru"),
+    "lamoda": ("lamoda.ru",),
+    "goldapple": ("goldapple.ru",),
+}
+APP_DOMAINS = ("apps.apple.com", "play.google.com", "rustore.ru", "appgallery.huawei.com")
+SHOP_WORDS = re.compile(
+    r"в корзин|добавить в корзин|оформить заказ|перейти к оформлению|мой заказ|"
+    r"shopping-cart|add[-_ ]?to[-_ ]?cart|data-cart|/cart\b|/basket\b|/checkout\b|"
+    r"купить онлайн|интернет[- ]магазин|оплатить заказ|записаться онлайн|онлайн[- ]запись",
+    re.I,
+)
+PRICE_WORDS = re.compile(r"\b\d[\d\s]{2,}\s?(?:₽|руб\.?|р\.)", re.I)
+WHERE_WORDS = re.compile(r"где купить|купить на|маркетплейс|wildberries|ozon|яндекс маркет|мегамаркет|lamoda|золотое яблоко|goldapple|интернет[- ]магазин", re.I)
+NONE_HINTS = re.compile(
+    r"контрактн|сырь|ингредиент|оборудован|упаковк|этикетк|логистик|маркетинг|реклам|пресса|журнал|ассоциац|союз|"
+    r"учебн|академ|школ|дистрибьютор|оптов|b2b|oem|odm",
+    re.I,
+)
 
 COUNTRIES = {
     "RUS": "Россия", "BLR": "Беларусь", "CHN": "Китай", "KOR": "Южная Корея",
@@ -210,6 +239,177 @@ def site(row):
     return ""
 
 
+def cache_key(url):
+    return hashlib.sha256(url.encode("utf-8", "ignore")).hexdigest()[:24]
+
+
+def fetch_url(url):
+    """Кэшированный GET: повторный запуск читает JSON из cache/intercharm-sites."""
+    CACHE.mkdir(parents=True, exist_ok=True)
+    p = CACHE / f"{cache_key(url)}.json"
+    if p.exists():
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    rec = {"url": url, "ok": False, "status": None, "final_url": url, "text": "", "error": ""}
+    try:
+        req = Request(url, headers={"User-Agent": UA, "Accept": "text/html,application/xhtml+xml", "Accept-Language": "ru,en;q=0.8"})
+        with urlopen(req, timeout=FETCH_TIMEOUT) as r:
+            raw = r.read(600_000)
+            enc = r.headers.get_content_charset() or "utf-8"
+            rec.update({
+                "ok": 200 <= getattr(r, "status", 200) < 400,
+                "status": getattr(r, "status", 200),
+                "final_url": r.geturl(),
+                "text": raw.decode(enc, "replace"),
+            })
+    except Exception as e:
+        rec["error"] = f"{type(e).__name__}: {e}"
+    rec["fetched_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    p.write_text(json.dumps(rec, ensure_ascii=False), encoding="utf-8")
+    return rec
+
+
+def candidate_pages(base_url, home_html):
+    base = base_url if base_url.endswith("/") else base_url + "/"
+    out = []
+    for path in ("shop", "catalog", "products", "where-to-buy", "gde-kupit", "stores", "basket", "cart"):
+        out.append(urljoin(base, path))
+    for m in re.finditer(r"href=[\"']([^\"'#]+)[\"']", home_html or "", re.I):
+        href = html.unescape(m.group(1)).strip()
+        low = href.lower()
+        text_window = (home_html[max(0, m.start()-120):m.end()+120] or "").lower()
+        if any(w in low or w in text_window for w in ("shop", "catalog", "product", "cart", "basket", "store", "where", "gde", "куп", "магаз", "каталог", "корзин")):
+            u = urljoin(base_url, href)
+            if urlparse(u).netloc == urlparse(base_url).netloc:
+                out.append(u)
+    seen, clean = set(), []
+    for u in out:
+        u = u.split("#", 1)[0]
+        if u not in seen and len(clean) < 3:
+            seen.add(u); clean.append(u)
+    return clean
+
+
+def mp_from_text(text):
+    found = []
+    low = (text or "").lower()
+    for code, domains in MP_DOMAINS.items():
+        if any(d in low for d in domains):
+            found.append(code)
+    return found
+
+
+def app_from_text(text):
+    low = (text or "").lower()
+    return any(d in low for d in APP_DOMAINS)
+
+
+def own_from_text(text, url=""):
+    low = (text or "").lower()
+    if SHOP_WORDS.search(low):
+        return True
+    if PRICE_WORDS.search(low) and re.search(r"купить|заказать|наличи|доставк", low, re.I):
+        return True
+    # Сам путь /catalog или /shop не считаем продажей: у B2B-сайтов это часто просто витрина.
+    # Засчитываем только корзину/оформление в URL.
+    if re.search(r"/(cart|basket|checkout)\b", urlparse(url).path, re.I):
+        return True
+    return False
+
+
+def site_features(url):
+    if not url:
+        return {"opened": False, "pages": 0, "mp": [], "own_shop": False, "app": False, "evidence": "сайта нет в каталоге"}
+    pages = []
+    home = fetch_url(url)
+    pages.append(home)
+    if home.get("ok"):
+        for u in candidate_pages(home.get("final_url") or url, home.get("text") or ""):
+            if u != url:
+                pages.append(fetch_url(u))
+    ok_pages = [p for p in pages if p.get("ok")]
+    text = "\n".join((p.get("final_url") or "") + "\n" + (p.get("text") or "") for p in ok_pages)
+    mp = sorted(set(mp_from_text(text)), key=["ozon", "wb", "ym", "megamarket", "lamoda", "goldapple"].index)
+    own = own_from_text(text, url) or any(own_from_text(p.get("text") or "", p.get("final_url") or "") for p in ok_pages)
+    app = app_from_text(text)
+    if ok_pages:
+        ev = []
+        if own: ev.append("на сайте есть признаки заказа/корзины")
+        if mp: ev.append("сайт ссылается на " + ", ".join(mp))
+        if app: ev.append("есть ссылка на приложение")
+        if not ev: ev.append("сайт открылся, продажа не найдена")
+        ev.append("проверено: " + ", ".join((p.get("final_url") or p.get("url") or "") for p in ok_pages[:3]))
+        return {"opened": True, "pages": len(ok_pages), "mp": mp, "own_shop": own, "app": app, "evidence": "; ".join(ev)}
+    err = home.get("error") or str(home.get("status") or "не открылся")
+    return {"opened": False, "pages": 0, "mp": [], "own_shop": False, "app": False, "evidence": "сайт не открылся: " + err[:120]}
+
+
+def catalog_features(row):
+    text = " ".join([
+        txt(row.get("name")), row.get("brand") or "", txt(row.get("brief")), txt(row.get("about")), txt(row.get("descr")),
+        " ".join(n for n, t in categories(row) if t == "main")
+    ])
+    mp = sorted(set(mp_from_text(text)), key=["ozon", "wb", "ym", "megamarket", "lamoda", "goldapple"].index)
+    own = bool(re.search(r"интернет[- ]магазин|собственн.*магазин|сайт.*заказ|заказ.*сайт|онлайн[- ]магазин|розничн", text, re.I))
+    app = app_from_text(text)
+    return {"mp": mp, "own_shop": own, "app": app, "evidence": "описание/рубрики каталога"}
+
+
+def segment_for(row, country, prio, site_info):
+    cat = catalog_features(row)
+    mp = sorted(set(site_info.get("mp", []) + cat["mp"]), key=["ozon", "wb", "ym", "megamarket", "lamoda", "goldapple"].index)
+    own = bool(site_info.get("own_shop") or cat["own_shop"])
+    app = bool(site_info.get("app") or cat["app"])
+    text = " ".join([txt(row.get("brief")), txt(row.get("about")), txt(row.get("descr")), " ".join(n for n, t in categories(row) if t == "main")])
+    opened = site_info.get("opened")
+    if mp and own:
+        seg = "both"
+    elif mp:
+        seg = "mp"
+    elif country != "Россия":
+        seg = "none"
+    elif own or app:
+        seg = "clickout"
+    elif not site(row) or (site(row) and not opened):
+        seg = "unknown"
+    elif prio == "C" or NONE_HINTS.search(text) or country != "Россия":
+        seg = "none"
+    else:
+        seg = "unknown"
+    ev = site_info.get("evidence") or ""
+    if cat["mp"] or cat["own_shop"] or cat["app"]:
+        ev += "; каталог: " + ", ".join(x for x in [cat["evidence"], ("МП " + ", ".join(cat["mp"]) if cat["mp"] else ""), ("свой магазин" if cat["own_shop"] else ""), ("приложение" if cat["app"] else "")] if x)
+    if seg == "none" and country != "Россия":
+        ev += "; иностранная компания — не российский клиент для двух направлений на выставке"
+    if seg == "none" and not ev:
+        ev = "B2B/профильная рубрика, своего канала продаж не найдено"
+    if seg == "unknown" and not ev:
+        ev = "нужно проверить у стенда"
+    return seg, ev[:500], mp, own, app
+
+
+def site_features_map(raw_rows):
+    urls = sorted({site(r) for r in raw_rows if site(r)})
+    if not urls:
+        return {}
+    socket.setdefaulttimeout(FETCH_TIMEOUT)
+    print(f"site cache: {CACHE} · {len(urls)} сайтов", file=sys.stderr)
+    out = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=FETCH_WORKERS) as ex:
+        futs = {ex.submit(site_features, u): u for u in urls}
+        for i, fut in enumerate(concurrent.futures.as_completed(futs), 1):
+            u = futs[fut]
+            try:
+                out[u] = fut.result()
+            except Exception as e:
+                out[u] = {"opened": False, "pages": 0, "mp": [], "own_shop": False, "app": False, "evidence": f"ошибка проверки сайта: {type(e).__name__}: {e}"}
+            if i % 100 == 0:
+                print(f"  checked {i}/{len(urls)}", file=sys.stderr)
+    return out
+
+
 def phones(row):
     c = row.get("contacts") or {}
     vals = []
@@ -345,6 +545,7 @@ def classify(row, country=""):
 
 def load():
     rows = json.load(open(RAW, encoding="utf-8"))
+    features = site_features_map(rows)
     out = []
     for r in rows:
         name = txt(r.get("name")) or txt(r.get("name"), "en")
@@ -354,6 +555,12 @@ def load():
         contacts = r.get("contacts") or {}
         country = COUNTRIES.get(contacts.get("country"), contacts.get("country") or "")
         prio, top, tags, hl, h = classify(r, country)
+        s = site(r)
+        seg, seg_evidence, mp, own_shop, app = segment_for(r, country, prio, features.get(s, {"opened": False, "evidence": "сайт не проверен"}))
+        if seg == "none":
+            prio, top = "C", False
+        elif seg == "unknown" and prio == "A":
+            prio, top = "B", False
         about = txt(r.get("about")) or txt(r.get("brief"))
         descr = txt(r.get("descr"))
         full = " ".join(x for x in [about, descr] if x)
@@ -364,7 +571,7 @@ def load():
             "name": name,
             "country": country,
             "city": city,
-            "site": site(r),
+            "site": s,
             "profile": cats[:3],
             "descr": full[:300],
             "products": [],
@@ -373,29 +580,33 @@ def load():
             "tags": tags[:3],
             "prio": prio,
             "top": top,
+            "seg": seg,
+            "seg_evidence": seg_evidence,
+            "mp": mp,
+            "own_shop": own_shop,
+            "app": app,
             "meta": " · ".join(x for x in [country, city] if x),
             "_phones": phones(r),
             "_emails": emails(r),
         })
+    seg_order = {"clickout": 0, "mp": 1, "both": 2, "unknown": 3, "none": 4}
     order = {"A": 0, "B": 1, "C": 2}
-    out.sort(key=lambda x: (order[x["prio"]], not x["top"], x["hall"], x["name"].lower()))
+    out.sort(key=lambda x: (seg_order.get(x.get("seg"), 9), order[x["prio"]], not x["top"], x["hall"], x["name"].lower()))
     return out
 
 
 CFG = {
-    "title": "InterCHARM 2026 · участники по эшелонам A/B/C для Click Out",
+    "title": "InterCHARM 2026 · участники по сегментам Никита / Андрей",
     "kicker": "Click Out · InterCHARM · 14–17.10.2026 · Крокус Экспо, павильон 3",
-    "h1": "{n} участников каталога по эшелонам A, B, C",
+    "h1": "{n} участников каталога: кому идти Никите, кому Андрею",
     "sub": ("Каталог снят 12.10.2026 из официального API InterCHARM (catalog.expovr.ru): {n} компаний, "
-            "стенды, категории, сайты, города. Разметка: <b>A — {a}</b> (из них ★ {top}), <b>B — {b}</b>, C — {c}. "
+            "стенды, категории, сайты, города. Разметка: сегмент владельца + эшелон внутри сегмента: <b>A — {a}</b> (из них ★ {top}), <b>B — {b}</b>, C — {c}. "
             "Список пополняется — перед выставкой снять ещё раз."),
     "legend": [
-        ("A", "потребительские бьюти-бренды и производители с сайтом: косметика, парфюмерия, уход, гаджеты, бытовая химия. "
-              "Click Out на интернет-магазин бренда; если продажи через карточки — внешний трафик на маркетплейсы."),
-        ("B", "B2B: сырьё, контрактное производство, оборудование, профессиональная косметика, салоны и услуги, упаковка. "
-              "Разговор про B2B-заявки, дистрибуцию и внешний трафик на карточки профессиональных линеек."),
-        ("C", "пресса, ассоциации, обучение, маркетинг, логистика, компании без сайта — не наш профиль."),
-        ("★", "первыми: потребительские бренды с признаками розницы, маркетплейсов или собственного интернет-магазина."),
+        ("Никита", "Click Out: компании без признаков маркетплейсов, но со своим интернет-магазином, онлайн-заказом, записью или приложением."),
+        ("Андрей", "Внешний трафик на маркетплейсы: есть карточки, брендовый магазин или листинг на Ozon / WB / Яндекс Маркете / Мегамаркете / Lamoda / Золотом Яблоке."),
+        ("Оба", "есть и маркетплейсы, и свой магазин. Основной владелец — Андрей; пометка «есть свой магазин — Никите тоже»."),
+        ("A/B/C", "эшелон считается внутри сегмента: A — подходит владельцу, B — с оговорками, C — нецелевой; none по умолчанию C."),
     ],
     "placeholder": "Поиск: бренд, стенд, категория, город, слово из описания",
     "filter1_label": "Зал / направление",
@@ -420,9 +631,10 @@ CFG = {
 
 
 if __name__ == "__main__":
-    emit(CFG, load(), ROOT / "intercharm", sys.argv)
-    for r in load():
+    loaded = load()
+    emit(CFG, loaded, ROOT / "intercharm", sys.argv)
+    for r in loaded:
         if r["prio"] in ("A", "B"):
             star = "★" if r["top"] else " "
-            print(f'{r["prio"]}{star} {r["stand"]:8} | {r["name"][:34]:34} | {r["hall"][:18]:18} | '
-                  f'{r["site"][:28]:28} | {", ".join(r["tags"][:3])[:44]}')
+            print(f'{r.get("seg", ""):8} {r["prio"]}{star} {r["stand"]:8} | {r["name"][:34]:34} | {r["hall"][:18]:18} | '
+                  f'{r["site"][:28]:28} | {", ".join(r.get("mp", []))[:12]:12} | {", ".join(r["tags"][:3])[:36]}')
