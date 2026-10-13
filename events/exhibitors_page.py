@@ -16,14 +16,25 @@ def page(cfg, rows):
     data = json.dumps(pub, ensure_ascii=False).replace("</", "<\\/")
     f1 = "".join(f'<button class="chip" data-f="expo" data-v="{v}">{l}</button>' for v, l in cfg["filter1"])
     legend = "".join(f'<div class="lg"><b>{k}</b> — {v}</div>' for k, v in cfg["legend"])
+    # Переключатель сегментов и его JS существуют только у выставок с полем seg (InterCHARM).
+    # У выставок без seg все три вставки обязаны оставаться байт-в-байт прежними.
     seg_row = ""
+    seg_labels_js = 'const SEG_LABELS={clickout:"Никита · Click Out",mp:"Андрей · внешний трафик",both:"Оба: Андрей + Никите тоже",none:"Никому",unknown:"Не определено"};'
+    seg_pitch_js = 'const SEG_PITCH={clickout:"Питч: Click Out — реклама на маркетплейсах ведёт на собственный сайт/магазин/запись.",mp:"Питч: внешний трафик из Директа, ЯПС и VK на карточки/брендовые листинги маркетплейсов.",both:"Основной владелец Андрей: компания на маркетплейсах. Есть свой магазин — Никите тоже.",none:"Низкий приоритет: нет своего канала продаж и маркетплейсов.",unknown:"Проверить у стенда: есть ли собственный заказ и/или карточки на маркетплейсах."};'
+    seg_filter_js = 'if(state.seg&&r.seg!==state.seg)return false;'
     if has_seg:
-        seg_row = (f'<div class="row"><span class="lbl">Сегмент</span><button class="chip on" data-f="seg" data-v="">Все</button>'
-                   f'<button class="chip" data-f="seg" data-v="clickout">Никита · Click Out ({sc["clickout"]})</button>'
-                   f'<button class="chip" data-f="seg" data-v="mp">Андрей · внешний трафик ({sc["mp"]})</button>'
-                   f'<button class="chip" data-f="seg" data-v="both">Оба ({sc["both"]})</button>'
-                   f'<button class="chip" data-f="seg" data-v="unknown">Не определено ({sc["unknown"]})</button>'
+        n_nikita = sc["clickout"] + sc["both"]
+        n_andrey = sc["mp"] + sc["both"]
+        seg_row = (f'<div class="row"><span class="lbl">Кому</span><button class="chip on" data-f="seg" data-v="">Все ({len(rows)})</button>'
+                   f'<button class="chip" data-f="seg" data-v="clickout|both">Никита ({n_nikita})</button>'
+                   f'<button class="chip" data-f="seg" data-v="mp|both">Андрей ({n_andrey})</button>'
+                   f'<button class="chip" data-f="seg" data-v="clickout">Только Никита ({sc["clickout"]})</button>'
+                   f'<button class="chip" data-f="seg" data-v="mp">Только Андрей ({sc["mp"]})</button>'
+                   f'<button class="chip" data-f="seg" data-v="both">Оба — уточнить ({sc["both"]})</button>'
                    f'<button class="chip" data-f="seg" data-v="none">Никому ({sc["none"]})</button></div>')
+        seg_labels_js = 'const SEG_LABELS={clickout:"Никита · Click Out",mp:"Андрей · внешний трафик",both:"Оба — уточнить у стенда",none:"Никому"};'
+        seg_pitch_js = 'const SEG_PITCH={clickout:"Никита · Click Out: на маркетплейсах их нет явно, есть свой сайт/магазин/запись — реклама с маркетплейсов ведёт к ним.",mp:"Андрей · внешний трафик: присутствие на маркетплейсах подтверждено — Директ, ЯПС и ВК на карточки и брендовые листинги.",both:"Оба — спросить: вы есть на маркетплейсах? Если да — Андрей, если нет и есть свой сайт или магазин — Никита.",none:"Никому: B2B-профиль — сырьё, упаковка, оборудование, OEM/ODM, пресса, школы."};'
+        seg_filter_js = 'if(state.seg&&state.seg.split("|").indexOf(r.seg)<0)return false;'
     return f"""<!doctype html>
 <html lang="ru">
 <head>
@@ -55,8 +66,8 @@ def page(cfg, rows):
 <script>
 const DATA={data};
 const HALL_LABEL={json.dumps(cfg.get('hall_label', ''), ensure_ascii=False)};
-const SEG_LABELS={{clickout:"Никита · Click Out",mp:"Андрей · внешний трафик",both:"Оба: Андрей + Никите тоже",none:"Никому",unknown:"Не определено"}};
-const SEG_PITCH={{clickout:"Питч: Click Out — реклама на маркетплейсах ведёт на собственный сайт/магазин/запись.",mp:"Питч: внешний трафик из Директа, ЯПС и VK на карточки/брендовые листинги маркетплейсов.",both:"Основной владелец Андрей: компания на маркетплейсах. Есть свой магазин — Никите тоже.",none:"Низкий приоритет: нет своего канала продаж и маркетплейсов.",unknown:"Проверить у стенда: есть ли собственный заказ и/или карточки на маркетплейсах."}};
+{seg_labels_js}
+{seg_pitch_js}
 const P=new URLSearchParams(location.search);
 const state={{expo:(P.get("hall")||""),seg:(P.get("seg")||""),prio:new Set([(P.get("prio")||"A")]),tags:new Set(),q:""}};
 document.querySelectorAll('.chip[data-f="expo"]').forEach(x=>x.classList.toggle("on",x.dataset.v===state.expo));
@@ -71,7 +82,7 @@ function render(){{
   const q=state.q.trim().toLowerCase();
   const rows=DATA.filter(r=>{{
     if(state.expo&&r.hall!==state.expo)return false;
-    if(state.seg&&r.seg!==state.seg)return false;
+    {seg_filter_js}
     if(state.prio.size){{let ok=false;state.prio.forEach(p=>{{if(p==="top"?r.top:r.prio===p)ok=true;}});if(!ok)return false;}}
     if(state.tags.size){{let ok=false;state.tags.forEach(t=>{{if(r.tags.includes(t))ok=true;}});if(!ok)return false;}}
     if(q){{const h=(r.name+" "+r.city+" "+r.site+" "+r.descr+" "+r.products.join(" ")+" "+r.brands.join(" ")+" "+r.stand+" "+(r.meta||"")).toLowerCase();if(!h.includes(q))return false;}}
@@ -114,7 +125,7 @@ def xlsx(cfg, rows, path):
         cols = ["Сегмент", "Кому", "Эшелон", "★", cfg["filter1_label"], "Стенд", "Компания", "Страна", "Город", "Сайт", "Площадки МП", "Свой магазин", "Приложение", "Признаки сегмента", "Профиль", "Теги", cfg.get("hl_label", "Отметки"), "Бренды", "Описание", "Телефоны", "E-mail"]
     else:
         cols = ["Эшелон", "★", cfg["filter1_label"], "Стенд", "Компания", "Страна", "Город", "Сайт", "Профиль", "Сегменты", cfg.get("hl_label", "Отметки"), "Бренды", "Описание", "Телефоны", "E-mail"]
-    seg_owner = {"clickout": "Никита — Click Out", "mp": "Андрей — внешний трафик", "both": "Андрей; есть свой магазин — Никите тоже", "none": "Никому", "unknown": "Проверить у стенда"}
+    seg_owner = {"clickout": "только Никита — Click Out", "mp": "только Андрей — внешний трафик", "both": "оба — уточнить у стенда: есть ли на маркетплейсах", "none": "никому", "unknown": "Проверить у стенда"}
     def sheet(title, rs):
         ws = wb.create_sheet(title); ws.append(cols)
         for c in ws[1]: c.font = Font(bold=True, color="000000"); c.fill = PatternFill("solid", fgColor="FDD101")
@@ -133,9 +144,10 @@ def xlsx(cfg, rows, path):
             for c in row: c.alignment = Alignment(wrap_text=True, vertical="top")
         ws.freeze_panes = "A2"; ws.auto_filter.ref = ws.dimensions
     if has_seg:
-        sheet("Никита — Click Out", [r for r in rows if r.get("seg") == "clickout"])
+        # Листы Никиты и Андрея включают сегмент both («Оба — уточнить»): колонка «Кому»
+        # показывает «только Никита / оба» и «только Андрей / оба».
+        sheet("Никита — Click Out", [r for r in rows if r.get("seg") in ("clickout", "both")])
         sheet("Андрей — внешний трафик", [r for r in rows if r.get("seg") in ("mp", "both")])
-        sheet("Не определено", [r for r in rows if r.get("seg") == "unknown"])
         sheet("Никому", [r for r in rows if r.get("seg") == "none"])
         sheet("Все", rows)
     else:
