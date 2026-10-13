@@ -535,6 +535,17 @@ $("send").addEventListener("click",e=>{if(!MGR){e.stopImmediatePropagation();con
 const _post=post; post=function(p){const q=Object.assign({},p);if(MGR&&String(q.source||"").indexOf(" · "+MGR)<0&&srcKey(q.source)===srcKey(EVENT_SOURCE))q.source=q.source+" · "+MGR;return _post(q);};
 const _renderCard=renderCard; renderCard=function(){_renderCard();const own=SEL&&SEL.seg?SEG_OWNER[SEL.seg]:"";
   if(SEL&&MGR&&own&&own!==MGR){$("cardD").textContent="Это клиент: "+own+" — возьмите контакт и передайте. "+$("cardD").textContent;}};
+const MGR_SEGS={}; Object.keys(SEG_OWNER).forEach(s=>{(MGR_SEGS[SEG_OWNER[s]]=MGR_SEGS[SEG_OWNER[s]]||[]).push(s)}); Object.keys(MGR_SEGS).forEach(m=>MGR_SEGS[m].push("both"));
+let SF=MGR&&MGR_SEGS[MGR]?"seg:"+MGR_SEGS[MGR].join("+"):"";
+const segOk=r=>!SF||SF.slice(4).split("+").indexOf(r.seg)>=0;
+function sfChips(){$("fbar").querySelectorAll('.chip[data-m^="seg:"]').forEach(b=>b.classList.toggle("on",b.dataset.m===SF));}
+$("fbar").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b||b.dataset.m.indexOf("seg:")!==0)return;
+  e.stopImmediatePropagation();SF=SF===b.dataset.m?"":b.dataset.m;sfChips();renderMap();},true);
+const _renderMap=renderMap; renderMap=function(){_renderMap();sfChips();if(!SF)return;
+  const g=$("map").groups||{};
+  $("map").querySelectorAll(".cell").forEach(b=>{const c=g[b.dataset.g];if(c&&!c.items.some(segOk))b.classList.add("dim");});
+  $("route").querySelectorAll(".it").forEach(it=>{const r=ROWS[+it.dataset.i];if(r&&!segOk(r))it.remove();});};
+const _mgrRender=mgrRender; mgrRender=function(){_mgrRender();if(MGR&&MGR_SEGS[MGR]){SF="seg:"+MGR_SEGS[MGR].join("+");renderMap();}};
 mgrRender();
 
 /* ---------- старт ---------- */

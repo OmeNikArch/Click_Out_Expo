@@ -3,46 +3,49 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
 <title>Карта залов · InterCHARM 2026</title>
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#000;--card:#161616;--card2:#0d0d0d;--line:#2a2a2a;--txt:#E7E6E6;--mute:#9a9a9a;--y:#FDD101;--w:#fff;
-  --nik:#FDD101;--and:#38b6f5;--both:#2fbf5b;--none:#6b6b6b;--V:#a259ff;
+  --nik:#FDD101;--and:#38b6f5;--both:#2fbf5b;--none:#8a8a8a;--V:#a259ff;
   --head:'Unbounded',Arial,sans-serif;--body:'Manrope',Arial,Helvetica,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--txt);font-family:var(--body);font-size:15px;line-height:1.45;padding-bottom:40px}
 a{color:var(--y)}
-.top{position:sticky;top:0;z-index:30;background:rgba(0,0,0,.94);backdrop-filter:blur(6px);border-bottom:1px solid #1d1d1d}
+.top{background:#000;border-bottom:1px solid #1d1d1d}
 .in{max-width:1100px;margin:0 auto;padding:10px 16px}
 .brand{display:flex;align-items:center;gap:10px;white-space:nowrap;font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--y)}
 .brand .sg{width:24px;height:24px;background:#fff;border:4px solid var(--y);color:#000;display:flex;align-items:center;justify-content:center;font-size:11px;flex:none}
 .brand .ev{color:var(--mute);font-weight:500;overflow:hidden;text-overflow:ellipsis}
 .brand a{margin-left:auto;font-family:var(--body);font-size:13px;text-transform:none;letter-spacing:0}
-.row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center;font-size:13px;color:var(--mute)}
 .chip{background:var(--card);border:1px solid var(--line);color:var(--txt);border-radius:100px;padding:6px 11px;font:600 13px var(--body);cursor:pointer;white-space:nowrap}
-.chip.on{background:var(--y);border-color:var(--y);color:#000}
-.chip .n{opacity:.7;margin-left:4px;font-weight:400}
+.chip.on{background:#2a2a2a;border-color:var(--w);color:var(--w)}
+.chip.t.on,.chip.hl.on{background:var(--y);border-color:var(--y);color:#000}
+.chip .n{opacity:.65;margin-left:4px;font-weight:400}
+.chip:not(.on) .dot{opacity:.35}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:0}
-.halls .chip{font-family:var(--head);font-weight:700;font-size:12px}
+.hl{font-family:var(--head);font-weight:700;font-size:12px}
 .srch{flex:1;min-width:180px;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--w);padding:8px 11px;font:15px var(--body)}
 .hits{max-width:1100px;margin:0 auto;padding:0 16px}
 .hit{display:block;width:100%;text-align:left;background:var(--card);border:0;border-bottom:1px solid var(--line);color:var(--txt);padding:9px 12px;font:14px var(--body);cursor:pointer}
 .hit b{color:var(--w)}
 main{max-width:1100px;margin:0 auto;padding:12px 16px}
 .bar{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:var(--mute);font-size:13px}
-.bar .z{margin-left:auto;display:flex;gap:6px}
+.bar .z{margin-left:auto;display:flex;gap:6px;flex:none}
 .bar .z button{width:36px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--w);font:700 18px var(--body);cursor:pointer}
-.wrap{overflow:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;background:#fff;max-height:78vh}
-.map{position:relative;transform-origin:0 0}
-.map img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.wrap{overflow:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;background:#fff;max-height:72vh;overscroll-behavior:contain}
+.map{position:relative}
+.map img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none;background:#f4f4f4}
 .mk{position:absolute;transform:translate(-50%,-50%);min-width:20px;height:20px;padding:0 4px;border-radius:10px;border:2px solid #000;
-  font:800 10px/16px var(--body);color:#000;text-align:center;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.45)}
+  font:800 10px/16px var(--body);color:#000;text-align:center;cursor:pointer}
 .mk.v{background:var(--V)!important;color:#fff}
 .mk.sel{outline:3px solid #ff2d55;outline-offset:2px;z-index:5}
-.legend{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0 0;color:var(--mute);font-size:13px}
+.load{position:absolute;left:12px;top:12px;background:rgba(0,0,0,.75);color:#fff;border-radius:8px;padding:6px 10px;font-size:13px}
 h2{font-family:var(--head);font-weight:700;color:var(--w);font-size:17px;margin:22px 0 8px}
 .note{color:var(--mute);font-size:13px;margin-bottom:8px}
 ol.route{list-style:none}
@@ -51,6 +54,7 @@ ol.route li .num{min-width:28px;height:24px;border-radius:12px;color:#000;font:8
 ol.route li .nm{flex:1;color:var(--w);font-weight:600}
 ol.route li .st{color:var(--mute);font-size:13px;white-space:nowrap}
 ol.route li.v .nm{text-decoration:line-through;color:var(--mute)}
+.more{display:block;width:100%;margin-top:6px;padding:10px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--y);font:600 14px var(--body);cursor:pointer}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#111;border-top:2px solid var(--y);max-height:62vh;overflow:auto;padding:14px 16px 22px;display:none}
 .sheet.on{display:block}
 .sheet .x{position:absolute;right:12px;top:8px;background:none;border:0;color:var(--mute);font-size:26px;cursor:pointer}
@@ -60,148 +64,137 @@ ol.route li.v .nm{text-decoration:line-through;color:var(--mute)}
 .tg{display:inline-block;border-radius:100px;padding:2px 9px;font-size:12px;font-weight:800;color:#000;margin:0 6px 6px 0}
 .card p{margin:4px 0;color:#d6d6d6;font-size:14px}
 .card .ev{color:var(--mute);font-size:13px}
-.err{color:#ff8a8a;padding:20px 0}
-@media(max-width:700px){.top{position:relative}.brand .ev{display:none}}
+@media(max-width:700px){.brand .ev{display:none}}
 </style>
 </head>
 <body>
 <div class="top"><div class="in">
   <div class="brand"><span class="sg">Ц</span>Карта залов<span class="ev">InterCHARM · 14–17.10 · Крокус Экспо, пав. 3</span><a href="presenter.html">Опросник →</a></div>
-  <div class="row" id="who"></div>
+  <div class="row" id="segs"></div>
   <div class="row" id="tiers"></div>
-  <div class="row halls" id="halls"></div>
+  <div class="row" id="halls"></div>
   <div class="row"><input class="srch" id="q" placeholder="Найти компанию, бренд или стенд" autocomplete="off"></div>
 </div></div>
 <div class="hits" id="hits"></div>
 <main>
-  <div class="bar"><span id="cnt"></span><span class="z"><button id="zo" aria-label="Уменьшить">−</button><button id="zi" aria-label="Увеличить">+</button></span></div>
-  <div class="wrap" id="wrap"><div class="map" id="map"><img id="img" alt="План зала"></div></div>
-  <div class="legend">
-    <span><i class="dot" style="background:var(--nik)"></i>Никита · Click Out</span>
-    <span><i class="dot" style="background:var(--and)"></i>Андрей · внешний трафик</span>
-    <span><i class="dot" style="background:var(--both)"></i>Оба — спросить про маркетплейсы</span>
-    <span><i class="dot" style="background:var(--none)"></i>Никому</span>
-    <span><i class="dot" style="background:var(--V)"></i>Уже подходили</span>
-  </div>
+  <div class="bar"><span id="cnt">Загружаю план…</span><span class="z"><button id="zo" aria-label="Уменьшить">−</button><button id="zi" aria-label="Увеличить">+</button></span></div>
+  <div class="wrap" id="wrap"><div class="map" id="map"><img id="img" alt="План зала" decoding="async"><div class="load" id="load">Загружаю участников…</div></div></div>
   <h2 id="rt">Очередь обхода</h2>
   <p class="note">Сначала A, потом B и C; внутри — по соседству от входа. Номер в списке = номер на карте. Проходы сверяйте с планом.</p>
   <ol class="route" id="route"></ol>
-  <p class="note" style="margin-top:18px">План — путеводитель организатора InterCHARM 2026. Сегменты и эшелоны — <a href="exhibitors.html">список участников</a>. Отметки «уже подходили» — с этого телефона и из общей таблицы опросника.</p>
+  <button class="more" id="more" hidden></button>
+  <p class="note" style="margin-top:18px">План — путеводитель организатора InterCHARM 2026. «Оба» — непонятно, есть ли компания на маркетплейсах: спросить у стенда. Да → Андрей, нет и есть свой сайт → Никита. Сегменты — <a href="exhibitors.html">список участников</a>. Отметки «уже подходили» — с этого телефона и из общей таблицы опросника.</p>
 </main>
 <div class="sheet" id="sheet"><button class="x" id="sx" aria-label="Закрыть">×</button><div id="sc"></div></div>
 <script>
 const SHEET_CSV="https://docs.google.com/spreadsheets/d/1BPelyLKYCGHItz3HPlcjZG_9Qur1SiKT9ee7SnwMPUs/gviz/tq?tqx=out:csv&sheet="+encodeURIComponent("Ответы")+"&tq="+encodeURIComponent("select B,D,V");
-const EVENT="intercharm", VISIT_KEY="expo_visits", MGR_KEY="expo_manager", VIEW_KEY="expo_map_view_intercharm";
+const EVENT="intercharm", VISIT_KEY="expo_visits", MGR_KEY="expo_manager", VIEW_KEY="expo_map_view2_intercharm";
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const HOMO={"А":"A","В":"B","С":"C","Е":"E","Н":"H","К":"K","М":"M","О":"O","Р":"P","Т":"T","Х":"X"};
 const normStand=s=>String(s||"").toUpperCase().replace(/[АВСЕНКМОРТХ]/g,c=>HOMO[c]);
 const norm=s=>String(s||"").toLowerCase().replace(/ё/g,"е").replace(/\b(ооо|ао|зао|ип|пао|llc|ltd|co)\b/g,"").replace(/[^a-zа-я0-9]/g,"");
 const dom=s=>String(s||"").toLowerCase().replace(/^https?:\/\//,"").replace(/^www\./,"").split(/[\/?#]/)[0];
 const srcKey=s=>String(s||"").split(/[·+]/)[0].trim().toLowerCase();
-const SEG={clickout:{l:"Никита · Click Out",c:"var(--nik)"},mp:{l:"Андрей · внешний трафик",c:"var(--and)"},
-  both:{l:"Оба — спросить: вы есть на маркетплейсах? Да → Андрей, нет и есть свой сайт → Никита",c:"var(--both)"},
-  unknown:{l:"Оба — уточнить у стенда",c:"var(--both)"},none:{l:"Никому — B2B, сырьё, оборудование",c:"var(--none)"}};
-const segOf=x=>x.seg==="unknown"||!x.seg?"both":x.seg;
-const WHO=[["nik","Никита",["clickout","both"]],["and","Андрей",["mp","both"]],["all","Все целевые",["clickout","mp","both"]],["any","Все",["clickout","mp","both","none"]]];
+const SEG={clickout:{l:"Никита",full:"Никита · Click Out — на маркетплейсах их нет, есть свой сайт/запись",c:"var(--nik)"},
+  mp:{l:"Андрей",full:"Андрей · внешний трафик — компания на маркетплейсах",c:"var(--and)"},
+  both:{l:"Оба",full:"Оба — спросить: вы есть на маркетплейсах? Да → Андрей, нет и есть свой сайт → Никита",c:"var(--both)"},
+  none:{l:"Никому",full:"Никому — B2B: сырьё, упаковка, оборудование, OEM",c:"var(--none)"}};
+const SEGS=["clickout","mp","both","none"];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const PAGE=60; // сколько строк очереди показывать сразу
 
-let PLAN,ROWS=[],BYHALL={},VIS={stands:new Set(),names:new Set(),doms:new Set()};
-const st0=LS.get(VIEW_KEY,{});
+let PLAN=null,ROWS=[],BYHALL={},VIS={names:new Set(),doms:new Set(),stands:new Set()},SHOWN=PAGE;
 const mgr=LS.get(MGR_KEY,"");
-let S={who:st0.who||(mgr==="Андрей"?"and":mgr==="Никита"?"nik":"all"),tiers:st0.tiers||["A","B"],hall:st0.hall||"13",zoom:st0.zoom||(innerWidth<700?2.4:1),sel:null};
-const save=()=>LS.set(VIEW_KEY,{who:S.who,tiers:S.tiers,hall:S.hall,zoom:S.zoom});
+const st0=LS.get(VIEW_KEY,{});
+let S={segs:st0.segs||(mgr==="Андрей"?["mp","both"]:mgr==="Никита"?["clickout","both"]:["clickout","mp","both"]),
+  tiers:st0.tiers||["A","B"],hall:st0.hall||"13",zoom:st0.zoom||(innerWidth<700?2.2:1),sel:null};
+const save=()=>LS.set(VIEW_KEY,{segs:S.segs,tiers:S.tiers,hall:S.hall,zoom:S.zoom});
+const isV=x=>VIS.stands.has(x.key)||VIS.names.has(x.nn)||(x.d&&VIS.doms.has(x.d));
 
-function isVisited(x){return x.stands.some(s=>VIS.stands.has(s))||VIS.names.has(norm(x.name))||(x.dom&&VIS.doms.has(x.dom));}
-function loadLocalVisits(){
-  LS.get(VISIT_KEY,[]).filter(v=>srcKey(v.source)===EVENT).forEach(v=>{
-    if(v.stand)normStand(v.stand).split(/[,\s/]+/).forEach(s=>s&&VIS.stands.add(s));
-    if(v.client)VIS.names.add(norm(v.client)); if(v.site&&dom(v.site))VIS.doms.add(dom(v.site));});
-}
-async function loadSheetVisits(){
-  try{const r=await fetch(SHEET_CSV,{cache:"no-store"});if(!r.ok)return;const t=await r.text();
-    t.split(/\r?\n/).slice(1).forEach(line=>{const c=[...line.matchAll(/"((?:[^"]|"")*)"/g)].map(m=>m[1].replace(/""/g,'"'));
-      if(c.length<3||srcKey(c[2])!==EVENT)return; if(c[0])VIS.names.add(norm(c[0])); const d=dom(c[1]); if(d&&d!=="нет сайта")VIS.doms.add(d);});
-    render();
-  }catch(e){}
-}
+function loadLocalVisits(){LS.get(VISIT_KEY,[]).filter(v=>srcKey(v.source)===EVENT).forEach(v=>{
+  if(v.stand)normStand(v.stand).split(/[,\s/]+/).forEach(s=>s&&VIS.stands.add(s));
+  if(v.client)VIS.names.add(norm(v.client)); if(v.site&&dom(v.site))VIS.doms.add(dom(v.site));});}
+async function loadSheetVisits(){try{const r=await fetch(SHEET_CSV,{cache:"no-store"});if(!r.ok)return;const t=await r.text();
+  t.split(/\r?\n/).slice(1).forEach(line=>{const c=[...line.matchAll(/"((?:[^"]|"")*)"/g)].map(m=>m[1].replace(/""/g,'"'));
+    if(c.length<3||srcKey(c[2])!==EVENT)return; if(c[0])VIS.names.add(norm(c[0])); const d=dom(c[1]); if(d&&d!=="нет сайта")VIS.doms.add(d);});
+  render(true);}catch(e){}}
 
-function filtered(h){const segs=WHO.find(w=>w[0]===S.who)[2];
-  return (BYHALL[h]||[]).filter(x=>segs.includes(segOf(x))&&S.tiers.includes(x.prio));}
-
-function routeOf(list){ // A → B → C, внутри — ближайший сосед от входа (левый край по центру)
-  const out=[];let cur=[0,50];
-  for(const t of ["A","B","C"]){let rest=list.filter(x=>x.prio===t);
-    while(rest.length){let bi=0,bd=1e9;rest.forEach((x,i)=>{const d=Math.hypot(x.pos[0]-cur[0],(x.pos[1]-cur[1])*0.6);if(d<bd){bd=d;bi=i}});
-      const n=rest.splice(bi,1)[0];out.push(n);cur=n.pos;}}
+const inHall=h=>(BYHALL[h]||[]).filter(x=>S.tiers.includes(x.t));
+const filtered=h=>inHall(h).filter(x=>S.segs.includes(x.g));
+function routeOf(list){const out=[];let cur=[0,50];
+  for(const t of ["A","B","C"]){const rest=list.filter(x=>x.t===t);
+    while(rest.length){let bi=0,bd=1e9;for(let i=0;i<rest.length;i++){const x=rest[i],d=Math.hypot(x.p[0]-cur[0],(x.p[1]-cur[1])*0.6);if(d<bd){bd=d;bi=i}}
+      const n=rest.splice(bi,1)[0];out.push(n);cur=n.p;}}
   return out;}
 
 function chips(){
-  $("who").innerHTML="Для кого: "+WHO.map(w=>`<button class="chip${S.who===w[0]?" on":""}" data-w="${w[0]}">${w[1]}</button>`).join("");
-  $("tiers").innerHTML="Эшелон: "+["A","B","C"].map(t=>`<button class="chip${S.tiers.includes(t)?" on":""}" data-t="${t}">${t}</button>`).join("");
-  $("halls").innerHTML="Зал: "+Object.keys(PLAN.halls).map(h=>`<button class="chip${S.hall===h?" on":""}" data-h="${h}">${h}<span class="n">${filtered(h).length}</span></button>`).join("");
+  const all=inHall(S.hall), cnt=g=>all.filter(x=>x.g===g).length;
+  $("segs").innerHTML=SEGS.map(g=>`<button class="chip${S.segs.includes(g)?" on":""}" data-g="${g}"><i class="dot" style="background:${SEG[g].c}"></i>${SEG[g].l}<span class="n">${ROWS.length?cnt(g):""}</span></button>`).join("");
+  $("tiers").innerHTML="Эшелон: "+["A","B","C"].map(t=>`<button class="chip t${S.tiers.includes(t)?" on":""}" data-t="${t}">${t}</button>`).join("");
+  $("halls").innerHTML="Зал: "+Object.keys(PLAN.halls).map(h=>`<button class="chip hl${S.hall===h?" on":""}" data-h="${h}">${h}<span class="n">${ROWS.length?filtered(h).length:""}</span></button>`).join("");
 }
-function render(){
-  chips();
-  const H=PLAN.halls[S.hall]; const img=$("img");
-  if(!img.src.endsWith(H.img))img.src=H.img;
-  $("map").style.width=(S.zoom*100)+"%";
-  const list=routeOf(filtered(S.hall));
-  // несколько компаний на одном стенде — один маркер
-  const marks=new Map();list.forEach((x,i)=>{x.no=i+1;const k=x.pos.join(",");if(!marks.has(k))marks.set(k,[]);marks.get(k).push(x);});
-  $("map").querySelectorAll(".mk").forEach(e=>e.remove());
-  for(const [k,xs] of marks){const x=xs[0];const m=document.createElement("div");
-    m.className="mk"+(xs.some(isVisited)?" v":"")+(S.sel&&xs.includes(S.sel)?" sel":"");
-    m.style.left=x.pos[0]+"%";m.style.top=x.pos[1]+"%";m.style.background=SEG[segOf(x)].c;
-    m.textContent=xs.length>2?xs[0].no+"+"+(xs.length-1):xs.map(y=>y.no).join("·");m.title=xs.map(y=>y.stand+": "+y.name).join("\n");
-    m.onclick=e=>{e.stopPropagation();openCard(xs);};$("map").appendChild(m);}
-  const vis=list.filter(isVisited).length;
-  $("cnt").textContent=`Зал ${S.hall}: ${list.length} компаний на карте · уже подходили ${vis}`;
+function setImg(){const H=PLAN.halls[S.hall],img=$("img");
+  if(img.dataset.h!==S.hall){img.dataset.h=S.hall;img.width=H.w;img.height=H.h;img.src=H.img;}
+  $("map").style.width=(S.zoom*100)+"%";}
+function render(keepShown){
+  if(!PLAN)return; if(!keepShown)SHOWN=PAGE;
+  chips(); setImg();
+  const list=routeOf(filtered(S.hall)); const frag=document.createDocumentFragment();
+  const marks=new Map();list.forEach((x,i)=>{x.no=i+1;const k=x.p.join(",");if(!marks.has(k))marks.set(k,[]);marks.get(k).push(x);});
+  for(const xs of marks.values()){const x=xs[0];const m=document.createElement("div");
+    m.className="mk"+(xs.some(isV)?" v":"")+(S.sel&&xs.includes(S.sel)?" sel":"");
+    m.style.left=x.p[0]+"%";m.style.top=x.p[1]+"%";m.style.background=SEG[x.g].c;
+    m.textContent=xs.length>2?xs[0].no+"+"+(xs.length-1):xs.map(y=>y.no).join("·");m.dataset.k=x.p.join(",");frag.appendChild(m);}
+  $("map").querySelectorAll(".mk").forEach(e=>e.remove()); $("map").appendChild(frag); MARKS=marks;
+  if(ROWS.length)$("load").hidden=true;
+  const vis=list.filter(isV).length;
+  $("cnt").textContent=ROWS.length?`Зал ${S.hall}: на карте ${list.length} · уже подходили ${vis}`:"Загружаю участников…";
   $("rt").textContent=`Очередь обхода · зал ${S.hall}`;
-  $("route").innerHTML=list.map(x=>`<li class="${isVisited(x)?"v":""}" data-i="${x.i}"><span class="num" style="background:${SEG[segOf(x)].c}">${x.no}</span><span class="nm">${esc(x.name)}</span><span class="st">${x.prio}${x.top?"★":""} · ${esc(x.stand)}</span></li>`).join("")||`<li>Под выбранные фильтры в этом зале никого нет.</li>`;
+  $("route").innerHTML=list.slice(0,SHOWN).map(x=>`<li class="${isV(x)?"v":""}" data-i="${x.i}"><span class="num" style="background:${SEG[x.g].c}">${x.no}</span><span class="nm">${esc(x.n)}</span><span class="st">${x.t}${x.top?"★":""} · ${esc(x.s)}</span></li>`).join("")||(ROWS.length?`<li>Под выбранные фильтры в этом зале никого нет.</li>`:"");
+  const more=$("more"); more.hidden=list.length<=SHOWN; more.textContent=`Показать ещё ${Math.min(PAGE,list.length-SHOWN)} из ${list.length-SHOWN}`;
   save();
 }
-function card(x){const s=SEG[segOf(x)];
-  return `<div class="card"><h3>${esc(x.name)}</h3>
-  <span class="tg" style="background:${s.c}">${esc(s.l)}</span><span class="tg" style="background:#ddd">${x.prio}${x.top?"★":""} · стенд ${esc(x.stand)}</span>${isVisited(x)?'<span class="tg" style="background:var(--V);color:#fff">уже подходили</span>':""}
-  ${x.brands&&x.brands.length?`<p>Бренды: ${esc(x.brands.join(", "))}</p>`:""}
-  ${x.site?`<p><a href="${esc(x.site)}" target="_blank" rel="noopener">${esc(dom(x.site))}</a></p>`:""}
-  ${x.tags&&x.tags.length?`<p>${esc(x.tags.join(" · "))}</p>`:""}
-  ${x.seg_evidence?`<p class="ev">Почему так: ${esc(x.seg_evidence)}</p>`:""}
+let MARKS=new Map();
+function card(x){const s=SEG[x.g];
+  return `<div class="card"><h3>${esc(x.n)}</h3>
+  <span class="tg" style="background:${s.c}">${esc(s.full)}</span><span class="tg" style="background:#ddd">${x.t}${x.top?"★":""} · стенд ${esc(x.s)}</span>${isV(x)?'<span class="tg" style="background:var(--V);color:#fff">уже подходили</span>':""}
+  ${x.b?`<p>Бренды: ${esc(x.b)}</p>`:""}
+  ${x.w?`<p><a href="${esc(x.w)}" target="_blank" rel="noopener">${esc(x.d)}</a></p>`:""}
+  ${x.e?`<p class="ev">Почему так: ${esc(x.e)}</p>`:""}
   <p><a href="presenter.html">Открыть опросник →</a></p></div>`;}
-function openCard(xs){S.sel=xs[0];$("sc").innerHTML=xs.map(card).join("");$("sheet").classList.add("on");render();}
-function focus(x){S.hall=x.hall;S.sel=x;
-  const segs=WHO.find(w=>w[0]===S.who)[2]; if(!segs.includes(segOf(x)))S.who="any"; if(!S.tiers.includes(x.prio))S.tiers=[...S.tiers,x.prio];
+function openCard(xs){S.sel=xs[0];$("sc").innerHTML=xs.map(card).join("");$("sheet").classList.add("on");
+  $("map").querySelectorAll(".mk.sel").forEach(e=>e.classList.remove("sel"));const m=$("map").querySelector(`.mk[data-k="${xs[0].p.join(",")}"]`);if(m)m.classList.add("sel");}
+function focus(x){S.hall=x.h;if(!S.segs.includes(x.g))S.segs=[...S.segs,x.g];if(!S.tiers.includes(x.t))S.tiers=[...S.tiers,x.t];
   render();openCard([x]);
-  const w=$("wrap"),m=$("map");requestAnimationFrame(()=>{w.scrollLeft=x.pos[0]/100*m.offsetWidth-w.clientWidth/2;w.scrollTop=x.pos[1]/100*m.offsetHeight-w.clientHeight/2;});}
+  const w=$("wrap"),m=$("map");const go=()=>{w.scrollLeft=x.p[0]/100*m.offsetWidth-w.clientWidth/2;w.scrollTop=x.p[1]/100*m.offsetHeight-w.clientHeight/2;};
+  requestAnimationFrame(go);}
 
-document.addEventListener("click",e=>{const t=e.target.closest("[data-w],[data-t],[data-h],[data-i],.hit");if(!t)return;
-  if(t.dataset.w){S.who=t.dataset.w;}
+$("map").addEventListener("click",e=>{const m=e.target.closest(".mk");if(m&&MARKS.has(m.dataset.k))openCard(MARKS.get(m.dataset.k));});
+document.addEventListener("click",e=>{const t=e.target.closest("[data-g],[data-t],[data-h],li[data-i],.hit[data-r]");if(!t)return;
+  if(t.dataset.g){const v=t.dataset.g;S.segs=S.segs.includes(v)?S.segs.filter(z=>z!==v):[...S.segs,v];}
   else if(t.dataset.t){const v=t.dataset.t;S.tiers=S.tiers.includes(v)?S.tiers.filter(z=>z!==v):[...S.tiers,v];}
   else if(t.dataset.h){S.hall=t.dataset.h;S.sel=null;}
-  else if(t.dataset.i!==undefined){focus(ROWS[+t.dataset.i]);return;}
-  if(t.classList.contains("hit")){focus(ROWS[+t.dataset.r]);$("hits").innerHTML="";$("q").value="";return;}
+  else if(t.dataset.i!==undefined&&t.tagName==="LI"){focus(ROWS[+t.dataset.i]);return;}
+  else if(t.dataset.r!==undefined){focus(ROWS[+t.dataset.r]);$("hits").innerHTML="";$("q").value="";return;}
   render();});
-$("sx").onclick=()=>{$("sheet").classList.remove("on");S.sel=null;render();};
-$("zi").onclick=()=>{S.zoom=Math.min(5,+(S.zoom*1.4).toFixed(2));render();};
-$("zo").onclick=()=>{S.zoom=Math.max(1,+(S.zoom/1.4).toFixed(2));render();};
-$("q").oninput=()=>{const q=$("q").value.trim().toLowerCase(),qn=norm(q),qs=normStand(q);
-  if(q.length<2){$("hits").innerHTML="";return;}
-  const r=ROWS.filter(x=>norm(x.name).includes(qn)||(x.brands||[]).some(b=>norm(b).includes(qn))||x.stands.some(s=>s.startsWith(qs))).slice(0,12);
-  $("hits").innerHTML=r.map(x=>`<button class="hit" data-r="${x.i}"><b>${esc(x.name)}</b> · ${esc(x.stand)} · ${esc(SEG[segOf(x)].l.split(" — ")[0])} · ${x.prio}</button>`).join("")||'<div class="hit">Не нашли. Стенд без номера в каталоге на карте не отмечен.</div>';};
+$("more").onclick=()=>{SHOWN+=PAGE;render(true);};
+$("sx").onclick=()=>{$("sheet").classList.remove("on");S.sel=null;$("map").querySelectorAll(".mk.sel").forEach(e=>e.classList.remove("sel"));};
+$("zi").onclick=()=>{S.zoom=Math.min(5,+(S.zoom*1.4).toFixed(2));setImg();save();};
+$("zo").onclick=()=>{S.zoom=Math.max(1,+(S.zoom/1.4).toFixed(2));setImg();save();};
+let qT;$("q").oninput=()=>{clearTimeout(qT);qT=setTimeout(()=>{const q=$("q").value.trim(),qn=norm(q),qs=normStand(q).replace(/\s/g,"");
+  if(q.length<2||!ROWS.length){$("hits").innerHTML="";return;}
+  const r=ROWS.filter(x=>x.nn.includes(qn)||norm(x.b).includes(qn)||x.key.startsWith(qs)).slice(0,12);
+  $("hits").innerHTML=r.map(x=>`<button class="hit" data-r="${x.i}"><b>${esc(x.n)}</b> · ${esc(x.s)} · ${SEG[x.g].l} · ${x.t}</button>`).join("")||'<div class="hit">Не нашли. Стенд без номера в каталоге на карте не отмечен.</div>';},150);};
 
 (async()=>{
-  try{
-    const [p,e]=await Promise.all([fetch("plan/plan.json").then(r=>r.json()),fetch("exhibitors.json").then(r=>r.json())]);
-    PLAN=p;let i=0;
-    for(const x of e){const stands=normStand(x.stand).split(/[,\s/]+/).filter(Boolean);
-      let pos=null,hall=null;for(const s of stands){const h=s.slice(0,2);if(PLAN.halls[h]&&PLAN.halls[h].stands[s]){pos=PLAN.halls[h].stands[s];hall=h;break;}}
-      if(!pos)continue;
-      const r=Object.assign({},x,{stands,pos,hall,dom:dom(x.site),i:i++});ROWS.push(r);(BYHALL[hall]=BYHALL[hall]||[]).push(r);}
-    if(!PLAN.halls[S.hall])S.hall=Object.keys(PLAN.halls)[0];
-    loadLocalVisits();render();loadSheetVisits();
-    const w=$("wrap");if(innerWidth<700)w.scrollLeft=0;
-  }catch(err){$("map").innerHTML='<p class="err">Не удалось загрузить карту. Обновите страницу.</p>';}
+  try{PLAN=(await (await fetch("plan/plan.json")).json());}catch(e){$("cnt").textContent="Не удалось загрузить план. Обновите страницу.";return;}
+  if(!PLAN.halls[S.hall])S.hall=Object.keys(PLAN.halls)[0];
+  render();
+  try{const pts=await (await fetch("map-points.json")).json();
+    pts.forEach((x,i)=>{x.i=i;x.nn=norm(x.n);x.d=dom(x.w);x.key=normStand(x.s).split(/[,\s/]+/)[0];ROWS.push(x);(BYHALL[x.h]=BYHALL[x.h]||[]).push(x);});
+  }catch(e){$("load").textContent="Не удалось загрузить участников. Обновите страницу.";return;}
+  loadLocalVisits();render();loadSheetVisits();
 })();
 </script>
 </body>

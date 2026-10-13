@@ -650,6 +650,19 @@ def mgr_tokens(ev, sh):
         "const _post=post; post=function(p){const q=Object.assign({},p);if(MGR&&String(q.source||\"\").indexOf(\" · \"+MGR)<0&&srcKey(q.source)===srcKey(EVENT_SOURCE))q.source=q.source+\" · \"+MGR;return _post(q);};\n"
         "const _renderCard=renderCard; renderCard=function(){_renderCard();const own=SEL&&SEL.seg?SEG_OWNER[SEL.seg]:\"\";\n"
         "  if(SEL&&MGR&&own&&own!==MGR){$(\"cardD\").textContent=\"Это клиент: \"+own+\" — возьмите контакт и передайте. \"+$(\"cardD\").textContent;}};\n"
+        # Карта: сегмент — отдельный фильтр SF поверх эшелона и «были / не были» (MF), а не взаимоисключающий.
+        # По умолчанию — сегменты того, кто заполняет (Никита: clickout+both, Андрей: mp+both).
+        "const MGR_SEGS={}; Object.keys(SEG_OWNER).forEach(s=>{(MGR_SEGS[SEG_OWNER[s]]=MGR_SEGS[SEG_OWNER[s]]||[]).push(s)}); Object.keys(MGR_SEGS).forEach(m=>MGR_SEGS[m].push(\"both\"));\n"
+        "let SF=MGR&&MGR_SEGS[MGR]?\"seg:\"+MGR_SEGS[MGR].join(\"+\"):\"\";\n"
+        "const segOk=r=>!SF||SF.slice(4).split(\"+\").indexOf(r.seg)>=0;\n"
+        "function sfChips(){$(\"fbar\").querySelectorAll('.chip[data-m^=\"seg:\"]').forEach(b=>b.classList.toggle(\"on\",b.dataset.m===SF));}\n"
+        "$(\"fbar\").addEventListener(\"click\",e=>{const b=e.target.closest(\".chip\");if(!b||b.dataset.m.indexOf(\"seg:\")!==0)return;\n"
+        "  e.stopImmediatePropagation();SF=SF===b.dataset.m?\"\":b.dataset.m;sfChips();renderMap();},true);\n"
+        "const _renderMap=renderMap; renderMap=function(){_renderMap();sfChips();if(!SF)return;\n"
+        "  const g=$(\"map\").groups||{};\n"
+        "  $(\"map\").querySelectorAll(\".cell\").forEach(b=>{const c=g[b.dataset.g];if(c&&!c.items.some(segOk))b.classList.add(\"dim\");});\n"
+        "  $(\"route\").querySelectorAll(\".it\").forEach(it=>{const r=ROWS[+it.dataset.i];if(r&&!segOk(r))it.remove();});};\n"
+        "const _mgrRender=mgrRender; mgrRender=function(){_mgrRender();if(MGR&&MGR_SEGS[MGR]){SF=\"seg:\"+MGR_SEGS[MGR].join(\"+\");renderMap();}};\n"
         "mgrRender();\n")
     return out
 

@@ -865,9 +865,30 @@ CFG = {
 }
 
 
+HOMO = str.maketrans("АВСЕНКМОРТХавсенкмортх", "ABCEHKMOPTXabcehkmoptx")
+
+
+def write_map_points(rows):
+    """intercharm/map-points.json — лёгкие данные для map.html: только участники со стендом на плане
+    (координаты из intercharm/plan/plan.json), без описаний; полный exhibitors.json телефону не нужен."""
+    plan = json.load(open(ROOT / "intercharm" / "plan" / "plan.json", encoding="utf-8"))["halls"]
+    pts = []
+    for r in rows:
+        for s in re.split(r"[,\s/]+", (r["stand"] or "").translate(HOMO).upper()):
+            h = s[:2]
+            if h in plan and s in plan[h]["stands"]:
+                pts.append({"n": r["name"], "s": r["stand"], "h": h, "p": plan[h]["stands"][s], "g": r["seg"], "t": r["prio"],
+                            "top": 1 if r["top"] else 0, "b": ", ".join(r["brands"][:3]), "w": r["site"],
+                            "e": (r.get("seg_evidence") or "")[:220]})
+                break
+    (ROOT / "intercharm" / "map-points.json").write_text(json.dumps(pts, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print(f"map-points: {len(pts)} из {len(rows)} на плане", file=sys.stderr)
+
+
 if __name__ == "__main__":
     loaded = load()
     emit(CFG, loaded, ROOT / "intercharm", sys.argv)
+    write_map_points(loaded)
     for r in loaded:
         if r["prio"] in ("A", "B"):
             star = "★" if r["top"] else " "
