@@ -559,8 +559,16 @@ function srcToggle(){srcOther.style.display=srcSel.value==="__other__"?"block":"
 srcSel.addEventListener("change",()=>{srcToggle();SEL=null;draftSave();loadList(srcSel.value);});
 const d=draftLoad(); if(!srcSel.value) srcSel.value=EVENT_SOURCE; srcToggle();
 document.querySelectorAll(".chips[data-for]").forEach(syncChips);
-loadList(srcSel.value).then(()=>{ if(d._sel){const r=ROWS.find(x=>x.name===d._sel); if(r){SEL=r; onClientInput(true);}} });
+/* ссылка с карты залов: presenter.html?c=<клиент>&s=<стенд> — сразу опрос по этому клиенту */
+const UP=new URLSearchParams(location.search), UPC=(UP.get("c")||"").trim();
+if(UPC&&srcSel.value!==EVENT_SOURCE){srcSel.value=EVENT_SOURCE;srcToggle();}
+loadList(srcSel.value).then(()=>{
+  if(UPC){const s=UP.get("s")||"";const r=ROWS.find(x=>x.name===UPC&&(!s||x.stand===s))||ROWS.find(x=>x.name===UPC);
+    if(r) pick(r); else {SEL=null;$("client").value=UPC;onClientInput(true);draftSave();}
+    history.replaceState(null,"",location.pathname);return;}
+  if(d._sel){const r=ROWS.find(x=>x.name===d._sel); if(r){SEL=r; onClientInput(true);}} });
 let tab="form"; try{tab=sessionStorage.getItem("expo_tab")||"pitch"}catch(e){tab="pitch"}
+if(UPC) tab="form";
 showTab(tab);
 showQueue(); flush(); loadSheet();
 setInterval(()=>{if(!document.hidden) loadSheet();},90000);

@@ -162,7 +162,7 @@ function card(x){const s=SEG[x.g];
   ${x.b?`<p>Бренды: ${esc(x.b)}</p>`:""}
   ${x.w?`<p><a href="${esc(x.w)}" target="_blank" rel="noopener">${esc(x.d)}</a></p>`:""}
   ${x.e?`<p class="ev">Почему так: ${esc(x.e)}</p>`:""}
-  <p><a href="presenter.html">Открыть опросник →</a></p></div>`;}
+  <p><a href="presenter.html?c=${encodeURIComponent(x.n)}&s=${encodeURIComponent(x.s||"")}">Открыть опросник →</a></p></div>`;}
 function openCard(xs){S.sel=xs[0];$("sc").innerHTML=xs.map(card).join("");$("sheet").classList.add("on");
   $("map").querySelectorAll(".mk.sel").forEach(e=>e.classList.remove("sel"));const m=$("map").querySelector(`.mk[data-k="${xs[0].p.join(",")}"]`);if(m)m.classList.add("sel");}
 function focus(x){S.hall=x.h;if(!S.segs.includes(x.g))S.segs=[...S.segs,x.g];if(!S.tiers.includes(x.t))S.tiers=[...S.tiers,x.t];
