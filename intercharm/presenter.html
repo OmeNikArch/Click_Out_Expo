@@ -334,7 +334,10 @@ function score(q,r){
   if(r.nw.startsWith(qn)||r.tw.startsWith(qt)) return 80;
   if((" "+r.nw).indexOf(" "+qn)>=0||(" "+r.tw).indexOf(" "+qt)>=0) return 65;
   if(r.k.indexOf(qk)>=0) return 50;
-  if(r.h && qk.length>=3 && r.h.replace(/[^a-z0-9]/g,"").indexOf(qk)>=0) return 45;
+  /* сайт: домен сравниваем в той же транслитерации, что и запрос (dkhoon → dhoon), и по отдельным словам */
+  const hk=r.h?tr(r.h).replace(/[^a-z0-9]/g,""):"", hb=hk.replace(/(com|ru|ae|net|org|pro|shop|store|info)$/,"");
+  if(hk && qk.length>=3 && (hk.indexOf(qk)>=0 || (hb.length>=5 && qk.indexOf(hb)>=0))) return 45;
+  if(hk && qt.split(" ").some(w=>w.length>=4 && hk.indexOf(w)>=0)) return 40;
   const d=Math.max(dice(qk,r.k), ...r.tw.split(" ").map(w=>dice(qk,w)));
   return d>=.45?Math.round(d*40):0;
 }
