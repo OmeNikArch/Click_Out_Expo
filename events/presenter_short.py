@@ -440,7 +440,9 @@ document.addEventListener("input",e=>{if(e.target.id!=="client")draftSave();});
 /* ---------- отправка с очередью (у стендов бывает без связи) ---------- */
 function outbox(){return LS.get(OUTBOX_KEY,[]);}
 function showQueue(){const n=outbox().length;const q=$("queue");q.hidden=!n;q.textContent=n?`В очереди на отправку: ${n} — уйдут сами, когда появится связь`:"";}
-async function post(p){await fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)});}
+/* Таблица читает текст с «+ = - @» в начале как формулу (+7… → #ERROR!) — апостроф делает его текстом */
+const asText=v=>typeof v==="string"?(/^[-=+@]/.test(v.trim())?"'"+v.trim():v):(v&&typeof v==="object"?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,asText(x)])):v);
+async function post(p){await fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(asText(p))});}
 async function flush(){
   let q=outbox(); if(!q.length) return;
   const rest=[];
