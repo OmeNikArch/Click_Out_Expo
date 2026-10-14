@@ -194,6 +194,8 @@ ONLY_OWN = re.compile(
 )
 
 
+import brand_size  # noqa: E402  крупность бренда для сегмента «Оба» (14.10.2026)
+
 def b2b_reason(row, text, name=""):
     """Явный B2B-профиль: только по рубрикам каталога, названию-школе или узким формулировкам текста.
     Возвращает причину или ''. Упоминания чужого дистрибьютора («дистрибьютор в РФ — X») не считаются."""
@@ -523,7 +525,8 @@ def site_features(url):
         if service: ev.append("на сайте — услуги/запись на процедуры (салон/клиника/студия)")
         if not ev: ev.append("сайт открылся, продажа не найдена")
         ev.append("проверено: " + ", ".join((p.get("final_url") or p.get("url") or "") for p in ok_pages[:3]))
-        return {"opened": True, "pages": len(ok_pages), "mp": mp, "own_shop": own, "app": app, "only_own": only_own, "service": service, "evidence": "; ".join(ev)}
+        return {"opened": True, "pages": len(ok_pages), "mp": mp, "own_shop": own, "app": app, "only_own": only_own, "service": service, "evidence": "; ".join(ev),
+                "sig": brand_size.site_signals(text)}
     err = home.get("error") or str(home.get("status") or "не открылся")
     return {"opened": False, "pages": 0, "mp": [], "own_shop": False, "app": False, "only_own": False, "service": False, "evidence": "сайт не открылся: " + err[:120]}
 
@@ -794,6 +797,16 @@ def load():
         seg, seg_evidence, mp, own_shop, app = segment_for(r, country, prio, features.get(s, {"opened": False, "evidence": "сайт не проверен"}))
         if seg == "none":
             prio, top = "C", False
+        size_score = None
+        if seg == "both":   # Никита 14.10: внутри «Оба» эшелон = крупность бренда (бюджет под Click Out), мелких — в C
+            fi = features.get(s, {})
+            sig, opened = fi.get("sig") or {}, bool(fi.get("opened"))
+            brands_ = [b.strip() for b in re.split(r"[;,]", r.get("brand") or "") if b.strip()]
+            size_score, why = brand_size.brand_size({"tags": tags, "country": country, "brands": brands_, "own_shop": own_shop,
+                                                     "app": app, "mp": mp}, sig, opened)
+            prio = brand_size.tier(size_score, {"tags": tags, "country": country}, opened)
+            top = prio == "A" and size_score >= 9
+            seg_evidence = f"{seg_evidence}; крупность {size_score}: " + (", ".join(why) or "признаков бюджета нет")
         about = txt(r.get("about")) or txt(r.get("brief"))
         descr = txt(r.get("descr"))
         full = " ".join(x for x in [about, descr] if x)
@@ -819,6 +832,7 @@ def load():
             "mp": mp,
             "own_shop": own_shop,
             "app": app,
+            "size": size_score,
             "meta": " · ".join(x for x in [country, city] if x),
             "_phones": phones(r),
             "_emails": emails(r),
