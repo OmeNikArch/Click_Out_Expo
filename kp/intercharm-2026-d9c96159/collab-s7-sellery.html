@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>КП Церебро — Collab x S7 Shop — Внешний трафик на маркетплейсы — НА СОГЛАСОВАНИЕ АНДРЕЮ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#0c0c0d; --bg2:#121214; --card:#161618; --card2:#1d1d21; --line:#2a2a2f; --line2:#38383f;
+  --fg:#f5f3ec; --muted:#a6a6ae; --dim:#74747d;
+  --y:#FDD101; --y-dim:#8c7500; --y-ink:#141200; --red:#ec5b60;
+  --display:'Unbounded',system-ui,sans-serif; --body:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit}
+.stack{display:flex;flex-direction:column;align-items:center;gap:20px;padding-block:20px;padding-inline:16px;min-height:100vh}
+.frame{position:relative;width:min(1280px,100%);aspect-ratio:16/9;max-width:100%;overflow:hidden;border:1px solid var(--line);background:var(--bg)}
+.slide{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;transform:scale(var(--s,1));padding:46px 64px 56px;overflow:hidden;background:var(--bg);color:var(--fg);display:flex;flex-direction:column}
+.slide.on-yellow{background:var(--y);color:var(--y-ink)}
+.slide .foot{position:absolute;left:64px;right:64px;bottom:22px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.on-yellow .foot{color:#5d5200}
+.foot .num{font-variant-numeric:tabular-nums}
+.foot .mark{display:flex;align-items:center;gap:10px}
+.foot svg{width:16px;height:auto;display:block;color:var(--fg)}
+.on-yellow .foot svg{color:var(--y-ink)}
+.foot .mark .frame-y{display:none}
+
+/* type */
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--y);display:flex;align-items:center;gap:12px;margin:0 0 18px}
+.eyebrow::before{content:"";width:34px;height:7px;background:var(--y);display:inline-block}
+.on-yellow .eyebrow{color:var(--y-ink)} .on-yellow .eyebrow::before{background:var(--y-ink)}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:700;text-wrap:balance;line-height:1.12}
+h1{font-size:46px;letter-spacing:-.01em}
+h2{font-size:30px;letter-spacing:-.01em}
+h3{font-size:15px;font-weight:500;line-height:1.3}
+.lead{font-size:18px;line-height:1.5;color:var(--muted);max-width:62ch;margin:14px 0 0}
+.on-yellow .lead{color:#3d3600}
+p{margin:0}
+.muted{color:var(--muted)} .dim{color:var(--dim)}
+.mono{font-family:var(--mono)}
+.big{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;letter-spacing:-.01em;color:var(--y);font-variant-numeric:tabular-nums}
+.on-yellow .big{color:var(--y-ink)}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+
+/* layout helpers */
+.body{flex:1;display:flex;flex-direction:column;min-height:0}
+.grid{display:grid;gap:16px}
+.cols-2{grid-template-columns:1fr 1fr}
+.cols-3{grid-template-columns:repeat(3,1fr)}
+.cols-4{grid-template-columns:repeat(4,1fr)}
+.cols-6{grid-template-columns:repeat(6,1fr)}
+.card{background:var(--card);border:1px solid var(--line);padding:18px 20px;position:relative}
+.card.y{background:var(--y);color:var(--y-ink);border-color:var(--y)}
+.card.y .label{color:#5d5200}
+.card.ghost{background:transparent;border-style:dashed;border-color:var(--line2)}
+.tail::after{content:"";position:absolute;right:-1px;bottom:-14px;width:0;height:0;border-top:14px solid var(--y);border-left:14px solid transparent}
+ul{margin:0;padding:0;list-style:none}
+ul.list li{position:relative;padding-left:16px;margin:0 0 6px;line-height:1.4}
+ul.list li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;background:var(--y)}
+ul.list.hollow li::before{background:transparent;border:1.5px solid var(--y);width:5px;height:5px}
+ul.list.no li::before{background:transparent;border:none;width:8px;height:8px;top:.35em;color:var(--red);content:"✕";font-size:11px;line-height:1;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;padding:4px 7px;border:1px solid var(--line2);color:var(--muted);background:var(--bg2);white-space:nowrap}
+.chip.y{border-color:var(--y);color:var(--y)}
+
+/* verdict bands */
+.bands{display:grid;grid-template-rows:auto auto auto;gap:8px;align-content:start}
+.band{display:grid;grid-template-columns:140px 1fr;gap:12px;padding:11px 14px;background:var(--card);border:1px solid var(--line);align-items:start}
+.band .k{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:500;font-size:13px;line-height:1.2}
+.band .k i{width:14px;height:14px;flex:none;display:inline-block}
+.band.ok .k i{background:var(--y)}
+.band.ok{border-left:4px solid var(--y)}
+.band.mid .k i{border:2px solid var(--y);box-sizing:border-box}
+.band.mid{border-left:4px solid var(--y-dim)}
+.band.no .k i{position:relative}
+.band.no .k i::before,.band.no .k i::after{content:"";position:absolute;left:-1px;top:6px;width:16px;height:2px;background:var(--red);transform:rotate(45deg)}
+.band.no .k i::after{transform:rotate(-45deg)}
+.band.no{border-left:4px solid var(--red)}
+.band .v{font-size:13px;line-height:1.42;color:var(--fg)}
+.band .v b{font-weight:600}
+.band .v .note{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+
+/* check strip */
+.check{display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:center;background:var(--y);color:var(--y-ink);padding:12px 16px;margin-top:12px;flex:none}
+.check .k{font-family:var(--display);font-weight:700;font-size:13px}
+.check .items{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:18px}
+.check .it{display:flex;flex-direction:column;gap:2px}
+.check .it .n{font-family:var(--mono);font-weight:500;font-size:15px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.check .it .d{font-size:11.5px;color:#4a4200;line-height:1.25}
+
+/* section header on direction slides */
+.dir-head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;margin-bottom:14px}
+.dir-head h2{font-size:25px}
+.dir-head .lead{font-size:13.5px;margin-top:8px;max-width:72ch;line-height:1.45}
+.dir-head .aud{display:flex;gap:18px}
+.dir-head .aud .it{text-align:right}
+.dir-head .aud .n{font-family:var(--display);font-weight:700;font-size:17px;color:var(--y)}
+.dir-head .aud .d{font-size:11px;color:var(--muted);line-height:1.2;max-width:120px}
+
+/* stat tiles */
+.stat{background:var(--card);border:1px solid var(--line);padding:18px 18px 16px;display:flex;flex-direction:column;gap:8px}
+.stat .n{font-family:var(--display);font-weight:700;font-size:26px;line-height:1;color:var(--y);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.stat .d{font-size:13px;color:var(--muted);line-height:1.35}
+.stat .s{font-size:12px;color:var(--dim);margin-top:auto}
+
+/* case cards */
+.case{background:var(--card);border:1px solid var(--line);padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-height:200px}
+.case .t{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.case .n{font-family:var(--display);font-weight:700;font-size:28px;line-height:1.05;color:var(--y);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.case .h{font-family:var(--display);font-weight:500;font-size:13px;line-height:1.3}
+.case .d{font-size:13px;color:var(--muted);line-height:1.4}
+.case .d b{color:var(--fg);font-weight:600}
+
+/* matrix table */
+table.matrix{width:100%;border-collapse:collapse;font-size:11.5px;line-height:1.33;table-layout:fixed}
+table.matrix th{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 10px 8px;border-bottom:1px solid var(--line2);font-weight:500}
+table.matrix td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.matrix td.name{font-family:var(--display);font-weight:500;font-size:12.5px;line-height:1.25}
+table.matrix td.name small{display:block;font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:4px;letter-spacing:.04em;font-weight:400}
+table.matrix td.ok{color:var(--fg)}
+table.matrix td.mid{color:var(--muted)}
+table.matrix td.no{color:var(--muted)}
+table.matrix td.chk{font-family:var(--mono);font-size:11.5px;color:var(--y);font-variant-numeric:tabular-nums}
+table.matrix td.chk small{display:block;color:var(--muted);font-family:var(--body);font-size:11px;margin-top:2px}
+table.matrix th.ok::before,table.matrix th.mid::before,table.matrix th.no::before{content:"";display:inline-block;width:9px;height:9px;margin-right:8px;vertical-align:-1px}
+table.matrix th.ok::before{background:var(--y)}
+table.matrix th.mid::before{border:1.5px solid var(--y);width:7px;height:7px}
+table.matrix th.no::before{background:var(--red)}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.step{background:var(--card);border:1px solid var(--line);padding:16px 14px;display:flex;flex-direction:column;gap:8px;min-height:190px;position:relative}
+.step .i{font-family:var(--display);font-weight:700;font-size:22px;color:var(--y);line-height:1}
+.step .h{font-family:var(--display);font-weight:500;font-size:12.5px;line-height:1.3}
+.step .d{font-size:12px;color:var(--muted);line-height:1.4}
+.step .sla{margin-top:auto;font-family:var(--mono);font-size:11px;color:var(--y);letter-spacing:.02em}
+
+/* cover */
+.cover{padding:64px 72px 64px;justify-content:space-between}
+.cover .top{display:flex;justify-content:space-between;align-items:flex-start}
+.cover .wordmark{width:250px;height:auto;color:var(--fg)}
+.cover h1{font-size:52px;max-width:19ch;margin-top:20px}
+.cover .lead{font-size:20px;max-width:56ch}
+.cover .meta{display:flex;gap:40px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cover .meta b{display:block;color:var(--fg);font-weight:500;margin-top:4px;letter-spacing:.04em}
+.ysq{width:140px;height:152px;color:var(--fg)}
+
+/* logos row */
+.partners{display:flex;gap:10px;flex-wrap:wrap}
+.partners .p{font-family:var(--mono);font-size:11.5px;padding:8px 12px;border:1px solid var(--line2);color:var(--fg);background:var(--bg2)}
+.partners .p span{color:var(--dim);margin-right:8px}
+
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 20px;font-size:13px}
+.team .m b{display:block;font-weight:600}
+.team .m span{color:var(--muted);font-size:12px}
+
+.nav{position:fixed;right:16px;bottom:16px;display:flex;gap:6px;z-index:5}
+.nav button{font-family:var(--mono);font-size:12px;background:var(--card);color:var(--fg);border:1px solid var(--line2);padding:8px 12px;cursor:pointer}
+.nav button:focus-visible{outline:2px solid var(--y);outline-offset:2px}
+.nav .cnt{padding:8px 10px;color:var(--muted);font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{background:var(--bg)}
+  .stack{display:block;padding:0;gap:0}
+  .frame{width:1280px;height:720px;aspect-ratio:auto;border:none;page-break-after:always;break-after:page;margin:0}
+  .frame:last-child{page-break-after:auto;break-after:auto}
+  .slide{transform:none}
+  .nav{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+
+
+table.num-t{width:100%;border-collapse:collapse;table-layout:fixed}
+table.num-t th{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 10px 8px;border-bottom:1px solid var(--line2);font-weight:500}
+table.num-t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+table.num-t td.r,table.num-t th.r{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+table.num-t td small{display:block;color:var(--dim);font-size:11px;margin-top:2px;font-family:var(--body)}
+table.num-t tr.tot td{border-top:1px solid var(--line2);background:var(--bg2);font-weight:600}
+table.num-t tr.tot td.r{color:var(--y)}
+.src-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.src{background:var(--card);border:1px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:7px;position:relative}
+.src.on{border-color:var(--y);box-shadow:inset 4px 0 0 var(--y)}
+.src .tag{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border:1px solid var(--line2);color:var(--dim)}
+.src.on .tag{background:var(--y);color:var(--y-ink);border-color:var(--y)}
+.src.later .tag{border-color:var(--y-dim);color:var(--y)}
+.src h3{font-size:15px;font-weight:700;padding-right:110px}
+.src .a{font-family:var(--mono);font-size:11.5px;color:var(--y);line-height:1.35}
+.src .d{font-size:12.5px;color:var(--muted);line-height:1.42}
+.heard{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;flex:1;min-height:0}
+.hrow{display:grid;grid-template-columns:170px 1fr;gap:14px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--y);margin-bottom:8px}
+.hrow .k{font-family:var(--display);font-weight:500;font-size:12.5px;line-height:1.3}
+.hrow .v{font-size:13.5px;line-height:1.45}
+.meas{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.meas .card h3{font-size:14px;margin:6px 0 8px}
+.meas .card p{font-size:12.5px;color:var(--muted);line-height:1.42}
+.linklist{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+.linklist a{display:grid;grid-template-columns:22px 1fr;gap:8px;text-decoration:none;padding:10px 12px;background:var(--card);border:1px solid var(--line);font-size:13px;line-height:1.35}
+.linklist a i{font-style:normal;font-family:var(--mono);color:var(--y);font-size:12px}
+.linklist a small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:3px;letter-spacing:.03em}
+.case a.more{margin-top:auto;font-family:var(--mono);font-size:11px;color:var(--y);text-decoration:none;border-bottom:1px solid var(--y-dim);align-self:flex-start}
+.fmtcard{padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.fmtcard .big{font-size:30px}
+.fmtcard.rec{border-color:var(--y);box-shadow:inset 0 4px 0 var(--y)}
+.fmtcard .rt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--y)}
+.price-t td{font-size:12.5px!important;padding:9px 10px!important}
+.hrow{padding:15px 16px;margin-bottom:10px}.hrow .k{font-size:13.5px}.hrow .v{font-size:15px}
+.card.y ul.list li{font-size:14.5px;margin-bottom:10px}
+.meas .card{padding:20px 20px}.meas .card h3{font-size:16px}.meas .card p{font-size:13.5px}
+.about .stat .n{font-size:21px;white-space:nowrap}
+table.num-t td{font-size:14px;padding:11px 10px}
+.plan-side .card p{font-size:14.5px!important}
+
+ul.list.dark li::before{background:var(--y-ink)}
+.card.y .label{color:#5d5200}
+.soglas{background:var(--y);color:#111;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border:1px solid var(--y);display:inline-block;margin-top:14px;font-weight:500}
+</style>
+</head>
+<body>
+<div class="stack" id="stack">
+<div class="frame"><section class="slide cover">
+  <div class="top">
+    <svg class="wordmark" viewBox="0 0 2072 791" aria-label="Церебро Таргет"><path d="M1119.83 353.735H1148.46V280.489H1122.04V109H1081.71V280.489H1010.69V109H970.36V316.716H1115.56L1119.83 353.735Z" fill="currentColor"/>
+<path d="M1228.17 195.061C1236.87 195.061 1243.2 197.908 1247.15 203.603C1251.11 209.457 1252.85 217.683 1251.9 228.283H1197.17C1198.28 218.158 1201.13 210.09 1205.87 204.078C1210.62 198.066 1218.21 195.061 1228.17 195.061ZM1270.25 278.748C1259.72 286.345 1247 290.29 1234.03 289.981C1221.06 289.981 1211.88 286.817 1205.87 280.489C1200.18 274.161 1197.01 264.669 1196.38 252.329H1284.64C1286.39 243.038 1287.4 233.621 1287.65 224.169C1287.65 212.621 1286.06 203.129 1282.58 195.377C1279.74 188.54 1275.37 182.446 1269.8 177.564C1264.24 172.682 1257.62 169.142 1250.48 167.217C1243.52 165.161 1236.24 164.212 1228.81 164.212C1206.35 164.212 1188.95 170.698 1176.61 183.828C1164.27 196.801 1158.11 216.418 1158.11 242.521C1158.11 266.883 1163.64 286.026 1174.55 299.947C1185.63 313.869 1203.03 320.83 1226.75 320.83C1238.14 320.83 1248.89 319.248 1258.86 316.084C1268.98 312.761 1277.05 308.648 1282.9 303.902L1270.25 278.748Z" fill="currentColor"/>
+<path d="M1374.95 288.24C1369.58 288.24 1365.46 287.608 1362.14 286.342C1358.98 284.918 1355.82 283.178 1353.13 281.121V219.423C1355.5 211.83 1358.82 206.293 1362.93 202.496C1367.86 198.455 1374.13 196.421 1380.49 196.801C1389.98 196.801 1397.1 200.439 1401.37 207.558C1405.8 214.677 1407.85 224.802 1407.85 237.775C1407.85 255.809 1405.16 268.624 1399.63 276.534C1394.09 284.444 1385.87 288.24 1374.95 288.24ZM1442.97 272.895C1445.81 262.77 1447.39 251.38 1447.39 238.724C1447.39 212.621 1442.65 193.637 1433.48 181.772C1424.3 170.065 1410.38 164.212 1392.04 164.212C1381.91 164.212 1373.53 165.952 1366.57 169.59C1359.61 173.071 1353.44 178.608 1348.38 186.201H1347.27L1342.85 168.325H1314.85V376.041H1353.13V315.134C1361.41 319.439 1370.7 321.407 1380.02 320.83C1390.77 320.83 1400.26 318.931 1408.49 315.134C1416.87 311.496 1423.99 305.959 1429.84 298.84C1435.53 291.721 1439.96 283.02 1442.97 272.895Z" fill="currentColor"/>
+<path d="M1536.76 195.061C1545.46 195.061 1551.79 197.908 1555.74 203.603C1559.69 209.457 1561.43 217.683 1560.49 228.283H1505.76C1506.87 218.158 1509.71 210.09 1514.46 204.078C1519.2 198.066 1526.8 195.061 1536.76 195.061ZM1567.44 315.925C1577.57 312.761 1585.63 308.648 1591.49 303.902L1578.83 278.59C1568.32 286.233 1555.6 290.233 1542.61 289.981C1529.64 289.981 1520.47 286.817 1514.46 280.489C1508.76 274.161 1505.6 264.669 1504.97 252.329H1593.23C1594.98 243.039 1595.99 233.622 1596.23 224.169C1596.23 212.621 1594.65 203.129 1591.17 195.377C1588.34 188.533 1583.97 182.433 1578.4 177.55C1572.83 172.667 1566.22 169.131 1559.06 167.217C1552.1 165.161 1544.83 164.212 1537.39 164.212C1514.93 164.212 1497.53 170.698 1485.2 183.828C1472.86 196.801 1466.69 216.418 1466.69 242.521C1466.69 266.883 1472.23 286.026 1483.14 299.947C1494.21 313.869 1511.61 320.83 1535.34 320.83C1546.72 320.83 1557.48 319.248 1567.44 316.084V315.925Z" fill="currentColor"/>
+<path d="M1687.65 204.394C1697.62 204.394 1704.73 207.717 1709 214.677C1713.28 221.638 1715.49 231.447 1715.49 244.419C1715.49 258.657 1713.28 269.415 1708.53 277.008C1703.94 284.444 1696.35 288.24 1685.75 288.24C1675.63 288.24 1668.04 284.127 1663.14 275.743C1657.89 266.157 1655.33 255.338 1655.7 244.419C1655.7 231.921 1658.39 222.271 1663.61 214.994C1668.83 207.875 1676.74 204.394 1687.49 204.394H1687.65ZM1737 300.105C1749.02 286.342 1755.03 266.092 1755.03 239.357C1755.03 216.101 1749.65 199.174 1739.21 188.1C1733.67 182.532 1727.02 178.191 1719.69 175.357C1712.36 172.523 1704.52 171.259 1696.67 171.647C1685.6 171.647 1676.26 173.704 1668.51 177.5C1660.25 181.865 1653.32 188.366 1648.43 196.326H1647.48C1648.26 187.692 1650.12 179.189 1653.01 171.014C1655.39 164.686 1658.71 159.782 1662.82 156.143C1666.93 152.663 1671.84 150.132 1677.53 148.866C1683.22 147.442 1689.87 146.493 1697.3 146.177C1709.64 145.069 1719.44 143.962 1726.72 142.538C1734 141.273 1739.53 138.741 1743.49 135.261L1741.9 101.09C1738.42 104.412 1733.05 106.943 1725.77 108.367C1718.49 109.949 1709.95 111.056 1699.67 112.006C1691.76 112.797 1684.33 113.904 1677.21 115.17C1670.25 116.277 1663.61 118.334 1657.44 121.181C1643.9 127.603 1633.28 138.903 1627.71 152.821C1624.07 161.048 1621.22 171.172 1619.32 183.196C1617.27 195.377 1616.32 209.931 1616.32 226.859C1616.32 259.132 1622.33 282.862 1634.19 298.049C1646.21 313.236 1663.61 320.83 1686.39 320.83C1695.82 321.402 1705.27 319.851 1714.03 316.292C1722.79 312.733 1730.64 307.256 1737 300.264V300.105Z" fill="currentColor"/>
+<path d="M1841.55 288.24C1836.17 288.24 1832.06 287.608 1828.74 286.342C1825.57 284.918 1822.41 283.178 1819.72 281.121V219.423C1822.09 211.83 1825.42 206.293 1829.53 202.496C1834.45 198.455 1840.72 196.421 1847.08 196.801C1856.57 196.801 1863.69 200.439 1867.96 207.558C1872.23 214.677 1874.45 224.802 1874.45 237.775C1874.45 255.809 1871.76 268.624 1866.22 276.534C1860.69 284.444 1852.46 288.24 1841.55 288.24ZM1833.17 169.59C1826.21 173.071 1820.2 178.608 1814.98 186.201H1813.87L1809.44 168.325H1781.45V376.041H1819.72V315.134C1828 319.431 1837.3 321.399 1846.61 320.83C1857.37 320.83 1866.86 318.931 1875.08 315.134C1883.62 311.496 1890.58 305.959 1896.43 298.84C1902.13 291.721 1906.56 283.02 1909.56 272.895C1912.41 262.77 1913.99 251.38 1913.99 238.724C1913.99 212.621 1909.25 193.637 1900.07 181.772C1890.9 170.065 1876.98 164.212 1858.63 164.212C1849.84 163.955 1841.11 165.799 1833.17 169.59Z" fill="currentColor"/>
+<path d="M2002.72 288.24C1997.5 288.24 1992.92 287.133 1989.12 284.76C1985.23 282.473 1982.01 279.199 1979.79 275.268C1977.3 270.663 1975.54 265.7 1974.57 260.555C1973.31 254.626 1972.67 248.582 1972.67 242.521C1972.67 226.384 1975.36 214.677 1980.58 207.558C1985.96 200.439 1993.23 196.801 2002.72 196.801C2013.64 196.801 2021.23 201.072 2025.66 209.457C2030.24 217.841 2032.46 228.915 2032.46 242.679C2032.46 258.341 2030.09 269.889 2025.18 277.166C2020.28 284.602 2012.85 288.24 2002.72 288.24ZM2054.92 185.727C2049.1 178.827 2041.73 173.406 2033.41 169.907C2023.68 165.921 2013.23 163.982 2002.72 164.212C1980.74 164.212 1963.66 171.014 1951.48 184.461C1939.3 198.066 1933.29 217.367 1933.29 242.521C1933.29 254.227 1934.71 264.827 1937.56 274.635C1940.4 284.127 1944.67 292.512 1950.53 299.314C1956.38 306.117 1963.5 311.496 1972.2 315.134C1980.74 318.931 1991.02 320.83 2002.72 320.83C2012.2 321.401 2021.69 319.884 2030.52 316.385C2039.34 312.886 2047.3 307.49 2053.81 300.58C2065.99 286.975 2072 267.674 2072 242.521C2072 230.814 2070.42 220.214 2067.73 210.564C2065.23 201.486 2060.87 193.027 2054.92 185.727Z" fill="currentColor"/>
+<path d="M1129.95 424.925H969.253V461.153H1029.67V632.642H1070.01V461.153H1130.11L1129.95 424.925Z" fill="currentColor"/>
+<path d="M1191 586.922C1188.79 590.877 1185.47 594.516 1180.88 597.996C1176.45 601.476 1170.28 603.217 1162.69 603.217C1157 603.217 1152.57 601.635 1149.25 598.471C1146.08 595.465 1144.5 591.193 1144.5 585.656C1144.5 581.701 1145.61 578.379 1148.3 575.848C1150.83 573.317 1154.15 571.26 1158.58 569.995C1162.85 568.413 1167.75 567.622 1173.45 567.305C1179.25 566.934 1185.06 567.039 1190.85 567.622L1191 586.922ZM1228.02 559.395C1228.65 550.694 1228.96 541.993 1228.96 533.134C1228.96 525.224 1228.02 518.105 1226.43 511.777C1224.91 505.75 1221.98 500.167 1217.89 495.482C1213.78 490.895 1208.4 487.414 1201.6 484.883C1193.33 482.228 1184.66 480.997 1175.98 481.244C1164.12 481.244 1152.89 482.352 1142.13 484.408C1131.22 486.465 1121.88 489.155 1114.13 492.793L1123.15 521.586C1128.69 519.054 1135.8 516.839 1144.34 515.257C1152.89 513.675 1160.95 513.043 1168.54 513.043C1178.83 513.043 1185.31 515.416 1188.32 520.32C1191.16 525.066 1191.95 532.976 1190.69 544.05C1177.72 543.575 1166.01 544.05 1155.42 545.474C1144.98 547.056 1135.96 549.587 1128.37 553.384C1120.78 557.339 1115.08 562.401 1110.97 568.571C1107.02 574.899 1104.96 582.493 1104.96 591.668C1104.96 597.996 1106.07 604.008 1108.12 609.228C1110.26 614.409 1113.44 619.092 1117.47 622.985C1121.49 626.878 1126.28 629.897 1131.53 631.851C1136.91 633.907 1143.08 635.015 1150.04 635.015C1161.11 635.015 1169.97 632.642 1176.93 628.212C1183.89 623.783 1189.42 618.562 1193.22 612.392H1194.8L1200.97 632.958H1232.13C1229.71 625.579 1228.22 617.926 1227.7 610.177C1226.87 593.31 1226.98 576.409 1228.02 559.553V559.395Z" fill="currentColor"/>
+<path d="M1321.18 604.166C1315.8 604.166 1311.69 603.533 1308.37 602.267C1305.2 600.844 1302.04 599.103 1299.35 597.047V535.349C1301.72 527.755 1305.04 522.218 1309.16 518.421C1314.08 514.38 1320.35 512.346 1326.71 512.726C1336.2 512.726 1343.32 516.365 1347.59 523.484C1352.02 530.603 1354.08 540.728 1354.08 553.7C1354.08 571.735 1351.39 584.549 1345.85 592.459C1340.31 600.369 1332.09 604.166 1321.18 604.166ZM1312.79 485.516C1305.42 489.415 1299.16 495.132 1294.6 502.127H1293.5L1289.07 484.25H1261.07V691.967H1299.35V631.218C1307.65 635.445 1316.94 637.358 1326.24 636.755C1336.99 636.755 1346.48 634.857 1354.71 631.218C1363.25 627.421 1370.21 621.884 1376.06 614.765C1381.75 607.646 1386.18 598.945 1389.19 588.82C1392.04 578.696 1393.62 567.305 1393.62 554.649C1393.62 528.546 1388.87 509.562 1379.7 497.697C1370.52 485.99 1356.61 480.137 1338.26 480.137C1328.14 480.137 1319.75 481.877 1312.79 485.516Z" fill="currentColor"/>
+<path d="M1420.03 632.642H1459.57V518.421H1515.09V484.092H1420.03V632.642Z" fill="currentColor"/>
+<path d="M1560.33 544.208C1561.43 534.083 1564.28 526.015 1569.03 520.003C1573.77 513.992 1581.36 510.986 1591.17 510.986C1599.87 510.986 1606.35 513.834 1610.31 519.529C1614.26 525.382 1616 533.609 1615.05 544.208H1560.33ZM1613.63 483.143C1606.67 481.086 1599.39 480.137 1591.96 480.137C1569.5 480.137 1552.1 486.623 1539.77 499.754C1527.43 512.726 1521.26 532.343 1521.26 558.446C1521.26 582.809 1526.8 601.951 1537.71 615.873C1548.78 629.794 1566.18 636.755 1589.9 636.755C1601.29 636.755 1612.05 635.173 1622.01 632.009C1632.14 628.687 1640.2 624.574 1646.05 619.828L1633.4 594.516C1622.87 602.127 1610.17 606.123 1597.18 605.906C1584.21 605.906 1574.88 602.742 1569.03 596.414C1563.33 590.086 1560.17 580.594 1559.54 568.254H1647.79C1649.53 558.961 1650.54 549.546 1650.8 540.095C1650.8 528.546 1649.22 519.054 1645.74 511.302C1642.91 504.459 1638.54 498.359 1632.97 493.476C1627.4 488.592 1620.78 485.057 1613.63 483.143Z" fill="currentColor"/>
+<path d="M1661.4 518.421H1703.47V632.642H1743.01V518.421H1783.82V484.092H1661.4V518.421Z" fill="currentColor"/>
+<path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>
+    <div class="meta"><div>Коммерческое предложение<b>Collab x S7 Shop</b></div><div>InterCHARM<b>Октябрь 2026</b></div></div>
+  </div>
+  <div>
+    <p class="eyebrow">Внешний трафик на маркетплейсы · товарное направление</p>
+    <h1 style="font-size:44px;max-width:22ch">Collab x S7 Shop: целевой внешний трафик на карточки WB и Ozon</h1>
+    <p class="lead">Реклама и посевы во ВКонтакте, Яндекс Директ и ПромоСтраницы — переходы на карточки маркетплейсов: тестируем креативы и аудитории, измеряем стоимость перехода, масштабируем рабочие связки.</p>
+    <div class="soglas">НА СОГЛАСОВАНИЕ АНДРЕЮ: проверить условия и кейсы</div>
+  </div>
+  <div class="meta"><div>Источники первого флайта<b>VK Ads · посевы · Директ · ПромоСтраницы</b></div><div>Тест<b>от 100 000 ₽</b></div></div>
+</section></div>
+<div class="frame"><section class="slide ">
+  <p class="eyebrow">Что мы услышали от вас</p>
+  <h2>Collab x S7 Shop — косметика и БАДы, коллаборация с S7 Shop; продажи через Золотое Яблоко</h2>
+  <div class="heard" style="margin-top:26px">
+    <div><div class="hrow"><div class="k">Кто вы</div><div class="v">Бренд S7 Shop (co-lab.life): БАДы, уход за волосами и кожей; продажи в том числе через Золотое Яблоко; свой магазин.</div></div><div class="hrow"><div class="k">Что интересует</div><div class="v">«Интересен внешний трафик на МП и трафик с МП на Золотое Яблоко, подключить Андрея к задаче»; сейчас — маркетплейсы.</div></div><div class="hrow"><div class="k">Кто решает</div><div class="v">Решает маркетинг; инхаус-команда, но хотят на подрядчиков; бренд + перформанс.</div></div><div class="hrow"><div class="k">Договорённость</div><div class="v">Отправить предварительный аудит в WhatsApp (Никита, маркетинг).</div></div></div>
+    <div class="card y tail" style="align-self:start;padding:22px 24px">
+      <div class="label">Что предлагаем</div>
+      <ul class="list dark" style="margin-top:12px"><li>Тест за 100 000 ₽: 70 000 ₽ — рекламный бюджет, 30 000 ₽ — работа команды (по акции вместо 50 000 ₽). Минимум на рекламу — 60 000 ₽.</li><li>Персональный план по 1–3 приоритетным товарам (SKU): креативы, аудитории, посевы; механика и длительность теста — после брифа.</li><li>Граница обещания: отвечаем за привлечение, креативы, аудитории и оптимизацию до перехода на маркетплейс; продажи и ДРР оцениваем вместе с конверсией карточки, ценой и остатками.</li></ul>
+    </div>
+  </div>
+<div class="foot"><div class="mark"><svg viewBox="0 0 727 791"><path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>Церебро Таргет · для Collab x S7 Shop</div><div class="num">02</div></div>
+</section></div>
+<div class="frame"><section class="slide ">
+  <p class="eyebrow">О компании</p>
+  <h2>Церебро Таргет — рекламное агентство полного цикла на российских площадках</h2>
+  <div class="body" style="gap:16px;margin-top:18px">
+    <div class="grid cols-6 about" style="gap:10px"><div class="stat"><div class="n">3 000+</div><div class="d">клиентов агентства</div></div><div class="stat"><div class="n">10+ лет</div><div class="d">на российских рекламных площадках</div></div><div class="stat"><div class="n">2+ млрд ₽</div><div class="d">оборот агентства</div></div><div class="stat"><div class="n">34 месяца</div><div class="d">средний срок сотрудничества</div></div><div class="stat"><div class="n">2,8 млн</div><div class="d">продаж с рекламы</div></div><div class="stat"><div class="n">100+</div><div class="d">брендов в товарном направлении</div></div></div>
+    <div class="partners"><div class="p">Официальный партнёр VK Рекламы</div><div class="p">Официальный партнёр Яндекса</div><div class="p">Сертифицированный партнёр Яндекс ПромоСтраниц</div><div class="p">Официальный партнёр Авито</div></div>
+    <div class="grid cols-2" style="gap:16px">
+      <div class="card"><div class="label">Товарное направление — внешний трафик на карточки WB и Ozon</div>
+        <p style="margin-top:8px;font-size:13px;line-height:1.45">Посевы ВКонтакте (маркет-платформа, AdBlogger), VK Ads, Яндекс Директ и ПромоСтраницы. Креативы и UGC-видео снимаем сами; 100+ брендов в товарном направлении.</p></div>
+      <div class="card"><div class="label">Руководители</div><div class="team" style="margin-top:10px;gap:6px 16px"><div class="m"><b>Феликс Зинатуллин</b><span>CEO</span></div><div class="m"><b>Андрей Плешаков</b><span>товарное направление</span></div><div class="m"><b>Виктор Потапов</b><span>партнёр, агентское направление</span></div></div></div>
+    </div>
+  </div>
+<div class="foot"><div class="mark"><svg viewBox="0 0 727 791"><path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>Церебро Таргет · для Collab x S7 Shop</div><div class="num">03</div></div>
+</section></div>
+<div class="frame"><section class="slide ">
+  <p class="eyebrow">Рекламные источники</p>
+  <h2>Внешний трафик на карточки WB и Ozon — четыре инструмента одной командой</h2>
+  <div class="body" style="justify-content:center;margin-top:16px">
+    <div class="src-grid" style="grid-template-columns:repeat(3,1fr)"><div class="src on"><span class="tag">первый флайт</span><h3>VK Ads и посевы</h3><div class="a">таргет ВКонтакте + маркет-платформа и AdBlogger</div><div class="d">Креативы и UGC-видео снимаем сами; переход на карточки WB и Ozon. Ориентиры по лендингу: посевы — 10–15 ₽ за переход, VK Ads — 13–18 ₽ (проверяем тестом, не гарантия).</div></div><div class="src on"><span class="tag">первый флайт</span><h3>Яндекс Директ</h3><div class="a">Поиск и Рекламная сеть Яндекса</div><div class="d">Собирает сформированный спрос на карточки маркетплейса.</div></div><div class="src on"><span class="tag">первый флайт</span><h3>Яндекс ПромоСтраницы</h3><div class="a">статья в РСЯ → карточка товара</div><div class="d">Читатель дочитывает статью и переходит на карточку; переход 3–10 ₽, ДРР по кейсам 8–33 %.</div></div></div>
+    <p class="muted" style="font-size:12.5px;margin-top:14px">Посевы и VK Ads дают охват и дешёвый переход, Директ собирает сформированный спрос, ПромоСтраницы работают и на продажи, и на узнаваемость. Комбинацию подбираем после брифа по вашим товарам.</p>
+  </div>
+<div class="foot"><div class="mark"><svg viewBox="0 0 727 791"><path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>Церебро Таргет · для Collab x S7 Shop</div><div class="num">04</div></div>
+</section></div>
+<div class="frame"><section class="slide ">
+  <p class="eyebrow">Как мы работаем</p>
+  <h2>Не разовая закупка, а тест с планом, замерами и решением по итогам</h2>
+  <div class="body" style="gap:16px;margin-top:18px">
+    <div class="steps"><div class="step"><div class="i">01</div><div class="h">Бриф и товары</div><div class="d">Выбираем 1–3 приоритетных товара (SKU), смотрим карточки, отзывы, цену и остатки.</div><div class="sla">1–2 дня</div></div><div class="step"><div class="i">02</div><div class="h">Медиаплан и критерии</div><div class="d">Источники, аудитории, бюджет по неделям. Критерии «продолжаем / останавливаем» — письменно до старта.</div><div class="sla">до договора</div></div><div class="step"><div class="i">03</div><div class="h">Креативы</div><div class="d">UGC-видео и креативы для посевов и VK Ads снимаем сами.</div><div class="sla">по графику медиаплана</div></div><div class="step"><div class="i">04</div><div class="h">Запуск и отчёты</div><div class="d">Первый отчёт на 3-й день, дальше — каждую неделю: переходы, стоимость перехода, заказы.</div><div class="sla">еженедельно</div></div><div class="step"><div class="i">05</div><div class="h">Оптимизация</div><div class="d">Отключаем слабые связки, переносим бюджет между товарами и источниками.</div><div class="sla">каждую неделю</div></div><div class="step"><div class="i">06</div><div class="h">Итоги теста</div><div class="d">Сравниваем с критериями и решаем, что масштабировать.</div><div class="sla">по итогам теста</div></div></div>
+    <div class="card"><ul class="list" style="display:grid;grid-template-columns:1fr 1fr;gap:4px 28px"><li>Кабинеты и креативы принадлежат вам, доступ открыт с первого дня.</li><li>Отвечаем за привлечение, креативы, аудитории и оптимизацию до перехода на маркетплейс.</li><li>Продажи и ДРР оцениваем вместе с конверсией карточки, ценой, остатками и условиями площадки.</li><li>Не обещаем то, чем не управляем. За свою работу отвечаем.</li></ul></div>
+  </div>
+<div class="foot"><div class="mark"><svg viewBox="0 0 727 791"><path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>Церебро Таргет · для Collab x S7 Shop</div><div class="num">05</div></div>
+</section></div>
+<div class="frame"><section class="slide ">
+  <p class="eyebrow">Флайты</p>
+  <h2>Тест, квартал, полгода, год — бюджет, работа и объём работ</h2>
+  <div class="body" style="justify-content:center;margin-top:16px;gap:14px">
+    <div class="card" style="align-self:start"><table class="num-t">
+      <thead><tr><th>Флайт</th><th class="r">Медиабюджет</th><th class="r">Работа</th><th class="r">Итог</th><th>Что будет сделано</th></tr></thead>
+      <tbody><tr><td>Тест</td><td class="r">70 000 ₽</td><td class="r">30 000 ₽<small>по акции вместо 50 000 ₽</small></td><td class="r">100 000 ₽</td><td><small>Минимум на рекламу — 60 000 ₽. Механика и длительность — после брифа: 1–3 товара, креативы, аудитории, замер стоимости перехода.</small></td></tr><tr><td>Квартал · 3 месяца</td><td class="r">от 900 000 ₽</td><td class="r">от 300 000 ₽</td><td class="r">от 1 200 000 ₽</td><td><small>Персональный план по товарам, UGC-креативы и посевы, запуск, еженедельная оптимизация, масштабирование рабочих связок.</small></td></tr><tr><td>Полгода · 6 месяцев</td><td class="r">от 1 800 000 ₽</td><td class="r">от 600 000 ₽</td><td class="r">от 2 400 000 ₽</td><td><small>Два флайта: новые товары, статьи на ПромоСтраницах, расширение посевов, флайт под сезонный пик.</small></td></tr><tr><td>Год · 12 месяцев</td><td class="r">от 3 600 000 ₽</td><td class="r">от 1 200 000 ₽</td><td class="r">от 4 800 000 ₽</td><td><small>Системная работа по матрице SKU: четыре флайта под календарь спроса, регулярное обновление креативов, приоритетная поддержка.</small></td></tr></tbody></table>
+      <p class="muted" style="font-size:12px;margin-top:8px">Все суммы — без НДС. Работа — по ставкам источников (слайд «Стоимость»); минимальная рамка товарного направления — от 100 000 ₽ в месяц (бюджет + работа). Итоговый расчёт — в медиаплане флайта после брифа.</p></div>
+    <div class="card ghost"><div class="label">Черновик медиабюджета месяца (от 300 000 ₽)</div>
+      <p style="margin-top:8px;font-size:13.5px;line-height:1.5">Посевы ВКонтакте (маркет-платформа, AdBlogger) — 120 000 ₽ · VK Ads — 80 000 ₽ · Яндекс ПромоСтраницы — 60 000 ₽ · Яндекс Директ — 40 000 ₽. Распределение уточняется в медиаплане после брифа по товарам.</p><div class="soglas">НА СОГЛАСОВАНИЕ АНДРЕЮ: проверить условия и кейсы</div></div>
+  </div>
+<div class="foot"><div class="mark"><svg viewBox="0 0 727 791"><path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>Церебро Таргет · для Collab x S7 Shop</div><div class="num">06</div></div>
+</section></div>
+<div class="frame"><section class="slide ">
+  <p class="eyebrow">Кейсы товарного направления</p>
+  <h2>Внешний трафик на карточки WB и Ozon: проекты направления</h2>
+  <div class="body" style="justify-content:center;margin-top:16px">
+    <div class="grid cols-4" style="gap:12px"><div class="case"><div class="t">Косметика · VK AdBlogger и VK Ads</div><div class="n">6 800+</div><div class="h">продаж на WB и Ozon</div><div class="d">Внешний трафик на карточки магазина косметики: посевы и таргет ВКонтакте.</div><a class="more" href="https://blog.xn--90aha1bhc1b.xn--p1ai/kejs-adblogger-i-vk-ads-6800-prodazh-dlya-magazina-kosmetiki-na-wb-i-ozon" target="_blank" rel="noopener">Читать кейс →</a></div><div class="case"><div class="t">TaShe · AdBlogger</div><div class="n">6 000</div><div class="h">заказов в месяц на посевах и трендах</div><div class="d">Бренд косметики: посевы у блогеров и трендовые креативы.</div><a class="more" href="https://blog.xn--90aha1bhc1b.xn--p1ai/kejs-vk-mp-tashe" target="_blank" rel="noopener">Читать кейс →</a></div><div class="case"><div class="t">Бренд косметики · маркет-платформа и AdBlogger</div><div class="n">5 500+</div><div class="h">продаж на WB за 8 месяцев</div><div class="d">Нативные креативы и посевы: рост до 48–76 продаж в день.</div><a class="more" href="https://blog.xn--90aha1bhc1b.xn--p1ai/kejs-vk-mp-prodvizheniye-brenda-kosmetiki-na-vajldberriz" target="_blank" rel="noopener">Читать кейс →</a></div><div class="case"><div class="t">Новый бренд · посевы ВК</div><div class="n">330 000 ₽</div><div class="h">выручки с шампуня за 1 200 ₽</div><div class="d">Продвижение начинающего бренда: UGC-видео принесло 70 % заказов, CPC снизили до 5,8 ₽.</div><a class="more" href="https://blog.xn--90aha1bhc1b.xn--p1ai/kejs-vk-mp-prodvizhenie-nachinayushchego-sellera" target="_blank" rel="noopener">Читать кейс →</a></div></div>
+    <div class="card ghost" style="margin-top:12px"><p style="font-size:13px;line-height:1.5"><b>Селлеры Ozon · Яндекс Директ:</b> продаж в месяц — Директ на карточки маркетплейса для селлеров.. <a href="https://blog.xn--90aha1bhc1b.xn--p1ai/kejs-yandex-direct-prodvizhenie-seller-ozon" target="_blank" rel="noopener" style="color:var(--y)">Читать кейс →</a></p></div>
+    <p class="dim" style="font-size:12px;margin-top:10px">Результаты отдельных проектов не являются обещанием для нового клиента. Все кейсы — в блоге Церебро: blog.церебро.рф/kejsi.</p>
+    <div class="soglas">НА СОГЛАСОВАНИЕ АНДРЕЮ: проверить условия и кейсы</div>
+  </div>
+<div class="foot"><div class="mark"><svg viewBox="0 0 727 791"><path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>Церебро Таргет · для Collab x S7 Shop</div><div class="num">07</div></div>
+</section></div>
+<div class="frame"><section class="slide ">
+  <p class="eyebrow">Стоимость</p>
+  <h2>Тест за 100 000 ₽, дальше — медиабюджет и работа по ставкам источников</h2>
+  <div class="grid" style="grid-template-columns:1fr 1.25fr;gap:20px;margin-top:16px;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card fmtcard rec"><div class="rt">Первый шаг</div>
+      <div class="label">Тест</div><div class="big">100 000 ₽</div>
+      <p style="font-size:14px;margin-top:6px">70 000 ₽ — рекламный бюджет + 30 000 ₽ — работа команды (по акции вместо 50 000 ₽)</p>
+      <p class="muted" style="font-size:12.5px;margin-top:6px">Минимум на рекламу — 60 000 ₽. Механика и длительность теста — после брифа.</p></div>
+      <p class="muted" style="font-size:12.5px;line-height:1.45">Минимальная рамка товарного направления — от 100 000 ₽ в месяц (бюджет + работа). Все суммы — без НДС.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card"><div class="label">Работа — по источникам</div>
+        <table class="num-t price-t" style="margin-top:8px"><tbody><tr><td>VK Реклама: VK Ads и посевы (маркет-платформа, AdBlogger)</td><td>15 % от бюджета, не менее 50 000 ₽/мес — при бюджете до 500 000 ₽; от 500 000 ₽ — 5 %, не менее 75 000 ₽</td></tr><tr><td>Яндекс Директ</td><td>50 000 ₽/мес при бюджете до 500 000 ₽; свыше — 50 000 ₽ + 7 % от суммы сверх 500 000 ₽</td></tr><tr><td>Товарное направление (сопровождение)</td><td>до 5 % от медиабюджета; Яндекс ПромоСтраницы — в составе товарного направления</td></tr></tbody></table></div>
+      <div class="card ghost"><div class="label">Уточнить</div><p style="margin-top:8px;font-size:13px;line-height:1.45;color:var(--muted)">Налоговый состав цены и срок акции уточняются перед отправкой. Итоговый расчёт — в медиаплане флайта после брифа.</p><div class="soglas">НА СОГЛАСОВАНИЕ АНДРЕЮ: проверить условия и кейсы</div></div>
+    </div>
+  </div>
+<div class="foot"><div class="mark"><svg viewBox="0 0 727 791"><path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>Церебро Таргет · для Collab x S7 Shop</div><div class="num">08</div></div>
+</section></div>
+<div class="frame"><section class="slide ">
+  <p class="eyebrow">Следующий шаг</p>
+  <h2>Три шага до теста</h2>
+  <div class="body" style="gap:14px;margin-top:16px">
+    <div class="grid cols-3" style="gap:12px"><div class="card"><div class="big" style="font-size:24px">01</div><h3 style="margin:10px 0 6px">Бриф и созвон</h3><p class="muted" style="font-size:13px">30 минут: товары, карточки, цели и критерии теста.</p></div><div class="card"><div class="big" style="font-size:24px">02</div><h3 style="margin:10px 0 6px">Товары и план</h3><p class="muted" style="font-size:13px">Ссылки на 1–3 приоритетных товара (SKU); персональный план и срок.</p></div><div class="card"><div class="big" style="font-size:24px">03</div><h3 style="margin:10px 0 6px">Тест и итоги</h3><p class="muted" style="font-size:13px">Запуск теста за 100 000 ₽; совместный разбор результатов и решение о масштабировании.</p></div></div>
+    <div class="card ghost"><ul class="list sm" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px 22px"><li>Работаем с ИП и юрлицами; кабинеты и креативы — ваши.</li><li>Для внешнего трафика на карточки нужно 10–15 положительных отзывов и ни одного плохого в первой выдаче.</li><li>Продажи и ДРР оцениваем вместе с конверсией карточки, ценой и остатками.</li></ul></div>
+    <div class="grid cols-4" style="gap:12px">
+      <div class="card"><div class="label">Почта</div><p class="mono" style="font-size:14px;margin-top:6px"><a href="mailto:ozon@cerebrotarget.ru" style="text-decoration:none;border-bottom:1px solid var(--y)">ozon@cerebrotarget.ru</a></p></div>
+      <div class="card"><div class="label">Telegram</div><p style="font-size:14px;margin-top:6px"><a href="https://t.me/Omelchenko_Nikita" style="text-decoration:none;border-bottom:1px solid var(--y)">@Omelchenko_Nikita</a></p></div>
+      <div class="card"><div class="label">MAX</div><p style="font-size:14px;margin-top:6px"><a href="https://max.ru/u/f9LHodD0cOLfTzM7-iRxpFY25R3HSxYR251zsfAYRc2C_QMa7goUdEDZzQY" style="text-decoration:none;border-bottom:1px solid var(--y)">Никита Омельченко</a></p></div>
+      <div class="card"><div class="label">Юрлицо</div><p style="font-size:12px;margin-top:6px;color:var(--muted);line-height:1.45">ООО «Церебро Диджитал»<br>ИНН 7840073550</p></div>
+    </div>
+  </div>
+<div class="foot"><div class="mark"><svg viewBox="0 0 727 791"><path d="M471.024 640.077L549.476 577.43V441.378H475.136V174.653H388.46V441.062H285.177V174.811H198.343V528.704H471.024V640.077Z" fill="currentColor"/>
+<path d="M86.8343 87.4846H640.422V703.515H86.8343V87.4846ZM0 0V791H727.256V0H0Z" fill="#FDD101"/></svg>Церебро Таргет · для Collab x S7 Shop</div><div class="num">09</div></div>
+</section></div>
+
+</div>
+<div class="nav" aria-label="Навигация по слайдам"><button type="button" id="prev" aria-label="Предыдущий слайд">←</button><span class="cnt" id="cnt">1 / 9</span><button type="button" id="next" aria-label="Следующий слайд">→</button><button type="button" id="print" aria-label="Печать в PDF">PDF</button></div>
+
+<script>
+(function(){
+  var frames=[].slice.call(document.querySelectorAll('.frame'));
+  function fit(){frames.forEach(function(f){var s=f.clientWidth/1280;f.querySelector('.slide').style.setProperty('--s',s);});}
+  window.addEventListener('resize',fit);fit();
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+  var cur=0;var cnt=document.getElementById('cnt');
+  function current(){var y=window.scrollY+window.innerHeight/2;for(var i=0;i<frames.length;i++){var r=frames[i].getBoundingClientRect();var top=r.top+window.scrollY;if(y>=top&&y<top+r.height){return i;}}return cur;}
+  function go(i){i=Math.max(0,Math.min(frames.length-1,i));cur=i;frames[i].scrollIntoView({block:'center'});cnt.textContent=(i+1)+' / '+frames.length;}
+  window.addEventListener('scroll',function(){cur=current();cnt.textContent=(cur+1)+' / '+frames.length;},{passive:true});
+  document.getElementById('prev').addEventListener('click',function(){go(current()-1);});
+  document.getElementById('next').addEventListener('click',function(){go(current()+1);});
+  document.getElementById('print').addEventListener('click',function(){window.print();});
+  document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT')return;if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(current()+1);}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(current()-1);}});
+})();
+</script>
+
+</body>
+</html>
