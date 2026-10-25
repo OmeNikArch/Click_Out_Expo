@@ -1562,3 +1562,7 @@ EVENTS.append({
         },
     },
 })
+
+# PIR Expo · 26–29.10.2026 — один менеджер, только прямой Click Out.
+from pir_data import make_pir
+EVENTS.append(make_pir(EVENTS[-1]))

@@ -509,7 +509,7 @@ function renderMap(){
   $("map").groups=groups;
 __MAPC__
 __MAPSEGLINE__
-  $("mapnote").innerHTML=ROWS.length?`${ROWS.length} участников: A — ${c.A||0}, B — ${c.B||0}, C — ${c.C||0}.__SEGNOTE__ Уже были: <b>${vCount}</b>. Схема разложена по номерам стендов (ряд = буква и сотня номера): официальный план зала организатор не публикует, так что это ориентир по рядам, а не чертёж.`:"";
+  $("mapnote").innerHTML=ROWS.length?`${ROWS.length} участников: A — ${c.A||0}, B — ${c.B||0}, C — ${c.C||0}.__SEGNOTE__ Уже были: <b>${vCount}</b>. __MAPDISCLAIMER__`:"";
   const route=ROWS.filter(r=>(r.prio==="A"||r.top)&&!vis(r)).sort((a,b)=>(b.top-a.top)||a.row.localeCompare(b.row,"en",{numeric:true})||a.n-b.n);
   $("route").innerHTML=route.length?route.map(r=>`<div class="it" data-i="${r.i}"><span class="s">${esc(r.stand||"—")}</span><span class="pr ${r.prio}">${r.prio}</span><span class="nm">${esc(r.name)}${r.top?" ★":""}</span></div>`).join(""):'<p class="mapnote">Все из эшелона A пройдены.</p>';
   $("sync").textContent=SHEET_ERR||(SHEET_AT?`Отметки из таблицы обновлены в ${SHEET_AT.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"})}; обновляются раз в полторы минуты.`:"Загружаю отметки из таблицы…");
@@ -638,8 +638,10 @@ def mgr_tokens(ev, sh):
     При отправке к источнику дописывается « · <менеджер>»: по нему строки уходят на вкладки таблицы."""
     out = {}
     if ev.get("plan_map"):
-        out["__MAPLINK__"] = (f'  <p class="mapnote"><a href="{ev["plan_map"]}"><b>Официальный план залов с метками →</b></a> '
-                              'цвет — чей клиент, фиолетовый — уже подходили. Ниже — схема по номерам стендов.</p>\n')
+        label = ev.get("plan_map_label", "Официальный план залов с метками →")
+        caption = ev.get("plan_map_caption", "цвет — чей клиент, фиолетовый — уже подходили. Ниже — схема по номерам стендов.")
+        out["__MAPLINK__"] = (f'  <p class="mapnote"><a href="{html.escape(ev["plan_map"])}"><b>{html.escape(label)}</b></a> '
+                              f'{html.escape(caption)}</p>\n')
     mg = ev.get("managers") or []
     if not mg:
         return out
@@ -721,6 +723,7 @@ def build_short(ev, source_options, webhook, lists):
         "__SHEET__": SHEET_ID,
         "__EVENT_SOURCE__": js(ev["source"]),
         "__LISTS__": js(lists),
+        "__MAPDISCLAIMER__": ev.get("map_disclaimer", "Схема разложена по номерам стендов (ряд = буква и сотня номера): официальный план зала организатор не публикует, так что это ориентир по рядам, а не чертёж."),
         "__EMBED__": js(embed),
         "__QCODES__": js({f"a{i+1}": q["code"] for i, q in enumerate(sh["questions"])}),
         "__XKEYS__": js([k for k, _, _ in sh["express"]]),

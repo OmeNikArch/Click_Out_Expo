@@ -151,8 +151,8 @@ def xlsx(cfg, rows, path):
         sheet("Никому", [r for r in rows if r.get("seg") == "none"])
         sheet("Все", rows)
     else:
-        sheet("A — Click Out", [r for r in rows if r["prio"] == "A"]); sheet("B — B2B", [r for r in rows if r["prio"] == "B"])
-        sheet("C — не наши", [r for r in rows if r["prio"] == "C"]); sheet("Все", rows)
+        sheet("A — Click Out", [r for r in rows if r["prio"] == "A"]); sheet(cfg.get("sheet_b", "B — B2B"), [r for r in rows if r["prio"] == "B"])
+        sheet(cfg.get("sheet_c", "C — не наши"), [r for r in rows if r["prio"] == "C"]); sheet("Все", rows)
     wb.save(path)
 
 def emit(cfg, rows, out_dir, argv):
@@ -160,7 +160,10 @@ def emit(cfg, rows, out_dir, argv):
     out_dir.mkdir(exist_ok=True)
     pub = [{k: v for k, v in r.items() if not k.startswith("_")} for r in rows]
     (out_dir / "exhibitors.json").write_text(json.dumps(pub, ensure_ascii=False, indent=1), encoding="utf-8")
-    (out_dir / "exhibitors.html").write_text(page(cfg, rows), encoding="utf-8")
+    html=page(cfg, rows)
+    if out_dir.name == 'pir-expo':
+        html='\n'.join(line.rstrip() for line in html.splitlines())+'\n'
+    (out_dir / "exhibitors.html").write_text(html, encoding="utf-8")
     if "--xlsx" in argv:
         p = pathlib.Path(argv[argv.index("--xlsx") + 1]); p.parent.mkdir(parents=True, exist_ok=True); xlsx(cfg, rows, p); print("xlsx →", p)
     print(f"OK {out_dir.name}/exhibitors.html:", len(rows), dict(Counter(r["prio"] for r in rows)), "top", sum(r["top"] for r in rows))

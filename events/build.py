@@ -33,7 +33,7 @@ SOURCE_OPTIONS = [
     "BUYBRAND · 29.09–01.10",
     "InterCHARM · 14–17.10",
     "РАППА Осень · 21–22.10",
-    "PIR Expo · 26–29.10",
+    "ПИР Экспо · 26–29.10",
 ]
 
 CSS = r"""
@@ -211,6 +211,7 @@ def build(ev, presenter=True):
     P = (lambda label, paras: prompter(label, paras)) if presenter else (lambda *a, **k: "")
     s = []
     ev_chip = f'{ev["name"]} · {ev["dates"]} · {ev["venue"]}'
+    who_sub = ev.get('who_sub', 'Шесть направлений под одной крышей: Click Out, ВК Реклама, Яндекс Директ, Авито, внешний трафик для селлеров и Яндекс ПромоСтраницы. За каждым клиентом закреплён специалист по источникам: он ведёт кампании, готовит отчётность и отвечает за стоимость заявки, объём и качество трафика.')
 
     # ---------- 01 Титул ----------
     num()
@@ -233,14 +234,12 @@ def build(ev, presenter=True):
   <h2>Диджитал-агентство<br>«Церебро Диджитал»</h2>
   <div class="stats">
     <div class="stat"><div class="n">100+</div><div class="t">проектов Click Out в 29 нишах</div></div>
-    <div class="stat"><div class="n">89 700+</div><div class="t">заявок клиентам направления за два года</div></div>
-    <div class="stat"><div class="n">3 из 3</div><div class="t">сертифицированный партнёр Ozon Performance, Яндекс Urban Ads и WB Media</div></div>
+    <div class="stat"><div class="n">89 700+</div><div class="t">заявок клиентам Click Out за два года</div></div>
+    <div class="stat"><div class="n">3 источника</div><div class="t">работаем через агентские кабинеты Ozon Performance, Яндекс Urban Ads и WB Media</div></div>
     <div class="stat"><div class="n">10+ лет</div><div class="t">на российских рекламных площадках, 3000+ клиентов агентства</div></div>
   </div>
-  <p class="sub" style="margin-top:34px">Шесть направлений под одной крышей: Click Out, ВК Реклама, Яндекс Директ, Авито,
-  внешний трафик для селлеров и Яндекс ПромоСтраницы. За каждым клиентом закреплён специалист по источникам:
-  он ведёт кампании, готовит отчётность и отвечает за стоимость заявки, объём и качество трафика.</p>
-  {P("Что сказать", COMMON['p_who'])}
+  <p class="sub" style="margin-top:34px">{who_sub}</p>
+  {P("Что сказать", ev.get('p_who', COMMON['p_who']))}
   <div class="mark">Ц</div>
 </section>""")
 
@@ -425,9 +424,9 @@ def build(ev, presenter=True):
     <div class="row"><div class="l">Рекламный бюджет</div><div class="r">От 120 000 ₽ в месяц на каждый источник. Это порог, ниже которого площадка не набирает объём для выводов.</div></div>
     <div class="row"><div class="l">Срок контракта</div><div class="r">От шести месяцев. Медийный эффект читается на горизонте 6–8 недель, а решения по бюджету принимаются по кварталу.</div></div>
     <div class="row"><div class="l">Что входит</div><div class="r">Ведение кампаний, креативы, аналитический контур, замеры, отчётность и документ-решение в конце цикла.</div></div>
-    <div class="row"><div class="l">Ведёте сами</div><div class="r">Кабинет в агентском аккаунте Церебро с менеджерским доступом и кэшбек от квартального расхода: Ozon до 18%, Urban Ads до 13%, WB до 16%. С сопровождением кэшбек не совмещается.</div></div>
+    <div class="row"><div class="l">Ведёте сами</div><div class="r">Можно работать через агентский кабинет Церебро с менеджерским доступом; условия бонусных рублей рассчитываем по площадке и объёму размещений индивидуально. С сопровождением бонусные рубли не совмещаются.</div></div>
   </div>
-  {P("Что сказать", COMMON['p_price'])}
+  {P("Что сказать", ev.get('p_price', COMMON['p_price']))}
   <div class="mark">Ц</div>
 </section>""")
 
@@ -543,7 +542,7 @@ def build(ev, presenter=True):
     <div class="card"><h3>Аудит и обучение</h3><p>Разбор кампаний практикующими специалистами: точки роста, ошибки, что менять в стратегии.
       Плюс обучающие курсы для вашей команды.</p></div>
   </div>
-  {P("Как вести · агентство вместо клиента", COMMON['p_agency'])}
+  {P("Как вести · агентство вместо клиента", ev.get('p_agency', COMMON['p_agency']))}
   <div class="mark">Ц</div>
 </section>""")
 
@@ -559,6 +558,19 @@ def build(ev, presenter=True):
   <div class="mark">Ц</div>
 </section>""")
 
+    if ev.get('only_clickout'):
+        # Для одиночного обхода ПИР не включаем слайд реселла кабинетов агентствам.
+        s[11] = f'''<section>
+  <div class="num">12</div><div class="kicker"><div class="bar"></div><span>Условия после аудита</span></div>
+  <h2>Сначала подтвердим сценарий<br>прямого заказа</h2>
+  <div class="cards"><div class="card"><h3>Где покупают</h3><p>Собственный сайт или приложение, а не карточка маркетплейса.</p></div>
+  <div class="card"><h3>Где показываем</h3><p>Проверяем географию, категорию и модерацию площадки до медиаплана.</p></div>
+  <div class="card"><h3>Что считаем</h3><p>Заказы или прямые бронирования из CRM и контрольного региона. Бюджет и стоимость сопровождения — после брифа.</p></div></div>
+  {P("Что сказать", ev.get('p_price', []))}<div class="mark">Ц</div></section>'''
+        s[13] = s[13].replace('Единый порог по всем направлениям — рекламный бюджет от 100 000 ₽ в месяц (кроме самостоятельного запуска на Авито от 5 000 ₽).\n  Клиент — ИП или юрлицо; кабинеты и креативы принадлежат клиенту, кабинеты открытые.', 'В этом маршруте только Click Out на собственный сайт. Прочие направления и поставки для HoReCa не входят в оценку поездки.')
+        s.pop(15)
+        for i in range(1, len(s)):
+            s[i] = re.sub(r'<div class="num">\d+</div>', f'<div class="num">{i + 1:02d}</div>', s[i], count=1)
     body = "".join(s)
     title = (f"{ev['name']} · Click Out — версия ведущего (с суфлёром)" if presenter
              else f"Церебро Click Out · {ev['name']} — {ev['client_title']}")
@@ -672,7 +684,7 @@ def build_hub():
 <section>
   <div class="logo"><div class="sign">Ц</div><div class="nm">Церебро<br>Таргет</div></div>
   <div class="kicker"><div class="bar"></div><span>Направление Click Out · презентации под выставки</span></div>
-  <h1>Семь выставок —<br>шесть презентаций</h1>
+  <h1>Выставки 2026 —<br>{len(EVENTS)} комплектов</h1>
   <p class="sub">Каждая — клон базовой презентации Click Out, адаптированный под нишу площадки: ниша в цифрах, сегменты
   по Ozon, Urban Ads и WB, бенчмарки, чек-лист аудита, кейсы и опросник, который отправляет строку в общую таблицу.
   «Версия ведущего» — с суфлёром (клавиша S) и формой; «Клиентская» — для отправки ссылкой.</p>
@@ -687,15 +699,23 @@ def build_hub():
 
 
 if __name__ == "__main__":
+    import sys
+    only = sys.argv[sys.argv.index('--slug') + 1] if '--slug' in sys.argv else None
+    if only and not any(ev['slug'] == only for ev in EVENTS):
+        raise SystemExit(f'Неизвестная выставка: {only}')
     # каталоги участников для поиска клиента в короткой версии: выставка → ../<slug>/exhibitors.json
     lists = {ev["source"]: f"../{ev['slug']}/exhibitors.json" for ev in EVENTS if (ROOT / ev["slug"] / "exhibitors.json").exists()}
     for ev in EVENTS:
+        if only and ev['slug'] != only:
+            continue
         d = ROOT / ev["slug"]
         d.mkdir(exist_ok=True)
         # с ключом "short": presenter.html — короткая версия для стенда, полная дека — presenter-full.html
         full_name = "presenter-full.html" if ev.get("short") else "presenter.html"
         for presenter, fname in ((True, full_name), (False, "index.html")):
             html = build(ev, presenter=presenter)
+            if ev['slug'] == 'pir-expo':
+                html = '\n'.join(line.rstrip() for line in html.splitlines()) + '\n'
             (d / fname).write_text(html, encoding="utf-8")
             print(f"OK {ev['slug']}/{fname} ({len(html)} bytes)")
         if ev.get("short"):
